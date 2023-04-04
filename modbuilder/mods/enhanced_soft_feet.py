@@ -1,0 +1,2 @@
+NAME = "Enhanced Soft Feet"
+DESCRIPTION = "Decreases the amount of sound you make when walking in shrubs and vegetation. You must have the Soft Feet skill unlocked for this modification to take affect."
