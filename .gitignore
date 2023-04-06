@@ -3,3 +3,5 @@ __pycache__
 build
 modbuilder/new
 dist
+modbuilder.egg-info
+*.spec
