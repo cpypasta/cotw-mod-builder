@@ -5,3 +5,4 @@ modbuilder/new
 dist
 modbuilder.egg-info
 *.spec
+mod

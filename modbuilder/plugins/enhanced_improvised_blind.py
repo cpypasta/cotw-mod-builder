@@ -9,8 +9,7 @@ OPTIONS = [
   
 def format(options: dict) -> str:
   camo = options["vegetation_camoflauge_percent"]
-  updated_value = 1.0 + camo / 100
-  return f"Enhanced Improvised Blind ({int(camo)}%, {updated_value})"
+  return f"Enhanced Improvised Blind ({int(camo)}%)"
 
 def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = 1.0 + options['vegetation_camoflauge_percent'] / 100

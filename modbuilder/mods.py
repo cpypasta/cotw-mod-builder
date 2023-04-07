@@ -3,11 +3,16 @@ from typing import List
 from pathlib import Path
 from deca.file import ArchiveFile
 from deca.ff_adf import Adf
+from deca.ff_sarc import FileSarc
 
 APP_DIR_PATH = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
 PLUGINS_FOLDER = "plugins"
 GLOBAL_SRC_PATH = "gdc/global.gdcc"
 GLOBAL_PATH = APP_DIR_PATH / "org" / GLOBAL_SRC_PATH
+ELMER_MOVEMENT_LOCAL_SRC_PATH = "editor/entities/hp_characters/main_characters/local_player_character.ee"
+ELMER_MOVEMENT_NETWORK_SRC_PATH = "editor/entities/hp_characters/main_characters/network_player_character.ee"
+ELMER_MOVEMENT_LOCAL_PATH = APP_DIR_PATH / "org" / ELMER_MOVEMENT_LOCAL_SRC_PATH
+ELMER_MOVEMENT_NETWORK_PATH = APP_DIR_PATH / "org" / ELMER_MOVEMENT_NETWORK_SRC_PATH
 
 def _load_mod(filename: str):
   py_mod = imp.load_source(filename.split(".")[0], str(APP_DIR_PATH / PLUGINS_FOLDER / filename))
@@ -26,6 +31,8 @@ def get_mods() -> List:
   mods = []
   for mod_filename in mod_filenames:
     loaded_mod = _load_mod(mod_filename)
+    if hasattr(loaded_mod, "DEBUG") and loaded_mod.DEBUG:
+      continue
     mods.append(loaded_mod)
   return mods
 
@@ -80,13 +87,17 @@ def copy_files_to_mod(src_filename: str) -> List[str]:
     copy_file_to_mod(src_filename)
     return [src_filename]
 
-def update_file_at_offset(src_filename: Path, offset: int, value: any) -> None:
+def update_file_at_offset(src_filename: Path, offset: int, value: any, transform: str = None) -> None:
   dest_path = APP_DIR_PATH / "mod/dropzone" / src_filename  
   with open(dest_path, "r+b") as fp:
     fp.seek(offset)
     if isinstance(value, str):
       fp.write(struct.pack(f"{len(value)}s", value.encode("utf-8")))      
     elif isinstance(value, float):
+      if transform == "multiply":
+        existing_value = struct.unpack('f', fp.read(4))[0]
+        value = value * existing_value
+        fp.seek(offset)
       fp.write(struct.pack("f", value))
     fp.flush()
 
@@ -94,7 +105,7 @@ def apply_mod(mod: any, options: dict) -> None:
   if hasattr(mod, "update_values_at_offset"):
     updates = mod.update_values_at_offset(options)
     for update in updates:
-      update_file_at_offset(Path(mod.FILE), update["offset"], update["value"])
+      update_file_at_offset(Path(mod.FILE), update["offset"], update["value"], update["transform"] if "transform" in update else None)
   else:
     mod.process(options)
 
@@ -109,26 +120,42 @@ def get_global_file_info() -> dict:
       global_files[item.v_path.decode("utf-8")] = offset
   return global_files
 
+def get_player_file_info(filename: Path) -> dict:
+  player_files = {}
+  sarc = FileSarc()
+  with filename.open("rb") as fp:
+    sarc.header_deserialize(fp)
+    for sarc_file in sarc.entries:
+      player_files[sarc_file.v_path.decode("utf-8")] = sarc_file.offset
+  return player_files
+
 def is_file_in_global(filename: str) -> bool:
   return filename in GLOBAL_FILES.keys()
 
-def merge_into_global(filename: str) -> None:
+def is_file_in_player(filename: str, lookup: dict) -> bool:
+  return filename in lookup.keys()
+
+def merge_into_file(filename: str, merge_path: str, merge_lookup: dict, delete_src: bool = False) -> None:
   src_path = APP_DIR_PATH / "mod/dropzone" / filename
-  not_already_processed = src_path.exists()
-  if not_already_processed:
-    mod_global_path = APP_DIR_PATH / "mod/dropzone" / GLOBAL_SRC_PATH
-    copy_files_to_mod(GLOBAL_SRC_PATH)
-    mod_bytes = bytearray(src_path.read_bytes())
-    global_bytes = bytearray(mod_global_path.read_bytes())
-    mod_offset = GLOBAL_FILES[filename]
-    global_bytes[mod_offset:mod_offset+len(mod_bytes)] = mod_bytes
-    mod_global_path.write_bytes(global_bytes)
+  mod_merge_path = APP_DIR_PATH / "mod/dropzone" / merge_path
+  copy_files_to_mod(merge_path)
+  filename_bytes = bytearray(src_path.read_bytes())
+  merge_bytes = bytearray(mod_merge_path.read_bytes())
+  filename_offset = merge_lookup[filename]
+  merge_bytes[filename_offset:filename_offset+len(filename_bytes)] = filename_bytes
+  mod_merge_path.write_bytes(merge_bytes)
+  if delete_src:
     src_path.unlink()
 
 def merge_files(filenames: List[str]) -> None:
+  filenames = [*set(filenames)]
   for filename in filenames:
     if is_file_in_global(filename):
-      merge_into_global(filename)
+      merge_into_file(filename, GLOBAL_SRC_PATH, GLOBAL_FILES)
+    if is_file_in_player(filename, LOCAL_PLAYER_FILES):
+      merge_into_file(filename, ELMER_MOVEMENT_LOCAL_SRC_PATH, LOCAL_PLAYER_FILES, False)
+    if is_file_in_player(filename, NETWORK_PLAYER_FILES):
+      merge_into_file(filename, ELMER_MOVEMENT_NETWORK_SRC_PATH, NETWORK_PLAYER_FILES, False)
 
 def package_mod() -> None:
   for p in list(Path(APP_DIR_PATH / "mod").glob("**/*")):
@@ -136,4 +163,6 @@ def package_mod() -> None:
       os.removedirs(p)  
         
 GLOBAL_FILES = get_global_file_info() 
+LOCAL_PLAYER_FILES = get_player_file_info(ELMER_MOVEMENT_LOCAL_PATH)
+NETWORK_PLAYER_FILES = get_player_file_info(ELMER_MOVEMENT_NETWORK_PATH)
   

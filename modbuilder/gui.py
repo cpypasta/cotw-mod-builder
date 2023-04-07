@@ -32,13 +32,14 @@ def _get_mod_options() -> List[dict]:
       key = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}"
       t = sg.T(f"{mod_option['name']}", p=(10,10))
       td = sg.T(f"(default: {mod_option['default']}, min: {mod_option['min']}, max: {mod_option['max']})", font="_ 12", p=(0,0))
-      if "min" in mod_option and "max" in mod_option and "increment" in mod_option and mod_option["type"] == int:
-        i = sg.Slider((mod_option["min"], mod_option["max"]), mod_option["default"], mod_option["increment"], orientation = "h", k = key, p=(50,0))
+      initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
+      if "min" in mod_option and "max" in mod_option and "increment" in mod_option and mod_option["type"] == int:        
+        i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=(50,0))
       else:
-        i = sg.Input(mod_option["min"], size=6, k = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}", p=(50,10))
+        i = sg.Input(initial_value, size=6, k = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}", p=(50,10))
       mod_details.append([t, td])
       mod_details.append([i])
-    if len(mod.OPTIONS) > 2:
+    if len(mod.OPTIONS) > 3:
       options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True, s=(None, 400)))])
     else:
       options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False))])
