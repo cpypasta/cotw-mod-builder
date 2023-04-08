@@ -84,7 +84,7 @@ def _create_party() -> None:
       [sg.T("Your mod has successfully been created!", font="_ 20")],
       [sg.T(mods.APP_DIR_PATH / "mod")],
       [sg.VPush()],
-      [sg.Push(), sg.Button("OK")]
+      [sg.Push(), sg.Button("Load to Game", k="load"), sg.Button("OK")]
     ], expand_x=True, expand_y=True)]
   ]
   
@@ -94,6 +94,13 @@ def _create_party() -> None:
     event, _values = window.read()
     if event == sg.WIN_CLOSED or event == "OK":
       break
+    if event == "load":
+      try:
+        mods.load_dropzone()
+        sg.PopupQuickMessage("Mods Loaded", font="_ 28")
+        break
+      except Exception as ex:
+        sg.Popup(ex, title="Error", icon=logo.value, font=DEFAULT_FONT)
   window.close()  
 
 def _show_load_mod() -> None:

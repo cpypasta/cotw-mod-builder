@@ -211,6 +211,14 @@ def delete_saved_mod(name: str) -> None:
 def load_saved_mod(name: str) -> None:
   return json.load(Path(APP_DIR_PATH / "saves"/ f"{name}.json").open())
 
+def load_dropzone() -> None:
+  steam_path = Path("C:/Program Files (x86)/Steam/steamapps/common/theHunterCotW")
+  if steam_path.exists():
+    steam_path = steam_path / "dropzone"
+    shutil.copytree(APP_DIR_PATH / "mod/dropzone", steam_path, dirs_exist_ok=True)
+  else:
+    raise Exception("Could not find game path to save mods!")
+
 # TODO: more flexible way to handle packaged files        
 GLOBAL_FILES = get_global_file_info() 
 LOCAL_PLAYER_FILES = get_player_file_info(ELMER_MOVEMENT_LOCAL_PATH)
