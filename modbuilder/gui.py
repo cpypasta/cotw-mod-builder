@@ -28,19 +28,22 @@ def _get_mod_options() -> List[dict]:
     mod_details.append([sg.T("Description:", p=(10, 10), font="_ 14 underline", text_color="orange")])
     mod_details.append([sg.T(textwrap.fill(mod.DESCRIPTION, 80), p=(10,0))])
     mod_details.append([sg.T("Options:", font="_ 14 underline", text_color="orange", p=(10, 10))])
-    for mod_option in mod.OPTIONS:
-      key = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}"
-      t = sg.T(f"{mod_option['name']}", p=(10,10))
-      td = sg.T(f"(default: {mod_option['default']}, min: {mod_option['min']}, max: {mod_option['max']})", font="_ 12", p=(0,0))
-      initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
-      if "min" in mod_option and "max" in mod_option and "increment" in mod_option and mod_option["type"] == int:        
-        i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=(50,0))
-      else:
-        i = sg.Input(initial_value, size=6, k = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}", p=(50,10))
-      mod_details.append([t, td])
-      mod_details.append([i])
-    if len(mod.OPTIONS) > 3:
-      options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True, s=(None, 400)))])
+    if hasattr(mod, "OPTIONS"):
+      for mod_option in mod.OPTIONS:
+        key = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}"
+        t = sg.T(f"{mod_option['name']}", p=(10,10))
+        td = sg.T(f"(default: {mod_option['default']}, min: {mod_option['min']}, max: {mod_option['max']})", font="_ 12", p=(0,0))
+        initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
+        if "min" in mod_option and "max" in mod_option and "increment" in mod_option and mod_option["type"] == int:        
+          i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=(50,0))
+        else:
+          i = sg.Input(initial_value, size=6, k = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}", p=(50,10))
+        mod_details.append([t, td])
+        mod_details.append([i])
+    else:
+      mod_details.append([mod.get_option_elements()])
+    if (hasattr(mod, "OPTIONS") and len(mod.OPTIONS) > 3) or not hasattr(mod, "OPTIONS"):
+      options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True, s=(None, 560)))])
     else:
       options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False))])
   return options
@@ -73,6 +76,7 @@ def _valid_option_value(mod_option: dict, mod_value: any) -> str:
 def _enable_mod_button(window: sg.Window) -> None:
   selected_mod_size = len(window["selected_mods"].get_list_values())
   window["build_mod"].update(disabled=(selected_mod_size == 0))
+  window["save"].update(disabled=(selected_mod_size == 0))
 
 def _create_party() -> None:
   layout = [
@@ -92,8 +96,41 @@ def _create_party() -> None:
       break
   window.close()  
 
+def _show_load_mod() -> None:
+  saved_mods = mods.load_saved_mods()
+  layout = [
+    [sg.T("Saved Modifications", font="_ 18")],
+    [sg.Listbox(saved_mods, expand_x=True, expand_y=True, k="saved_mods", enable_events=True)],
+    [sg.Button("Delete", k="delete", disabled=True), sg.Push(), sg.Button("Cancel", k="cancel"), sg.Button("Load", k="load", disabled=True)]
+  ]
+  window = sg.Window("Load Saved Modifications", layout, modal=True, size=(600, 300), icon=logo.value, font=DEFAULT_FONT)
+  loaded_saved_mod = None
+  
+  while True:
+    event, values = window.read()
+    if event == sg.WIN_CLOSED or event == "cancel":
+      break    
+    if event == "delete":
+      delete_confirm = sg.PopupOKCancel("Are you sure you want to delete these saved modifications?", title="Delete Confirm", icon=logo.value, font=DEFAULT_FONT)
+      if delete_confirm == "OK":
+        mods.delete_saved_mod(values["saved_mods"][0])
+        window["saved_mods"].update(mods.load_saved_mods())
+        window["delete"].update(disabled=True)
+        window["load"].update(disabled=True)        
+    elif event == "saved_mods":
+      if len(values["saved_mods"]) == 0:
+        continue
+      window["delete"].update(disabled=False)
+      window["load"].update(disabled=False)
+    elif event == "load":
+      loaded_saved_mod = mods.load_saved_mod(values["saved_mods"][0])
+      break
+  window.close()        
+  return loaded_saved_mod
+
 def main() -> None:
   global selected_mods
+  global selected_mod_names
   
   sg.theme("DarkAmber")
   sg.set_options({ "font": DEFAULT_FONT })
@@ -121,14 +158,14 @@ def main() -> None:
       sg.Column([
         [sg.Frame("Selected Modifications", [
           [sg.Listbox([], expand_y=True, expand_x=True, k = "selected_mods", enable_events=True)],
-          [sg.Push(), sg.Button("Remove", k="remove_mod", button_color=f"{sg.theme_element_text_color()} on brown", disabled=True)]
+          [sg.Button("Save", k="save", button_color=f"{sg.theme_element_text_color()} on brown", disabled=True), sg.Button("Load", k="load", button_color=f"{sg.theme_element_text_color()} on brown"), sg.Push(), sg.Button("Remove", k="remove_mod", button_color=f"{sg.theme_element_text_color()} on brown", disabled=True)]
         ], expand_y=True, expand_x=True)],
         [sg.Button("BUILD MOD", k="build_mod", expand_x=True, disabled=True)]
       ], k="selected_col", expand_y=True, expand_x=True, p=((0,0), (10,0))),
     ]    
   ]
 
-  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1200, 700), finalize=True)
+  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1200, 840), finalize=True)
   _repack(window)
   
   while True:
@@ -145,16 +182,24 @@ def main() -> None:
     elif event == "add_mod":
       mod_options = {}
       is_invalid = None
-                      
-      for key, value in values.items():
-        if mod_key in key:
-          option_key = key.split("__")[1]
-          invalid_result = _valid_option_value(mods.get_mod_option(mod_key, option_key), value)
-          if invalid_result is None:
-            mod_options[option_key] = value
-          else:
-            is_invalid = invalid_result 
-            break
+      
+      if hasattr(mod, "add_mod"):
+        result = mod.add_mod(window, values)
+        is_invalid = result["invalid"]
+        if not is_invalid:
+          mod_options = result["options"]
+          mod_key = result["key"]
+      else:          
+        for key, value in values.items():
+          if isinstance(key, str) and mod_key in key:
+            option_key = key.split("__")[1]
+            invalid_result = _valid_option_value(mods.get_mod_option(mod_key, option_key), value)
+            if invalid_result is None:
+              mod_options[option_key] = value
+            else:
+              is_invalid = invalid_result 
+              break
+
       if is_invalid is None:
         selected_mods[mod_key] = mod_options
         selected_mod_names[mod.format(mod_options)] = mod_key
@@ -178,9 +223,14 @@ def main() -> None:
       mod_files = []
       for mod_key, mod_options in selected_mods.items():
         mod = mods.get_mod(mod_key)
-        modded_files = mods.copy_files_to_mod(mod.FILE)
+        if hasattr(mod, "FILE"):
+          modded_files = mods.copy_files_to_mod(mod.FILE)
+        else:
+          modded_files = mods.copy_all_files_to_mod(mod.get_files(mod_options))
         mod_files += modded_files
         mods.apply_mod(mod, mod_options)
+        if hasattr(mod, "merge_files"):
+          mod.merge_files(modded_files)
         
       mods.merge_files(mod_files)
       mods.package_mod()
@@ -189,6 +239,21 @@ def main() -> None:
       _enable_mod_button(window)
       window["remove_mod"].update(disabled=True)
       _create_party()
+    elif event == "save":
+      save_name = sg.PopupGetText("What name would you like use to save modifications?", title="Save Mods", font=DEFAULT_FONT, icon=logo.value)
+      if save_name:
+        mods.save_mods(selected_mods, save_name)
+        sg.PopupQuickMessage("Modifications Saved", font="_ 28")
+    elif event == "load":
+      saved_mod = _show_load_mod()
+      if saved_mod:
+        selected_mods = saved_mod
+        selected_mod_names = {}
+        for mod_key, mod_options in selected_mods.items():
+            selected_mod_names[mods.get_mod(mod_key).format(mod_options)] = mod_key
+        window["selected_mods"].update(_get_selected_mods(selected_mods))
+        _enable_mod_button(window)     
+        sg.PopupQuickMessage("Modifications Loaded", font="_ 28")   
           
   window.close()
 

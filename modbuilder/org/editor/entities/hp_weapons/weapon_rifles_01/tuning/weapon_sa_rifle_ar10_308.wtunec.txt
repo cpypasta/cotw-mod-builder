@@ -1,0 +1,1080 @@
+--------header
+version: 4
+instance_count: 1
+instance_offset: 624
+typedef_count: 20
+typedef_offset: 648
+stringhash_count: 5
+stringhash_offset: 3688
+nametable_count: 85
+nametable_offset: 3939
+total_size: 5548
+Unknown[0]: 0 0x00000000
+Unknown[1]: 1 0x00000001
+Unknown[2]: 0 0x00000000
+Unknown[3]: 0 0x00000000
+Unknown[4]: 0 0x00000000
+
+--------comment
+SnowflakeTypes.adf in SnowflakeTypes 1.0.2
+WeaponTuningSettings_adf.adf in  
+
+--------name_table
+name_table	0	weapon_sa_rifle_ar10_308.wtune
+name_table	1	WeaponTuning
+name_table	2	bullet_weapon
+name_table	3	kinetic_energy
+name_table	4	trigger_sensitivity
+name_table	5	weapon_wobble_modifier
+name_table	6	weapon_recoil_penalty
+name_table	7	ZeroingIndex
+name_table	8	ZeroingSettings
+name_table	9	HorizontalOffset
+name_table	10	VerticalOffset
+name_table	11	DepthOffset
+name_table	12	ScopeOffsetSettings
+name_table	13	UISettings
+name_table	14	unlimited_ammo
+name_table	15	A[BulletWeaponTunings]
+name_table	16	BulletWeaponTunings
+name_table	17	tuning
+name_table	18	BulletWeaponTuning
+name_table	19	base_tuning
+name_table	20	bullet_base_tuning
+name_table	21	bullet_is_explosive
+name_table	22	WeaponTuningBase
+name_table	23	impulse
+name_table	24	vehicle_damage_factor
+name_table	25	vehicle_impulse_factor
+name_table	26	object_damage_factor
+name_table	27	object_impulse_factor
+name_table	28	damage
+name_table	29	recoil
+name_table	30	scatter
+name_table	31	rumble
+name_table	32	RecoilSettings
+name_table	33	recoil_yaw
+name_table	34	recoil_pitch
+name_table	35	recoil_first_shot_multiplier
+name_table	36	recoil_recover_percentage
+name_table	37	recoil_recover_speed
+name_table	38	recoil_apply_speed
+name_table	39	IA[float]
+name_table	40	ScatterSettings
+name_table	41	scatter_minimum
+name_table	42	scatter_maximum
+name_table	43	scatter_per_shot
+name_table	44	scatter_multiplier_movement
+name_table	45	scatter_multiplier_aiming
+name_table	46	scatter_recover_rate
+name_table	47	scatter_reset_time
+name_table	48	scatter_clamp_horizontal
+name_table	49	scatter_clamp_vertical
+name_table	50	RumbleSettings
+name_table	51	rumble_time
+name_table	52	rumble_strength
+name_table	53	BulletWeaponTuningBase
+name_table	54	tracer_fire_velocity
+name_table	55	tracer_fire_length
+name_table	56	tracer_fire_width
+name_table	57	tracer_expand_width
+name_table	58	tracer_time_to_live
+name_table	59	smoke_trail_tile_size
+name_table	60	tracer_per_smoke_trail
+name_table	61	bullets_per_tracer
+name_table	62	tracer_texture_type
+name_table	63	gravity_on
+name_table	64	gravity_strength
+name_table	65	A[ZeroingSettings]
+name_table	66	zero_distance
+name_table	67	angle
+name_table	68	horizontal_angle
+name_table	69	BulletOverrides
+name_table	70	ScopeModifiers
+name_table	71	A[ZeroingSettingBulletOverride]
+name_table	72	ZeroingSettingBulletOverride
+name_table	73	BulletName
+name_table	74	Angle
+name_table	75	HorizontalAngle
+name_table	76	StringHash_48c5294d_4
+name_table	77	A[ZeroingSettingScopeModifier]
+name_table	78	ZeroingSettingScopeModifier
+name_table	79	ScopeName
+name_table	80	AngleModifier
+name_table	81	HorizontalAngleModifier
+name_table	82	A[ScopeOffsetSettings]
+name_table	83	ScopeNameHash
+name_table	84	reticle_offset_in_fov_fraction
+
+--------string_hash
+string_hash	000000004a52b438	b'equipment_sight_rifle_scope_1-4x_24mm_01'
+string_hash	00000000d89286cc	b'equipment_sight_rifle_red_dot_01'
+string_hash	00000000e0d86bbf	b'equipment_sight_rifle_scope_8-16x_50mm_01'
+string_hash	00000000ece48b2d	b'equipment_sight_rifle_scope_night_vision_1-4x_24mm_01'
+string_hash	00000000eff7b0d1	b'equipment_sight_rifle_scope_4-8x_42mm_01'
+
+--------typedefs
+typedefs	7e5a4571	WeaponTuning @ 648 (0x00000288)
+  Structure
+    bullet_weapon o:0(00000000)[0] s:8 t:4af64f3b dt:00000000 dv:0000000000000000
+      Array
+        Length: 0
+        Structure
+          tuning o:0(00000000)[0] s:4 t:8ab0dc0d dt:00000000 dv:0000000000000000
+            Structure
+              base_tuning o:0(00000000)[0] s:4 t:ecd411a9 dt:00000000 dv:0000000000000000
+                Structure
+                  impulse o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+                    PrimType: float
+                  vehicle_damage_factor o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+                    PrimType: float
+                  vehicle_impulse_factor o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+                    PrimType: float
+                  object_damage_factor o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                    PrimType: float
+                  object_impulse_factor o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                    PrimType: float
+                  damage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000041f00000
+                    PrimType: float
+                  recoil o:24(00000018)[0] s:4 t:581e3d51 dt:00000002 dv:00000000d5c00241
+                    Structure
+                      recoil_yaw o:0(00000000)[0] s:4 t:a40b1faa dt:00000002 dv:00000000c0490198
+                        InlineArray
+                          Length: 2
+                          PrimType: float
+                      recoil_pitch o:8(00000008)[0] s:4 t:a40b1faa dt:00000002 dv:00000000aa5a60c4
+                        InlineArray
+                          Length: 2
+                          PrimType: float
+                      recoil_first_shot_multiplier o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                        PrimType: float
+                      recoil_recover_percentage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:000000003f400000
+                        PrimType: float
+                      recoil_recover_speed o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                        PrimType: float
+                      recoil_apply_speed o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                        PrimType: float
+                  scatter o:56(00000038)[0] s:4 t:55b2d4d2 dt:00000002 dv:000000000511a358
+                    Structure
+                      scatter_minimum o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                        PrimType: float
+                      scatter_maximum o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                        PrimType: float
+                      scatter_per_shot o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                        PrimType: float
+                      scatter_multiplier_movement o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                        PrimType: float
+                      scatter_multiplier_aiming o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                        PrimType: float
+                      scatter_recover_rate o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                        PrimType: float
+                      scatter_reset_time o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                        PrimType: float
+                      scatter_clamp_horizontal o:28(0000001c)[0] s:4 t:a40b1faa dt:00000002 dv:000000004938033f
+                        InlineArray
+                          Length: 2
+                          PrimType: float
+                      scatter_clamp_vertical o:36(00000024)[0] s:4 t:a40b1faa dt:00000002 dv:0000000082641f49
+                        InlineArray
+                          Length: 2
+                          PrimType: float
+                  rumble o:100(00000064)[0] s:4 t:ab9e7ab6 dt:00000002 dv:00000000c68b2426
+                    Structure
+                      rumble_time o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+                        PrimType: float
+                      rumble_strength o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+                        PrimType: float
+              bullet_base_tuning o:108(0000006c)[0] s:4 t:80b04843 dt:00000000 dv:0000000000000000
+                Structure
+                  tracer_fire_velocity o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000042f00000
+                    PrimType: float
+                  tracer_fire_length o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+                    PrimType: float
+                  tracer_fire_width o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                    PrimType: float
+                  tracer_expand_width o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                    PrimType: float
+                  tracer_time_to_live o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                    PrimType: float
+                  smoke_trail_tile_size o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000040a00000
+                    PrimType: float
+                  tracer_per_smoke_trail o:24(00000018)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+                    PrimType: uint08
+                  bullets_per_tracer o:25(00000019)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+                    PrimType: uint08
+                  tracer_texture_type o:26(0000001a)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+                    PrimType: uint08
+                  gravity_on o:27(0000001b)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+                    PrimType: uint08
+                  gravity_strength o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:00000000411d1eb8
+                    PrimType: float
+              bullet_is_explosive o:140(0000008c)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+                PrimType: uint08
+    kinetic_energy o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    trigger_sensitivity o:20(00000014)[0] s:4 t:a40b1faa dt:00000002 dv:00000000c7ae6711
+      InlineArray
+        Length: 2
+        PrimType: float
+    weapon_wobble_modifier o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+      PrimType: float
+    weapon_recoil_penalty o:32(00000020)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    ZeroingIndex o:36(00000024)[0] s:1 t:580d0a62 dt:00000001 dv:00000000000000ff
+      PrimType: sint08
+    ZeroingSettings o:40(00000028)[0] s:8 t:90d0833d dt:00000000 dv:0000000000000000
+      Array
+        Length: 0
+        Structure
+          zero_distance o:0(00000000)[0] s:4 t:7515a207 dt:00000000 dv:0000000000000000
+            PrimType: float
+          angle o:4(00000004)[0] s:4 t:7515a207 dt:00000000 dv:0000000000000000
+            PrimType: float
+          horizontal_angle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+          BulletOverrides o:16(00000010)[0] s:8 t:2bf09fbf dt:00000000 dv:0000000000000000
+            Array
+              Length: 0
+              Structure
+                BulletName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+                  StringHash
+                Angle o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+                HorizontalAngle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+          ScopeModifiers o:32(00000020)[0] s:8 t:cdf1e86f dt:00000000 dv:0000000000000000
+            Array
+              Length: 0
+              Structure
+                ScopeName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+                  StringHash
+                AngleModifier o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+                HorizontalAngleModifier o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+    HorizontalOffset o:56(00000038)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    VerticalOffset o:60(0000003c)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    DepthOffset o:64(00000040)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    ScopeOffsetSettings o:72(00000048)[0] s:8 t:a99a4ed9 dt:00000000 dv:0000000000000000
+      Array
+        Length: 0
+        Structure
+          ScopeNameHash o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+            StringHash
+          HorizontalOffset o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+          VerticalOffset o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+          DepthOffset o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+    UISettings o:88(00000058)[0] s:4 t:d67f3cfe dt:00000000 dv:0000000000000000
+      Structure
+        reticle_offset_in_fov_fraction o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+          PrimType: float
+    unlimited_ammo o:92(0000005c)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+      PrimType: uint08
+typedefs	4af64f3b	A[BulletWeaponTunings] @ 1104 (0x00000450)
+  Array
+    Length: 0
+    Structure
+      tuning o:0(00000000)[0] s:4 t:8ab0dc0d dt:00000000 dv:0000000000000000
+        Structure
+          base_tuning o:0(00000000)[0] s:4 t:ecd411a9 dt:00000000 dv:0000000000000000
+            Structure
+              impulse o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+                PrimType: float
+              vehicle_damage_factor o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+                PrimType: float
+              vehicle_impulse_factor o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+                PrimType: float
+              object_damage_factor o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                PrimType: float
+              object_impulse_factor o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                PrimType: float
+              damage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000041f00000
+                PrimType: float
+              recoil o:24(00000018)[0] s:4 t:581e3d51 dt:00000002 dv:00000000d5c00241
+                Structure
+                  recoil_yaw o:0(00000000)[0] s:4 t:a40b1faa dt:00000002 dv:00000000c0490198
+                    InlineArray
+                      Length: 2
+                      PrimType: float
+                  recoil_pitch o:8(00000008)[0] s:4 t:a40b1faa dt:00000002 dv:00000000aa5a60c4
+                    InlineArray
+                      Length: 2
+                      PrimType: float
+                  recoil_first_shot_multiplier o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                    PrimType: float
+                  recoil_recover_percentage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:000000003f400000
+                    PrimType: float
+                  recoil_recover_speed o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                    PrimType: float
+                  recoil_apply_speed o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                    PrimType: float
+              scatter o:56(00000038)[0] s:4 t:55b2d4d2 dt:00000002 dv:000000000511a358
+                Structure
+                  scatter_minimum o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                    PrimType: float
+                  scatter_maximum o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                    PrimType: float
+                  scatter_per_shot o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                    PrimType: float
+                  scatter_multiplier_movement o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                    PrimType: float
+                  scatter_multiplier_aiming o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                    PrimType: float
+                  scatter_recover_rate o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                    PrimType: float
+                  scatter_reset_time o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                    PrimType: float
+                  scatter_clamp_horizontal o:28(0000001c)[0] s:4 t:a40b1faa dt:00000002 dv:000000004938033f
+                    InlineArray
+                      Length: 2
+                      PrimType: float
+                  scatter_clamp_vertical o:36(00000024)[0] s:4 t:a40b1faa dt:00000002 dv:0000000082641f49
+                    InlineArray
+                      Length: 2
+                      PrimType: float
+              rumble o:100(00000064)[0] s:4 t:ab9e7ab6 dt:00000002 dv:00000000c68b2426
+                Structure
+                  rumble_time o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+                    PrimType: float
+                  rumble_strength o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+                    PrimType: float
+          bullet_base_tuning o:108(0000006c)[0] s:4 t:80b04843 dt:00000000 dv:0000000000000000
+            Structure
+              tracer_fire_velocity o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000042f00000
+                PrimType: float
+              tracer_fire_length o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+                PrimType: float
+              tracer_fire_width o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                PrimType: float
+              tracer_expand_width o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                PrimType: float
+              tracer_time_to_live o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                PrimType: float
+              smoke_trail_tile_size o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000040a00000
+                PrimType: float
+              tracer_per_smoke_trail o:24(00000018)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+                PrimType: uint08
+              bullets_per_tracer o:25(00000019)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+                PrimType: uint08
+              tracer_texture_type o:26(0000001a)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+                PrimType: uint08
+              gravity_on o:27(0000001b)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+                PrimType: uint08
+              gravity_strength o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:00000000411d1eb8
+                PrimType: float
+          bullet_is_explosive o:140(0000008c)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+            PrimType: uint08
+typedefs	c098a4b4	BulletWeaponTunings @ 1144 (0x00000478)
+  Structure
+    tuning o:0(00000000)[0] s:4 t:8ab0dc0d dt:00000000 dv:0000000000000000
+      Structure
+        base_tuning o:0(00000000)[0] s:4 t:ecd411a9 dt:00000000 dv:0000000000000000
+          Structure
+            impulse o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+              PrimType: float
+            vehicle_damage_factor o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+              PrimType: float
+            vehicle_impulse_factor o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+              PrimType: float
+            object_damage_factor o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+              PrimType: float
+            object_impulse_factor o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+              PrimType: float
+            damage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000041f00000
+              PrimType: float
+            recoil o:24(00000018)[0] s:4 t:581e3d51 dt:00000002 dv:00000000d5c00241
+              Structure
+                recoil_yaw o:0(00000000)[0] s:4 t:a40b1faa dt:00000002 dv:00000000c0490198
+                  InlineArray
+                    Length: 2
+                    PrimType: float
+                recoil_pitch o:8(00000008)[0] s:4 t:a40b1faa dt:00000002 dv:00000000aa5a60c4
+                  InlineArray
+                    Length: 2
+                    PrimType: float
+                recoil_first_shot_multiplier o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                  PrimType: float
+                recoil_recover_percentage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:000000003f400000
+                  PrimType: float
+                recoil_recover_speed o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+                recoil_apply_speed o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                  PrimType: float
+            scatter o:56(00000038)[0] s:4 t:55b2d4d2 dt:00000002 dv:000000000511a358
+              Structure
+                scatter_minimum o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+                scatter_maximum o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+                scatter_per_shot o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+                scatter_multiplier_movement o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                  PrimType: float
+                scatter_multiplier_aiming o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+                  PrimType: float
+                scatter_recover_rate o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+                  PrimType: float
+                scatter_reset_time o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+                  PrimType: float
+                scatter_clamp_horizontal o:28(0000001c)[0] s:4 t:a40b1faa dt:00000002 dv:000000004938033f
+                  InlineArray
+                    Length: 2
+                    PrimType: float
+                scatter_clamp_vertical o:36(00000024)[0] s:4 t:a40b1faa dt:00000002 dv:0000000082641f49
+                  InlineArray
+                    Length: 2
+                    PrimType: float
+            rumble o:100(00000064)[0] s:4 t:ab9e7ab6 dt:00000002 dv:00000000c68b2426
+              Structure
+                rumble_time o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+                  PrimType: float
+                rumble_strength o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+                  PrimType: float
+        bullet_base_tuning o:108(0000006c)[0] s:4 t:80b04843 dt:00000000 dv:0000000000000000
+          Structure
+            tracer_fire_velocity o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000042f00000
+              PrimType: float
+            tracer_fire_length o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+              PrimType: float
+            tracer_fire_width o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+              PrimType: float
+            tracer_expand_width o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+              PrimType: float
+            tracer_time_to_live o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+              PrimType: float
+            smoke_trail_tile_size o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000040a00000
+              PrimType: float
+            tracer_per_smoke_trail o:24(00000018)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+              PrimType: uint08
+            bullets_per_tracer o:25(00000019)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+              PrimType: uint08
+            tracer_texture_type o:26(0000001a)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+              PrimType: uint08
+            gravity_on o:27(0000001b)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+              PrimType: uint08
+            gravity_strength o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:00000000411d1eb8
+              PrimType: float
+        bullet_is_explosive o:140(0000008c)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+          PrimType: uint08
+typedefs	8ab0dc0d	BulletWeaponTuning @ 1216 (0x000004c0)
+  Structure
+    base_tuning o:0(00000000)[0] s:4 t:ecd411a9 dt:00000000 dv:0000000000000000
+      Structure
+        impulse o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+          PrimType: float
+        vehicle_damage_factor o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+          PrimType: float
+        vehicle_impulse_factor o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+          PrimType: float
+        object_damage_factor o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+          PrimType: float
+        object_impulse_factor o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+          PrimType: float
+        damage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000041f00000
+          PrimType: float
+        recoil o:24(00000018)[0] s:4 t:581e3d51 dt:00000002 dv:00000000d5c00241
+          Structure
+            recoil_yaw o:0(00000000)[0] s:4 t:a40b1faa dt:00000002 dv:00000000c0490198
+              InlineArray
+                Length: 2
+                PrimType: float
+            recoil_pitch o:8(00000008)[0] s:4 t:a40b1faa dt:00000002 dv:00000000aa5a60c4
+              InlineArray
+                Length: 2
+                PrimType: float
+            recoil_first_shot_multiplier o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+              PrimType: float
+            recoil_recover_percentage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:000000003f400000
+              PrimType: float
+            recoil_recover_speed o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+            recoil_apply_speed o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+              PrimType: float
+        scatter o:56(00000038)[0] s:4 t:55b2d4d2 dt:00000002 dv:000000000511a358
+          Structure
+            scatter_minimum o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+            scatter_maximum o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+            scatter_per_shot o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+            scatter_multiplier_movement o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+              PrimType: float
+            scatter_multiplier_aiming o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+              PrimType: float
+            scatter_recover_rate o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+            scatter_reset_time o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+              PrimType: float
+            scatter_clamp_horizontal o:28(0000001c)[0] s:4 t:a40b1faa dt:00000002 dv:000000004938033f
+              InlineArray
+                Length: 2
+                PrimType: float
+            scatter_clamp_vertical o:36(00000024)[0] s:4 t:a40b1faa dt:00000002 dv:0000000082641f49
+              InlineArray
+                Length: 2
+                PrimType: float
+        rumble o:100(00000064)[0] s:4 t:ab9e7ab6 dt:00000002 dv:00000000c68b2426
+          Structure
+            rumble_time o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+              PrimType: float
+            rumble_strength o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+              PrimType: float
+    bullet_base_tuning o:108(0000006c)[0] s:4 t:80b04843 dt:00000000 dv:0000000000000000
+      Structure
+        tracer_fire_velocity o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000042f00000
+          PrimType: float
+        tracer_fire_length o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+          PrimType: float
+        tracer_fire_width o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+          PrimType: float
+        tracer_expand_width o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+          PrimType: float
+        tracer_time_to_live o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+          PrimType: float
+        smoke_trail_tile_size o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000040a00000
+          PrimType: float
+        tracer_per_smoke_trail o:24(00000018)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+          PrimType: uint08
+        bullets_per_tracer o:25(00000019)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+          PrimType: uint08
+        tracer_texture_type o:26(0000001a)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+          PrimType: uint08
+        gravity_on o:27(0000001b)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+          PrimType: uint08
+        gravity_strength o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:00000000411d1eb8
+          PrimType: float
+    bullet_is_explosive o:140(0000008c)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+      PrimType: uint08
+typedefs	ecd411a9	WeaponTuningBase @ 1352 (0x00000548)
+  Structure
+    impulse o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+      PrimType: float
+    vehicle_damage_factor o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+      PrimType: float
+    vehicle_impulse_factor o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+      PrimType: float
+    object_damage_factor o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+      PrimType: float
+    object_impulse_factor o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+      PrimType: float
+    damage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000041f00000
+      PrimType: float
+    recoil o:24(00000018)[0] s:4 t:581e3d51 dt:00000002 dv:00000000d5c00241
+      Structure
+        recoil_yaw o:0(00000000)[0] s:4 t:a40b1faa dt:00000002 dv:00000000c0490198
+          InlineArray
+            Length: 2
+            PrimType: float
+        recoil_pitch o:8(00000008)[0] s:4 t:a40b1faa dt:00000002 dv:00000000aa5a60c4
+          InlineArray
+            Length: 2
+            PrimType: float
+        recoil_first_shot_multiplier o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+          PrimType: float
+        recoil_recover_percentage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:000000003f400000
+          PrimType: float
+        recoil_recover_speed o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+          PrimType: float
+        recoil_apply_speed o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+          PrimType: float
+    scatter o:56(00000038)[0] s:4 t:55b2d4d2 dt:00000002 dv:000000000511a358
+      Structure
+        scatter_minimum o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+          PrimType: float
+        scatter_maximum o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+          PrimType: float
+        scatter_per_shot o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+          PrimType: float
+        scatter_multiplier_movement o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+          PrimType: float
+        scatter_multiplier_aiming o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+          PrimType: float
+        scatter_recover_rate o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+          PrimType: float
+        scatter_reset_time o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+          PrimType: float
+        scatter_clamp_horizontal o:28(0000001c)[0] s:4 t:a40b1faa dt:00000002 dv:000000004938033f
+          InlineArray
+            Length: 2
+            PrimType: float
+        scatter_clamp_vertical o:36(00000024)[0] s:4 t:a40b1faa dt:00000002 dv:0000000082641f49
+          InlineArray
+            Length: 2
+            PrimType: float
+    rumble o:100(00000064)[0] s:4 t:ab9e7ab6 dt:00000002 dv:00000000c68b2426
+      Structure
+        rumble_time o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+          PrimType: float
+        rumble_strength o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+          PrimType: float
+typedefs	581e3d51	RecoilSettings @ 1680 (0x00000690)
+  Structure
+    recoil_yaw o:0(00000000)[0] s:4 t:a40b1faa dt:00000002 dv:00000000c0490198
+      InlineArray
+        Length: 2
+        PrimType: float
+    recoil_pitch o:8(00000008)[0] s:4 t:a40b1faa dt:00000002 dv:00000000aa5a60c4
+      InlineArray
+        Length: 2
+        PrimType: float
+    recoil_first_shot_multiplier o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+      PrimType: float
+    recoil_recover_percentage o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:000000003f400000
+      PrimType: float
+    recoil_recover_speed o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    recoil_apply_speed o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+      PrimType: float
+typedefs	a40b1faa	IA[float] @ 1912 (0x00000778)
+  InlineArray
+    Length: 2
+    PrimType: float
+typedefs	55b2d4d2	ScatterSettings @ 1952 (0x000007a0)
+  Structure
+    scatter_minimum o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    scatter_maximum o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    scatter_per_shot o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    scatter_multiplier_movement o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+      PrimType: float
+    scatter_multiplier_aiming o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+      PrimType: float
+    scatter_recover_rate o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    scatter_reset_time o:24(00000018)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+      PrimType: float
+    scatter_clamp_horizontal o:28(0000001c)[0] s:4 t:a40b1faa dt:00000002 dv:000000004938033f
+      InlineArray
+        Length: 2
+        PrimType: float
+    scatter_clamp_vertical o:36(00000024)[0] s:4 t:a40b1faa dt:00000002 dv:0000000082641f49
+      InlineArray
+        Length: 2
+        PrimType: float
+typedefs	ab9e7ab6	RumbleSettings @ 2280 (0x000008e8)
+  Structure
+    rumble_time o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:000000003e4ccccd
+      PrimType: float
+    rumble_strength o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:000000003f000000
+      PrimType: float
+typedefs	80b04843	BulletWeaponTuningBase @ 2384 (0x00000950)
+  Structure
+    tracer_fire_velocity o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000042f00000
+      PrimType: float
+    tracer_fire_length o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000041200000
+      PrimType: float
+    tracer_fire_width o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+      PrimType: float
+    tracer_expand_width o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000040000000
+      PrimType: float
+    tracer_time_to_live o:16(00000010)[0] s:4 t:7515a207 dt:00000001 dv:000000003f800000
+      PrimType: float
+    smoke_trail_tile_size o:20(00000014)[0] s:4 t:7515a207 dt:00000001 dv:0000000040a00000
+      PrimType: float
+    tracer_per_smoke_trail o:24(00000018)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+      PrimType: uint08
+    bullets_per_tracer o:25(00000019)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000001
+      PrimType: uint08
+    tracer_texture_type o:26(0000001a)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+      PrimType: uint08
+    gravity_on o:27(0000001b)[0] s:1 t:0ca2821d dt:00000001 dv:0000000000000000
+      PrimType: uint08
+    gravity_strength o:28(0000001c)[0] s:4 t:7515a207 dt:00000001 dv:00000000411d1eb8
+      PrimType: float
+typedefs	90d0833d	A[ZeroingSettings] @ 2776 (0x00000ad8)
+  Array
+    Length: 0
+    Structure
+      zero_distance o:0(00000000)[0] s:4 t:7515a207 dt:00000000 dv:0000000000000000
+        PrimType: float
+      angle o:4(00000004)[0] s:4 t:7515a207 dt:00000000 dv:0000000000000000
+        PrimType: float
+      horizontal_angle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+      BulletOverrides o:16(00000010)[0] s:8 t:2bf09fbf dt:00000000 dv:0000000000000000
+        Array
+          Length: 0
+          Structure
+            BulletName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+              StringHash
+            Angle o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+            HorizontalAngle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+      ScopeModifiers o:32(00000020)[0] s:8 t:cdf1e86f dt:00000000 dv:0000000000000000
+        Array
+          Length: 0
+          Structure
+            ScopeName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+              StringHash
+            AngleModifier o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+            HorizontalAngleModifier o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+              PrimType: float
+typedefs	dd1c2925	ZeroingSettings @ 2816 (0x00000b00)
+  Structure
+    zero_distance o:0(00000000)[0] s:4 t:7515a207 dt:00000000 dv:0000000000000000
+      PrimType: float
+    angle o:4(00000004)[0] s:4 t:7515a207 dt:00000000 dv:0000000000000000
+      PrimType: float
+    horizontal_angle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    BulletOverrides o:16(00000010)[0] s:8 t:2bf09fbf dt:00000000 dv:0000000000000000
+      Array
+        Length: 0
+        Structure
+          BulletName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+            StringHash
+          Angle o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+          HorizontalAngle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+    ScopeModifiers o:32(00000020)[0] s:8 t:cdf1e86f dt:00000000 dv:0000000000000000
+      Array
+        Length: 0
+        Structure
+          ScopeName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+            StringHash
+          AngleModifier o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+          HorizontalAngleModifier o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+            PrimType: float
+typedefs	2bf09fbf	A[ZeroingSettingBulletOverride] @ 3016 (0x00000bc8)
+  Array
+    Length: 0
+    Structure
+      BulletName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+        StringHash
+      Angle o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+      HorizontalAngle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+typedefs	dcd38cfb	ZeroingSettingBulletOverride @ 3056 (0x00000bf0)
+  Structure
+    BulletName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+      StringHash
+    Angle o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    HorizontalAngle o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+typedefs	c03f64bf	StringHash_48c5294d_4 @ 3192 (0x00000c78)
+  StringHash
+typedefs	cdf1e86f	A[ZeroingSettingScopeModifier] @ 3232 (0x00000ca0)
+  Array
+    Length: 0
+    Structure
+      ScopeName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+        StringHash
+      AngleModifier o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+      HorizontalAngleModifier o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+typedefs	b533ba71	ZeroingSettingScopeModifier @ 3272 (0x00000cc8)
+  Structure
+    ScopeName o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+      StringHash
+    AngleModifier o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    HorizontalAngleModifier o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+typedefs	a99a4ed9	A[ScopeOffsetSettings] @ 3408 (0x00000d50)
+  Array
+    Length: 0
+    Structure
+      ScopeNameHash o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+        StringHash
+      HorizontalOffset o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+      VerticalOffset o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+      DepthOffset o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+        PrimType: float
+typedefs	b7a4c209	ScopeOffsetSettings @ 3448 (0x00000d78)
+  Structure
+    ScopeNameHash o:0(00000000)[0] s:4 t:c03f64bf dt:00000001 dv:00000000deadbeef
+      StringHash
+    HorizontalOffset o:4(00000004)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    VerticalOffset o:8(00000008)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+    DepthOffset o:12(0000000c)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+typedefs	d67f3cfe	UISettings @ 3616 (0x00000e20)
+  Structure
+    reticle_offset_in_fov_fraction o:0(00000000)[0] s:4 t:7515a207 dt:00000001 dv:0000000000000000
+      PrimType: float
+
+--------instances
+instances	b7e595c7	7e5a4571	weapon_sa_rifle_ar10_308.wtune	144	472	00000090-00000268
+# Structure WeaponTuning(0x7E5A4571), Data Offset: 144(0x00000090)
+{
+  bullet_weapon:
+    # Array of Structure BulletWeaponTunings(0x4AF64F3B), Data Offset: 240(0x000000f0), Info Offset: 144(0x00000090)
+    [
+      # Structure BulletWeaponTunings(0xC098A4B4), Data Offset: 240(0x000000f0)
+      {
+        tuning:
+          # Structure BulletWeaponTuning(0x8AB0DC0D), Data Offset: 240(0x000000f0)
+          {
+            base_tuning:
+              # Structure WeaponTuningBase(0xECD411A9), Data Offset: 240(0x000000f0)
+              {
+                impulse:
+                  150.0  # float(0x7515A207), Data Offset: 240(0x000000f0)
+                vehicle_damage_factor:
+                  0.0  # float(0x7515A207), Data Offset: 244(0x000000f4)
+                vehicle_impulse_factor:
+                  0.07500000298023224  # float(0x7515A207), Data Offset: 248(0x000000f8)
+                object_damage_factor:
+                  1.75  # float(0x7515A207), Data Offset: 252(0x000000fc)
+                object_impulse_factor:
+                  1.0  # float(0x7515A207), Data Offset: 256(0x00000100)
+                damage:
+                  130.0  # float(0x7515A207), Data Offset: 260(0x00000104)
+                recoil:
+                  # Structure RecoilSettings(0x581E3D51), Data Offset: 264(0x00000108)
+                  {
+                    recoil_yaw:
+                      # Inline Array of float(0xA40B1FAA), Data Offset: 264(0x00000108)
+                      [
+                        -0.07999999821186066None
+                        0.07999999821186066None
+                      ]
+                    recoil_pitch:
+                      # Inline Array of float(0xA40B1FAA), Data Offset: 272(0x00000110)
+                      [
+                        0.15000000596046448None
+                        0.20000000298023224None
+                      ]
+                    recoil_first_shot_multiplier:
+                      1.0  # float(0x7515A207), Data Offset: 280(0x00000118)
+                    recoil_recover_percentage:
+                      0.75  # float(0x7515A207), Data Offset: 284(0x0000011c)
+                    recoil_recover_speed:
+                      0.375  # float(0x7515A207), Data Offset: 288(0x00000120)
+                    recoil_apply_speed:
+                      2.0  # float(0x7515A207), Data Offset: 292(0x00000124)
+                  }
+                scatter:
+                  # Structure ScatterSettings(0x55B2D4D2), Data Offset: 296(0x00000128)
+                  {
+                    scatter_minimum:
+                      1.0  # float(0x7515A207), Data Offset: 296(0x00000128)
+                    scatter_maximum:
+                      1.5  # float(0x7515A207), Data Offset: 300(0x0000012c)
+                    scatter_per_shot:
+                      0.15000000596046448  # float(0x7515A207), Data Offset: 304(0x00000130)
+                    scatter_multiplier_movement:
+                      2.0  # float(0x7515A207), Data Offset: 308(0x00000134)
+                    scatter_multiplier_aiming:
+                      0.0  # float(0x7515A207), Data Offset: 312(0x00000138)
+                    scatter_recover_rate:
+                      0.10000000149011612  # float(0x7515A207), Data Offset: 316(0x0000013c)
+                    scatter_reset_time:
+                      2.0  # float(0x7515A207), Data Offset: 320(0x00000140)
+                    scatter_clamp_horizontal:
+                      # Inline Array of float(0xA40B1FAA), Data Offset: 324(0x00000144)
+                      [
+                        -1.0None
+                        1.0None
+                      ]
+                    scatter_clamp_vertical:
+                      # Inline Array of float(0xA40B1FAA), Data Offset: 332(0x0000014c)
+                      [
+                        -1.0None
+                        1.0None
+                      ]
+                  }
+                rumble:
+                  # Structure RumbleSettings(0xAB9E7AB6), Data Offset: 340(0x00000154)
+                  {
+                    rumble_time:
+                      0.18000000715255737  # float(0x7515A207), Data Offset: 340(0x00000154)
+                    rumble_strength:
+                      0.8999999761581421  # float(0x7515A207), Data Offset: 344(0x00000158)
+                  }
+              }
+            bullet_base_tuning:
+              # Structure BulletWeaponTuningBase(0x80B04843), Data Offset: 348(0x0000015c)
+              {
+                tracer_fire_velocity:
+                  600.0  # float(0x7515A207), Data Offset: 348(0x0000015c)
+                tracer_fire_length:
+                  5.0  # float(0x7515A207), Data Offset: 352(0x00000160)
+                tracer_fire_width:
+                  0.029999999329447746  # float(0x7515A207), Data Offset: 356(0x00000164)
+                tracer_expand_width:
+                  2.0  # float(0x7515A207), Data Offset: 360(0x00000168)
+                tracer_time_to_live:
+                  0.0  # float(0x7515A207), Data Offset: 364(0x0000016c)
+                smoke_trail_tile_size:
+                  5.0  # float(0x7515A207), Data Offset: 368(0x00000170)
+                tracer_per_smoke_trail:
+                  1  # uint08(0x0CA2821D), Data Offset: 372(0x00000174)
+                bullets_per_tracer:
+                  0  # uint08(0x0CA2821D), Data Offset: 373(0x00000175)
+                tracer_texture_type:
+                  0  # uint08(0x0CA2821D), Data Offset: 374(0x00000176)
+                gravity_on:
+                  1  # uint08(0x0CA2821D), Data Offset: 375(0x00000177)
+                gravity_strength:
+                  9.819999694824219  # float(0x7515A207), Data Offset: 376(0x00000178)
+              }
+            bullet_is_explosive:
+              0  # uint08(0x0CA2821D), Data Offset: 380(0x0000017c)
+          }
+      }
+    ]
+  kinetic_energy:
+    0.0  # float(0x7515A207), Data Offset: 160(0x000000a0)
+  trigger_sensitivity:
+    # Inline Array of float(0xA40B1FAA), Data Offset: 164(0x000000a4)
+    [
+      0.8999999761581421None
+      0.30000001192092896None
+    ]
+  weapon_wobble_modifier:
+    1.0  # float(0x7515A207), Data Offset: 172(0x000000ac)
+  weapon_recoil_penalty:
+    0.0  # float(0x7515A207), Data Offset: 176(0x000000b0)
+  ZeroingIndex:
+    0  # sint08(0x580D0A62), Data Offset: 180(0x000000b4)
+  ZeroingSettings:
+    # Array of Structure ZeroingSettings(0x90D0833D), Data Offset: 384(0x00000180), Info Offset: 184(0x000000b8)
+    [
+      # Structure ZeroingSettings(0xDD1C2925), Data Offset: 384(0x00000180)
+      {
+        zero_distance:
+          150.0  # float(0x7515A207), Data Offset: 384(0x00000180)
+        angle:
+          0.07999999821186066  # float(0x7515A207), Data Offset: 388(0x00000184)
+        horizontal_angle:
+          0.0  # float(0x7515A207), Data Offset: 392(0x00000188)
+        BulletOverrides:
+          # Array of Structure ZeroingSettingBulletOverride(0x2BF09FBF), Data Offset: 144(0x00000090), Info Offset: 400(0x00000190)
+          [
+          ]
+        ScopeModifiers:
+          # Array of Structure ZeroingSettingScopeModifier(0xCDF1E86F), Data Offset: 144(0x00000090), Info Offset: 416(0x000001a0)
+          [
+          ]
+      }
+      # Structure ZeroingSettings(0xDD1C2925), Data Offset: 432(0x000001b0)
+      {
+        zero_distance:
+          75.0  # float(0x7515A207), Data Offset: 432(0x000001b0)
+        angle:
+          0.05400000140070915  # float(0x7515A207), Data Offset: 436(0x000001b4)
+        horizontal_angle:
+          0.0  # float(0x7515A207), Data Offset: 440(0x000001b8)
+        BulletOverrides:
+          # Array of Structure ZeroingSettingBulletOverride(0x2BF09FBF), Data Offset: 144(0x00000090), Info Offset: 448(0x000001c0)
+          [
+          ]
+        ScopeModifiers:
+          # Array of Structure ZeroingSettingScopeModifier(0xCDF1E86F), Data Offset: 144(0x00000090), Info Offset: 464(0x000001d0)
+          [
+          ]
+      }
+      # Structure ZeroingSettings(0xDD1C2925), Data Offset: 480(0x000001e0)
+      {
+        zero_distance:
+          300.0  # float(0x7515A207), Data Offset: 480(0x000001e0)
+        angle:
+          0.15000000596046448  # float(0x7515A207), Data Offset: 484(0x000001e4)
+        horizontal_angle:
+          0.0  # float(0x7515A207), Data Offset: 488(0x000001e8)
+        BulletOverrides:
+          # Array of Structure ZeroingSettingBulletOverride(0x2BF09FBF), Data Offset: 144(0x00000090), Info Offset: 496(0x000001f0)
+          [
+          ]
+        ScopeModifiers:
+          # Array of Structure ZeroingSettingScopeModifier(0xCDF1E86F), Data Offset: 144(0x00000090), Info Offset: 512(0x00000200)
+          [
+          ]
+      }
+    ]
+  HorizontalOffset:
+    0.0  # float(0x7515A207), Data Offset: 200(0x000000c8)
+  VerticalOffset:
+    -0.001500000013038516  # float(0x7515A207), Data Offset: 204(0x000000cc)
+  DepthOffset:
+    0.0  # float(0x7515A207), Data Offset: 208(0x000000d0)
+  ScopeOffsetSettings:
+    # Array of Structure ScopeOffsetSettings(0xA99A4ED9), Data Offset: 536(0x00000218), Info Offset: 216(0x000000d8)
+    [
+      # Structure ScopeOffsetSettings(0xB7A4C209), Data Offset: 536(0x00000218)
+      {
+        ScopeNameHash:
+          b'equipment_sight_rifle_scope_1-4x_24mm_01' (0x4a52b438)  # String Hash(0xC03F64BF), Data Offset: 536(0x00000218)
+        HorizontalOffset:
+          4.999999873689376e-06  # float(0x7515A207), Data Offset: 540(0x0000021c)
+        VerticalOffset:
+          0.0005000000237487257  # float(0x7515A207), Data Offset: 544(0x00000220)
+        DepthOffset:
+          0.02199999988079071  # float(0x7515A207), Data Offset: 548(0x00000224)
+      }
+      # Structure ScopeOffsetSettings(0xB7A4C209), Data Offset: 552(0x00000228)
+      {
+        ScopeNameHash:
+          b'equipment_sight_rifle_scope_4-8x_42mm_01' (0xeff7b0d1)  # String Hash(0xC03F64BF), Data Offset: 552(0x00000228)
+        HorizontalOffset:
+          1.9999999949504854e-06  # float(0x7515A207), Data Offset: 556(0x0000022c)
+        VerticalOffset:
+          -0.002899999963119626  # float(0x7515A207), Data Offset: 560(0x00000230)
+        DepthOffset:
+          0.012000000104308128  # float(0x7515A207), Data Offset: 564(0x00000234)
+      }
+      # Structure ScopeOffsetSettings(0xB7A4C209), Data Offset: 568(0x00000238)
+      {
+        ScopeNameHash:
+          b'equipment_sight_rifle_scope_8-16x_50mm_01' (0xe0d86bbf)  # String Hash(0xC03F64BF), Data Offset: 568(0x00000238)
+        HorizontalOffset:
+          -0.0002899999963119626  # float(0x7515A207), Data Offset: 572(0x0000023c)
+        VerticalOffset:
+          -0.0018500000005587935  # float(0x7515A207), Data Offset: 576(0x00000240)
+        DepthOffset:
+          0.020999999716877937  # float(0x7515A207), Data Offset: 580(0x00000244)
+      }
+      # Structure ScopeOffsetSettings(0xB7A4C209), Data Offset: 584(0x00000248)
+      {
+        ScopeNameHash:
+          b'equipment_sight_rifle_scope_night_vision_1-4x_24mm_01' (0xece48b2d)  # String Hash(0xC03F64BF), Data Offset: 584(0x00000248)
+        HorizontalOffset:
+          -9.999999747378752e-06  # float(0x7515A207), Data Offset: 588(0x0000024c)
+        VerticalOffset:
+          -0.0030499999411404133  # float(0x7515A207), Data Offset: 592(0x00000250)
+        DepthOffset:
+          0.08500000089406967  # float(0x7515A207), Data Offset: 596(0x00000254)
+      }
+      # Structure ScopeOffsetSettings(0xB7A4C209), Data Offset: 600(0x00000258)
+      {
+        ScopeNameHash:
+          b'equipment_sight_rifle_red_dot_01' (0xd89286cc)  # String Hash(0xC03F64BF), Data Offset: 600(0x00000258)
+        HorizontalOffset:
+          -9.999999747378752e-05  # float(0x7515A207), Data Offset: 604(0x0000025c)
+        VerticalOffset:
+          0.00279999990016222  # float(0x7515A207), Data Offset: 608(0x00000260)
+        DepthOffset:
+          0.0949999988079071  # float(0x7515A207), Data Offset: 612(0x00000264)
+      }
+    ]
+  UISettings:
+    # Structure UISettings(0xD67F3CFE), Data Offset: 232(0x000000e8)
+    {
+      reticle_offset_in_fov_fraction:
+        0.0  # float(0x7515A207), Data Offset: 232(0x000000e8)
+    }
+  unlimited_ammo:
+    0  # uint08(0x0CA2821D), Data Offset: 236(0x000000ec)
+}
+

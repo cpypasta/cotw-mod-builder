@@ -3,8 +3,6 @@ from deca.ff_rtpc import rtpc_from_binary, RtpcProperty, RtpcNode
 from pathlib import Path
 from modbuilder import mods
 from functools import reduce
-from enum import Enum
-import os
 
 NAME = "Increase Reserve Population"
 DESCRIPTION = "Increases the number of animals that get populated when loading a reserve for the first time. If you have already played a reserve, you need to delete the old pouplation file first before you will see an increase in animals."
