@@ -34,7 +34,7 @@ def _get_mod_options() -> List[dict]:
         t = sg.T(f"{mod_option['name']}", p=(10,10))
         td = sg.T(f"(default: {mod_option['default']}, min: {mod_option['min']}, max: {mod_option['max']})", font="_ 12", p=(0,0))
         initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
-        if "min" in mod_option and "max" in mod_option and "increment" in mod_option and mod_option["type"] == int:        
+        if "min" in mod_option and "max" in mod_option and "increment" in mod_option:        
           i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=(50,0))
         else:
           i = sg.Input(initial_value, size=6, k = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}", p=(50,10))
@@ -64,10 +64,9 @@ def _get_selected_mods(mods_selected: dict) -> None:
 def _valid_option_value(mod_option: dict, mod_value: any) -> str:
   min_value = mod_option["min"]
   max_value = mod_option["max"]
-  type_value = mod_option["type"]
+  mod_value = type(min_value)(mod_value)
   try:
-    typed_value = type_value(mod_value)
-    if typed_value >= min_value and typed_value <= max_value:
+    if mod_value >= min_value and mod_value <= max_value:
       return None
   except:
     None
@@ -97,7 +96,7 @@ def _create_party() -> None:
     if event == "load":
       try:
         mods.load_dropzone()
-        sg.PopupQuickMessage("Mods Loaded", font="_ 28")
+        sg.PopupQuickMessage("Mods Loaded", font="_ 28", background_color="brown")
         break
       except Exception as ex:
         sg.Popup(ex, title="Error", icon=logo.value, font=DEFAULT_FONT)
@@ -108,10 +107,11 @@ def _show_load_mod() -> None:
   layout = [
     [sg.T("Saved Modifications", font="_ 18")],
     [sg.Listbox(saved_mods, expand_x=True, expand_y=True, k="saved_mods", enable_events=True)],
-    [sg.Button("Delete", k="delete", disabled=True), sg.Push(), sg.Button("Cancel", k="cancel"), sg.Button("Load", k="load", disabled=True)]
+    [sg.Button("Delete", k="delete", disabled=True), sg.Push(), sg.Button("Cancel", k="cancel"), sg.Button("Merge", k="merge", disabled=True), sg.Button("Load", k="load", disabled=True)]
   ]
   window = sg.Window("Load Saved Modifications", layout, modal=True, size=(600, 300), icon=logo.value, font=DEFAULT_FONT)
   loaded_saved_mod = None
+  merge = False
   
   while True:
     event, values = window.read()
@@ -124,16 +124,19 @@ def _show_load_mod() -> None:
         window["saved_mods"].update(mods.load_saved_mods())
         window["delete"].update(disabled=True)
         window["load"].update(disabled=True)        
+        window["merge"].update(disabled=True)        
     elif event == "saved_mods":
       if len(values["saved_mods"]) == 0:
         continue
       window["delete"].update(disabled=False)
       window["load"].update(disabled=False)
-    elif event == "load":
+      window["merge"].update(disabled=False)
+    elif event == "load" or event == "merge":
       loaded_saved_mod = mods.load_saved_mod(values["saved_mods"][0])
+      merge = event == "merge"
       break
   window.close()        
-  return loaded_saved_mod
+  return (merge, loaded_saved_mod)
 
 def main() -> None:
   global selected_mods
@@ -250,17 +253,17 @@ def main() -> None:
       save_name = sg.PopupGetText("What name would you like use to save modifications?", title="Save Mods", font=DEFAULT_FONT, icon=logo.value)
       if save_name:
         mods.save_mods(selected_mods, save_name)
-        sg.PopupQuickMessage("Modifications Saved", font="_ 28")
+        sg.PopupQuickMessage("Modifications Saved", font="_ 28", background_color="brown")
     elif event == "load":
-      saved_mod = _show_load_mod()
+      merge, saved_mod = _show_load_mod()
       if saved_mod:
-        selected_mods = saved_mod
+        selected_mods = selected_mods | saved_mod if merge else saved_mod
         selected_mod_names = {}
         for mod_key, mod_options in selected_mods.items():
             selected_mod_names[mods.get_mod(mod_key).format(mod_options)] = mod_key
         window["selected_mods"].update(_get_selected_mods(selected_mods))
         _enable_mod_button(window)     
-        sg.PopupQuickMessage("Modifications Loaded", font="_ 28")   
+        sg.PopupQuickMessage("Modifications Loaded", font="_ 28", background_color="brown")   
           
   window.close()
 

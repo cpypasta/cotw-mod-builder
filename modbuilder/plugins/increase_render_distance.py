@@ -7,10 +7,10 @@ NAME = "Increase Render Distance"
 DESCRIPTION = "Increase the render distance of animals. There are two settings: when the animals spawn (get closer) or desapwn (moving away)."
 FILE = "global/global_animal_types.blo"
 OPTIONS = [
-  { "name": "Spawn Distance", "type": int, "min": 385, "max": 1000, "default": 384, "increment": 5, "initial": 750 },
-  { "name": "Despawn Distance", "type": int, "min": 420, "max": 1000, "default": 416, "increment": 5, "initial": 750 },
-  { "name": "Bird Spawn Distance", "type": int, "min": 470, "max": 1000, "default": 470, "increment": 5, "initial": 750 },
-  { "name": "Bird Despawn Distance", "type": int, "min": 500, "max": 1000, "default": 500, "increment": 5, "initial": 750 }
+  { "name": "Spawn Distance", "min": 385, "max": 1000, "default": 384, "increment": 5, "initial": 750 },
+  { "name": "Despawn Distance", "min": 420, "max": 1000, "default": 416, "increment": 5, "initial": 750 },
+  { "name": "Bird Spawn Distance", "min": 470, "max": 1000, "default": 470, "increment": 5, "initial": 750 },
+  { "name": "Bird Despawn Distance", "min": 500, "max": 1000, "default": 500, "increment": 5, "initial": 750 }
 ]
 
 def format(options: dict) -> str:

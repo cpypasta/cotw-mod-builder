@@ -5,7 +5,7 @@ NAME = "Increase XP Reward"
 DESCRIPTION = "Increase the XP (experience) reward when harvesting kills. There are a few other rewards like finding an artifact and point-of-interest (POI) that also will be increased."
 FILE = "settings/hp_settings/player_rewards.bin"
 OPTIONS = [
-  { "name": "XP Reward Multiplier", "type": int, "min": 2, "max": 20, "default": 1, "increment": 1 }
+  { "name": "XP Reward Multiplier", "min": 2, "max": 20, "default": 1, "increment": 1 }
 ]
 
 def format(options: dict) -> str:

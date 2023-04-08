@@ -8,7 +8,7 @@ NAME = "Increase Reserve Population"
 DESCRIPTION = "Increases the number of animals that get populated when loading a reserve for the first time. If you have already played a reserve, you need to delete the old pouplation file first before you will see an increase in animals."
 FILE = "settings/hp_settings/reserve_*.bin"
 OPTIONS = [
-  { "name": "Population Multiplier", "type": int, "min": 2, "max": 8, "default": 1, "increment": 1 }
+  { "name": "Population Multiplier", "min": 2, "max": 8, "default": 1, "increment": 1 }
 ]
   
 def format(options: dict) -> str:

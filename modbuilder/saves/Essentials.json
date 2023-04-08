@@ -1,0 +1,40 @@
+{
+  "decrease_hunting_pressure": {
+    "decrease_pressure_radius": 128.0,
+    "decrease_pressure_amount_percent": 50.0
+  },
+  "decrease_wobble": {
+    "reduce_stand_percent": 70.0,
+    "reduce_crouch_percent": 85.0,
+    "reduce_prone_percent": 100.0
+  },
+  "enhanced_impact_resistance": {
+    "fall_damage_reduction_percent": 70.0
+  },
+  "enhanced_improvised_blind": {
+    "vegetation_camoflauge_percent": 200.0
+  },
+  "enhanced_pack_mule": {
+    "weight": "99.9"
+  },
+  "increase_cash_reward": {
+    "cash_reward_multiplier": 3.0
+  },
+  "increase_deployables": {
+    "deployable_multiplier": 20.0
+  },
+  "increase_render_distance": {
+    "spawn_distance": 750.0,
+    "despawn_distance": 750.0,
+    "bird_spawn_distance": 750.0,
+    "bird_despawn_distance": 750.0
+  },
+  "increase_speed": {
+    "stand_speed_multiplier": 1.8,
+    "crouch_speed_multiplier": 3.0,
+    "prone_speed_multiplier": 2.0
+  },
+  "increase_xp_reward": {
+    "xp_reward_multiplier": 2.0
+  }
+}

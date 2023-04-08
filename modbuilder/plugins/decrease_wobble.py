@@ -4,9 +4,9 @@ NAME = "Decrease Wobble"
 DESCRIPTION = "Reduce the amount of wobble when looking through the scope."
 FILE = "editor/entities/hp_characters/main_characters/elmer/elmer_movement.mtunec"
 OPTIONS = [
-  { "name": "Reduce Stand Percent", "type": int, "min": 0, "max": 100, "default": 0, "increment": 5 },
-  { "name": "Reduce Crouch Percent", "type": int, "min": 25, "max": 100, "default": 25, "increment": 5 },
-  { "name": "Reduce Prone Percent", "type": int, "min": 50, "max": 100, "default": 50, "increment": 5 }
+  { "name": "Reduce Stand Percent", "min": 0, "max": 100, "default": 0, "increment": 5 },
+  { "name": "Reduce Crouch Percent", "min": 25, "max": 100, "default": 25, "increment": 5 },
+  { "name": "Reduce Prone Percent", "min": 50, "max": 100, "default": 50, "increment": 5 }
 ]
 
 def format(options: dict) -> str:

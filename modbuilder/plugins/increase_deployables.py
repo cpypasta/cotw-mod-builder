@@ -8,7 +8,7 @@ NAME = "Increase Deployables"
 DESCRIPTION = "Increases the number of deployable structures you can place on all reserves."
 FILE = "settings/hp_settings/reserve_*.bin"
 OPTIONS = [
-  { "name": "Deployable Multiplier", "type": int, "min": 2, "max": 20, "default": 1, "increment": 1 }
+  { "name": "Deployable Multiplier", "min": 2, "max": 20, "default": 1, "increment": 1 }
 ]
   
 def format(options: dict) -> str:

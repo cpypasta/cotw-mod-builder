@@ -5,7 +5,7 @@ NAME = "Increase Cash Reward"
 DESCRIPTION = "Increase the cash reward when harvesting kills."
 FILE = "settings/hp_settings/player_rewards.bin"
 OPTIONS = [
-  { "name": "Cash Reward Multiplier", "type": int, "min": 2, "max": 20, "default": 1, "increment": 1 }
+  { "name": "Cash Reward Multiplier", "min": 2, "max": 20, "default": 1, "increment": 1 }
 ]
 
 def format(options: dict) -> str:

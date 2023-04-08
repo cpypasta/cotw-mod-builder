@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 import re, os
 
 NAME = "Modify Ammo"
-DESCRIPTION = "Modify ammo kinetic energy, penetration, expansion, and damage."
+DESCRIPTION = "Modify ammo kinetic energy, penetration, expansion, and damage. It is easy to over-adjust these settings, and then the ammo becomes unrealistic."
 
 def format_name(name: str) -> str:
   return " ".join([x.capitalize() for x in name.split("_")])
@@ -56,64 +56,32 @@ def get_ammo() -> dict:
     "rifle": { "files": rifle_ammo_files, "ammo": rifle_ammo },
     "shotgun": { "files": shotgun_ammo_files, "ammo": shotgun_ammo }
   }
+
+def build_tab(ammo_type: str, ammo: List[str]) -> sg.Tab:
+  type_key = ammo_type.lower()
+  return sg.Tab(ammo_type, [
+    [sg.Combo(ammo, p=((10,0),(10,10)), k=f"{type_key}_ammo")],
+    [sg.Column([
+      [sg.T("Increase Kinetic Energy Percent")],
+      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_kinetic_energy")],
+      [sg.T("Increase Penetration Percent", p=(0, 8))],
+      [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_penetration")],
+      [sg.T("Increase Expansion Percent", p=(0, 8))],
+      [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_expansion")],
+      [sg.T("Increase Damage Percent", p=(0, 8))],
+      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,10)), k=f"{type_key}_damage")]                      
+    ])]
+  ])  
         
 def get_option_elements() -> sg.Column:
   ammo = get_ammo()
   
   layout = [[
     sg.TabGroup([[
-      sg.Tab("Bow", [
-        [sg.Combo(ammo["bow"]["ammo"], p=((10,0),(10,10)), k="bow_ammo")],
-        [sg.Column([
-          [sg.T("Increase Kinetic Energy Percent")],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="bow_kinetic_energy")],
-          [sg.T("Increase Penetration Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="bow_penetration")],
-          [sg.T("Increase Expansion Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="bow_expansion")],
-          [sg.T("Increase Damage Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,10)), k="bow_damage")]                      
-        ])]
-      ]),
-      sg.Tab("Handgun", [
-        [sg.Combo(ammo["handgun"]["ammo"], p=((10,0),(10,10)), k="handgun_ammo")],
-        [sg.Column([
-          [sg.T("Increase Kinetic Energy Percent")],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="handgun_kinetic_energy")],
-          [sg.T("Increase Penetration Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="handgun_penetration")],
-          [sg.T("Increase Expansion Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="handgun_expansion")],
-          [sg.T("Increase Damage Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,10)), k="handgun_damage")]                      
-        ])]
-      ]),
-      sg.Tab("Rifle", [
-        [sg.Combo(ammo["rifle"]["ammo"], p=((10,0),(10,10)), k="rifle_ammo")],
-        [sg.Column([
-          [sg.T("Increase Kinetic Energy Percent")],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="rifle_kinetic_energy")],
-          [sg.T("Increase Penetration Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="rifle_penetration")],
-          [sg.T("Increase Expansion Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="rifle_expansion")],
-          [sg.T("Increase Damage Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,10)), k="rifle_damage")]                      
-        ])]
-      ]),
-      sg.Tab("Shotgun", [
-        [sg.Combo(ammo["shotgun"]["ammo"], p=((10,0),(10,10)), k="shotgun_ammo")],
-        [sg.Column([
-          [sg.T("Increase Kinetic Energy Percent")],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="shotgun_kinetic_energy")],
-          [sg.T("Increase Penetration Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="shotgun_penetration")],
-          [sg.T("Increase Expansion Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k="shotgun_expansion")],
-          [sg.T("Increase Damage Percent", p=(0, 8))],
-          [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,10)), k="shotgun_damage")]                      
-        ])]
-      ])          
+      build_tab("Bow", ammo["bow"]["ammo"]),
+      build_tab("Handgun", ammo["handgun"]["ammo"]),
+      build_tab("Rifle", ammo["rifle"]["ammo"]),
+      build_tab("Shotgun", ammo["shotgun"]["ammo"])         
     ]], k="ammo_group")
   ]]
   
@@ -156,7 +124,7 @@ def format(options: dict) -> str:
   penetration = int(options["penetration"])
   expansion = int(options["expansion"])
   damage = int(options["damage"])
-  return f"{ammo_name} ({kinetic_energy}%, {penetration}%, {expansion}%, {damage}%)"
+  return f"{ammo_name} ({kinetic_energy}%k, {penetration}%p, {expansion}%e, {damage}%d)"
 
 def handle_key(mod_key: str) -> bool:
   return mod_key.startswith("modify_ammo")
@@ -172,8 +140,8 @@ def merge_files(files: List[str]) -> None:
 
 def process(options: dict) -> None:
   kinetic_energy = 1 + options["kinetic_energy"] / 100
-  penetration = 1 + options["penetration"] / 100
-  damage = 1 - options["damage"] / 100
+  penetration = 1 - options["penetration"] / 100
+  damage = 1 + options["damage"] / 100
   expansion_rate = 1 - options["expansion"] / 100
   max_expansion = 1 + options["expansion"] / 100
   file = options["file"]

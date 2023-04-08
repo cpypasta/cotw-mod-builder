@@ -4,7 +4,7 @@ NAME = "Enhanced Impact Resistance"
 DESCRIPTION = "Decreases damage from falling. You must have the Impact Resistance skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"
 OPTIONS = [
-  { "name": "Fall Damage Reduction Percent", "type": int, "min": 30, "max": 100, "default": 20, "increment": 10 }
+  { "name": "Fall Damage Reduction Percent", "min": 30, "max": 100, "default": 20, "increment": 10 }
 ]
 
 def format(options: dict) -> str:

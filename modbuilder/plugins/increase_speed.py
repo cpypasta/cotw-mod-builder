@@ -4,16 +4,16 @@ NAME = "Increase Speed"
 DESCRIPTION = "Increase the speed of the player when standing, crouching, and when prone."
 FILE = "editor/entities/hp_characters/main_characters/elmer/elmer_movement.mtunec"
 OPTIONS = [
-  { "name": "Stand Speed Multiplier", "type": int, "min": 1, "max": 10, "default": 1, "increment": 0.5 },
-  { "name": "Crouch Speed Multiplier", "type": int, "min": 1, "max": 10, "default": 1, "increment": 0.5 },
-  { "name": "Prone Speed Multiplier", "type": int, "min": 1, "max": 10, "default": 1, "increment": 0.5 }
+  { "name": "Stand Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 },
+  { "name": "Crouch Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 },
+  { "name": "Prone Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 }
 ]
 
 def format(options: dict) -> str:
   stand_multiplier = options['stand_speed_multiplier']
   crouch_multiplier = options['crouch_speed_multiplier']
   prone_multiplier = options['prone_speed_multiplier']
-  return f"Increase Speed ({int(stand_multiplier)}x, {int(crouch_multiplier)}x, {int(prone_multiplier)}x)"
+  return f"Increase Speed ({round(stand_multiplier, 1)}x, {round(crouch_multiplier, 1)}x, {round(prone_multiplier, 1)}x)"
 
 def update_values_at_offset(options: dict) -> List[dict]:
   stand_multiplier = options['stand_speed_multiplier']

@@ -5,8 +5,8 @@ NAME = "Decrease Hunting Pressure"
 DESCRIPTION = "Decreases hunting pressure that is created from killing animals."
 FILE = "settings/hp_settings/global_simulation.bin"
 OPTIONS = [
-  { "name": "Decrease Pressure Radius", "type": int, "min": 0, "max": 128, "default": 128, "increment": 1, "initial": 128 },
-  { "name": "Decrease Pressure Amount Percent", "type": int, "min": 0, "max": 100, "default": 0, "increment": 5, "initial": 10 }
+  { "name": "Decrease Pressure Radius", "min": 0, "max": 128, "default": 128, "increment": 1, "initial": 128 },
+  { "name": "Decrease Pressure Amount Percent", "min": 0, "max": 100, "default": 0, "increment": 5, "initial": 10 }
 ]
 
 def format(options: dict) -> str:
