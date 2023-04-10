@@ -61,7 +61,7 @@ def get_mod_key_from_name(mod_name: str) -> str:
 def get_mod_option(mod_key: str, option_key: str) -> dict:
   mod = get_mod(mod_key)
   for option in mod.OPTIONS:
-    mod_name = get_mod_key_from_name(option["name"])
+    mod_name = get_mod_key_from_name(option["name"]) if "name" in option else None
     if mod_name == option_key:
       return option
   return None
@@ -105,23 +105,29 @@ def copy_all_files_to_mod(filenames: List[str]) -> List[str]:
     copy_file_to_mod(filename)
   return filenames
 
-def update_file_at_offsets(src_filename: Path, offsets: List[int], value: any, transform: str = None) -> None:
+def update_file_at_offsets(src_filename: Path, offsets: List[int], value: any, transform: str = None, format: str = None) -> None:
   dest_path = APP_DIR_PATH / "mod/dropzone" / src_filename  
   with open(dest_path, "r+b") as fp:
     for offset in offsets:
       fp.seek(offset)
-      if isinstance(value, str):
-        fp.write(struct.pack(f"{len(value)}s", value.encode("utf-8")))      
-      elif isinstance(value, float):
-        if transform == "multiply":
-          existing_value = struct.unpack('f', fp.read(4))[0]
-          value = value * existing_value
-          fp.seek(offset)
-        fp.write(struct.pack("f", value))
+      if format:
+        if format == "sint08":
+          fp.write(struct.pack("h", value))
+      else:
+        if isinstance(value, str):
+          fp.write(struct.pack(f"{len(value)}s", value.encode("utf-8")))      
+        elif isinstance(value, float):
+          if transform == "multiply":
+            existing_value = struct.unpack('f', fp.read(4))[0]
+            value = value * existing_value
+            fp.seek(offset)
+          fp.write(struct.pack("f", value))
+        elif isinstance(value, int):
+          fp.write(struct.pack("i", value))
       fp.flush()  
 
-def update_file_at_offset(src_filename: Path, offset: int, value: any, transform: str = None) -> None:
-  update_file_at_offsets(src_filename, [offset], value, transform)
+def update_file_at_offset(src_filename: Path, offset: int, value: any, transform: str = None, format: str = None) -> None:
+  update_file_at_offsets(src_filename, [offset], value, transform, format)
 
 def apply_mod(mod: any, options: dict) -> None:
   if hasattr(mod, "update_values_at_offset"):

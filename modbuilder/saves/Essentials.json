@@ -36,5 +36,13 @@
   },
   "increase_xp_reward": {
     "xp_reward_multiplier": 2.0
+  },
+  "enhanced_soft_feet": {
+    "soft_feet_percent": 70.0
+  },
+  "modify_atv": {
+    "top_speed": "70",
+    "acceleration": "medium",
+    "traction": "medium"
   }
 }

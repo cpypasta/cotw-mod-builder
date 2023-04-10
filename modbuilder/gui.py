@@ -28,18 +28,39 @@ def _get_mod_options() -> List[dict]:
     mod_details.append([sg.T("Description:", p=(10, 10), font="_ 14 underline", text_color="orange")])
     mod_details.append([sg.T(textwrap.fill(mod.DESCRIPTION, 80), p=(10,0))])
     mod_details.append([sg.T("Options:", font="_ 14 underline", text_color="orange", p=(10, 10))])
-    if hasattr(mod, "OPTIONS"):
+    if hasattr(mod, "OPTIONS"): # TODO: this logic is quite nested and complicated
       for mod_option in mod.OPTIONS:
-        key = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}"
-        t = sg.T(f"{mod_option['name']}", p=(10,10))
-        td = sg.T(f"(default: {mod_option['default']}, min: {mod_option['min']}, max: {mod_option['max']})", font="_ 12", p=(0,0))
-        initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
-        if "min" in mod_option and "max" in mod_option and "increment" in mod_option:        
-          i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=(50,0))
+        if "title" in mod_option:
+          mod_details.append([sg.T(mod_option["title"])])
         else:
-          i = sg.Input(initial_value, size=6, k = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}", p=(50,10))
-        mod_details.append([t, td])
-        mod_details.append([i])
+          key = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}"
+          if "style" in mod_option:
+            mod_option_style = mod_option["style"]
+            if mod_option_style == "inline":
+              if isinstance(mod_option["initial"], bool):
+                t = sg.Checkbox(mod_option["name"], p=((30,10),(10,10)), k=key, default = mod_option["initial"])
+                mod_details.append([t])
+              else:
+                t = sg.T(f"{mod_option['name']}", p=((30,10),(10,10)))
+                td = sg.Input(mod_option["initial"], size=22, k=key)
+                mod_details.append([t, td])
+            elif mod_option_style == "list":
+              t = sg.T(f"{mod_option['name']}", p=((30,10),(10,10)))
+              td = sg.Combo(mod_option["initial"], k=key)
+              mod_details.append([t, td])
+          else:          
+            t = sg.T(f"{mod_option['name']}", p=(10,10))
+            if "default" in mod_option:
+              td = sg.T(f"(default: {mod_option['default']}, min: {mod_option['min']}, max: {mod_option['max']})", font="_ 12", p=(0,0))
+            else:
+              td = sg.T("")
+            initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
+            if "min" in mod_option and "max" in mod_option and "increment" in mod_option:        
+              i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=(50,0))
+            else:
+              i = sg.Input(initial_value, size=6, k = key, p=(50,10))
+            mod_details.append([t, td])
+            mod_details.append([i])
     else:
       mod_details.append([mod.get_option_elements()])
     if (hasattr(mod, "OPTIONS") and len(mod.OPTIONS) > 3) or not hasattr(mod, "OPTIONS"):
@@ -62,9 +83,11 @@ def _get_selected_mods(mods_selected: dict) -> None:
   return selected_mods
 
 def _valid_option_value(mod_option: dict, mod_value: any) -> str:
+  if mod_option == None or "min" not in mod_option: # TODO: defensive logic going on here
+    return None
   min_value = mod_option["min"]
   max_value = mod_option["max"]
-  mod_value = type(min_value)(mod_value)
+  mod_value = type(mod_option["initial"])(mod_value) if "initial" in mod_option else type(min_value)(mod_value)
   try:
     if mod_value >= min_value and mod_value <= max_value:
       return None
@@ -192,7 +215,7 @@ def main() -> None:
     elif event == "add_mod":
       mod_options = {}
       is_invalid = None
-      
+
       if hasattr(mod, "add_mod"):
         result = mod.add_mod(window, values)
         is_invalid = result["invalid"]
@@ -231,15 +254,15 @@ def main() -> None:
     elif event == "build_mod":
       mods.clear_mod()
       mod_files = []
-      for mod_key, mod_options in selected_mods.items():
-        mod = mods.get_mod(mod_key)
+      for selected_mod_key, mod_options in selected_mods.items():
+        mod = mods.get_mod(selected_mod_key)
         if hasattr(mod, "FILE"):
           modded_files = mods.copy_files_to_mod(mod.FILE)
         else:
           modded_files = mods.copy_all_files_to_mod(mod.get_files(mod_options))
         mod_files += modded_files
         mods.apply_mod(mod, mod_options)
-        if hasattr(mod, "merge_files"):
+        if hasattr(mod, "merge_files"): # TODO: all these possible paths should go into mods module
           mod.merge_files(modded_files)
         
       mods.merge_files(mod_files)
@@ -259,8 +282,8 @@ def main() -> None:
       if saved_mod:
         selected_mods = selected_mods | saved_mod if merge else saved_mod
         selected_mod_names = {}
-        for mod_key, mod_options in selected_mods.items():
-            selected_mod_names[mods.get_mod(mod_key).format(mod_options)] = mod_key
+        for loaded_mod_key, mod_options in selected_mods.items():
+            selected_mod_names[mods.get_mod(loaded_mod_key).format(mod_options)] = loaded_mod_key
         window["selected_mods"].update(_get_selected_mods(selected_mods))
         _enable_mod_button(window)     
         sg.PopupQuickMessage("Modifications Loaded", font="_ 28", background_color="brown")   
