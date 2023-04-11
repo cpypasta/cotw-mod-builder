@@ -184,9 +184,8 @@ def main() -> None:
         [sg.Frame(title="Modification", layout=[
           [sg.T("Type: ", p=((18, 10), (10,0)), font="_ 14 underline", text_color="orange"), sg.Combo(MOD_LIST, k="modification", metadata=mods.list_mod_files(), enable_events=True, p=((0, 30), (10, 0)))],
           [sg.Column(mod_options, p=(0,0), k="options")],
-          [sg.VPush()],
-          [sg.Push(), sg.Button("Add Modification", k="add_mod", button_color=f"{sg.theme_element_text_color()} on brown", disabled=True)]                    
-        ], expand_y=True)]
+        ], expand_y=True)],
+        [sg.Button("Add Modification", k="add_mod", button_color=f"{sg.theme_element_text_color()} on brown", disabled=True, expand_x=True)]
       ], k="mod_col", expand_y=True, p=((0,0), (10,0))),
       sg.Column([
         [sg.Frame("Selected Modifications", [
