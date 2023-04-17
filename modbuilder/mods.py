@@ -6,6 +6,7 @@ from deca.ff_adf import Adf
 from deca.ff_sarc import FileSarc
 
 APP_DIR_PATH = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
+LOOKUP_PATH = APP_DIR_PATH / "org/lookups"
 PLUGINS_FOLDER = "plugins"
 GLOBAL_SRC_PATH = "gdc/global.gdcc"
 GLOBAL_PATH = APP_DIR_PATH / "org" / GLOBAL_SRC_PATH
@@ -224,6 +225,26 @@ def load_dropzone() -> None:
     shutil.copytree(APP_DIR_PATH / "mod/dropzone", steam_path, dirs_exist_ok=True)
   else:
     raise Exception("Could not find game path to save mods!")
+
+def find_closest_lookup(desired_value: float, filename: str) -> int:
+  root, _ext = os.path.splitext(filename)
+  numbers = json.load((LOOKUP_PATH / f"{root}.json").open())["numbers"]
+  exact_match = None
+  for number, cell_index in numbers.items():
+    if float(number) == desired_value:
+      exact_match = int(cell_index)
+      break
+  if exact_match:
+    return exact_match
+  else:
+    closest_delta = 9999999
+    closest_match = None
+    for number, cell_index in numbers.items():
+      delta = abs(float(number) - desired_value)
+      if delta < closest_delta:
+        closest_match = int(cell_index)
+        closest_delta = delta
+    return closest_match
 
 # TODO: more flexible way to handle packaged files        
 GLOBAL_FILES = get_global_file_info() 

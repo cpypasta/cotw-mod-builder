@@ -13,7 +13,7 @@ def _repack(window: sg.Window):
   mod_widget = window["mod_col"].widget
   selected_widget = window["selected_col"].widget
   mod_pack_info = mod_widget.pack_info()
-  mod_pack_info.update({"expand": 0})
+  mod_pack_info.update({"expand": 0, "fill": "y"})
   mod_widget.pack(**mod_pack_info, before=selected_widget)
 
 def _mod_name_to_key(name: str) -> str:
@@ -36,6 +36,7 @@ def _get_mod_options() -> List[dict]:
           key = f"{mod_key}__{_mod_name_to_key(mod_option['name'])}"
           if "style" in mod_option:
             mod_option_style = mod_option["style"]
+            initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
             if mod_option_style == "inline":
               if isinstance(mod_option["initial"], bool):
                 t = sg.Checkbox(mod_option["name"], p=((30,10),(10,10)), k=key, default = mod_option["initial"])
@@ -48,6 +49,13 @@ def _get_mod_options() -> List[dict]:
               t = sg.T(f"{mod_option['name']}", p=((30,10),(10,10)))
               td = sg.Combo(mod_option["initial"], k=key)
               mod_details.append([t, td])
+            elif mod_option_style == "slider":
+              t = sg.T(f"{mod_option['name']}", p=((30,0),(10,10)))
+              note = f" ({mod_option['note']})" if "note" in mod_option else ""
+              n = sg.T(note, font="_ 12", p=(0,0))
+              td = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=((80,10),(0,10)))
+              mod_details.append([t, n])
+              mod_details.append([td])
           else:          
             t = sg.T(f"{mod_option['name']}", p=(10,10))
             if "default" in mod_option:
@@ -183,7 +191,7 @@ def main() -> None:
       sg.Column([
         [sg.Frame(title="Modification", layout=[
           [sg.T("Type: ", p=((18, 10), (10,0)), font="_ 14 underline", text_color="orange"), sg.Combo(MOD_LIST, k="modification", metadata=mods.list_mod_files(), enable_events=True, p=((0, 30), (10, 0)))],
-          [sg.Column(mod_options, p=(0,0), k="options")],
+          [sg.Column(mod_options, p=(0,0), k="options", expand_y=True)],
         ], expand_y=True)],
         [sg.Button("Add Modification", k="add_mod", button_color=f"{sg.theme_element_text_color()} on brown", disabled=True, expand_x=True)]
       ], k="mod_col", expand_y=True, p=((0,0), (10,0))),
@@ -197,7 +205,7 @@ def main() -> None:
     ]    
   ]
 
-  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1200, 840), finalize=True)
+  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1300, 840), finalize=True)
   _repack(window)
   
   while True:

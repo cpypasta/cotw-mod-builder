@@ -2,7 +2,9 @@
   "modify_atv": {
     "top_speed": "90",
     "acceleration": "medium",
-    "traction": "medium"
+    "traction": "medium",
+    "noise_distance": 100.0,
+    "vision_distance": 50.0
   },
   "decrease_hunting_pressure": {
     "decrease_pressure_radius": 128.0,
@@ -36,7 +38,7 @@
   },
   "increase_speed": {
     "stand_speed_multiplier": 1.8,
-    "crouch_speed_multiplier": 3.0,
+    "crouch_speed_multiplier": 2.6,
     "prone_speed_multiplier": 2.0
   },
   "increase_xp_reward": {
@@ -59,6 +61,6 @@
     "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_308_pt_01.ammotunec"
   },
   "enhanced_soft_feet": {
-    "soft_feet_percent": 100.0
+    "soft_feet_percent": 80.0
   }
 }
