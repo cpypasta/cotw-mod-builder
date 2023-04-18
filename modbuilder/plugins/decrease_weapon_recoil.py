@@ -55,7 +55,7 @@ def get_option_elements() -> sg.Column:
   layout = [[
     sg.TabGroup([[
       build_weapon_tab("Bow", weapons["bow"]),
-      build_weapon_tab("Hangun", weapons["handgun"]),
+      build_weapon_tab("Handgun", weapons["handgun"]),
       build_weapon_tab("Rifle", weapons["rifle"]),
       build_weapon_tab("Shotgun", weapons["shotgun"])
     ]], k="weapon_recoil_group")
