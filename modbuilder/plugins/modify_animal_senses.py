@@ -3,14 +3,15 @@ from modbuilder import mods
 
 DEBUG = False
 NAME = "Modify Animal Senses"
-DESCRIPTION = "Modify how animals sense and respond to you. The thresholds determine when the animal enters and exits various behavioral states."
+DESCRIPTION = "Modify how animals sense and respond to you. The thresholds determine when the animal enters and exits various behavioral states. The higher the threshold, the longer it takes to enter into that state."
 FILE = "settings/hp_settings/animal_senses.bin"
 OPTIONS = [
-  { "name": "Increase Attentiveness Threshold Percent", "min": 0, "max": 250, "default": 0, "increment": 25 },
-  { "name": "Increase Alert Threshold Percent", "min": 0, "max": 250, "default": 0, "increment": 25 },
-  { "name": "Increase Alarmed Threshold Percent", "min": 0, "max": 250, "default": 0, "increment": 25 },
-  { "name": "Increase Defensive Threshold Percent", "min": 0, "max": 250, "default": 0, "increment": 25 },
-  { "name": "Reduce Nervous Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 }
+  { "name": "Increase Attentiveness Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
+  { "name": "Increase Alert Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
+  { "name": "Increase Alarmed Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
+  { "name": "Increase Defensive Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
+  { "name": "Reduce Nervous Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 },
+  { "name": "Reduce Defensive Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 }
 ]
 
 def format(options: dict) -> str:
@@ -18,15 +19,16 @@ def format(options: dict) -> str:
   alert_percent = int(options['increase_alert_threshold_percent'])
   alarmed_percent = int(options['increase_alarmed_threshold_percent'])
   defensive_percent = int(options['increase_defensive_threshold_percent'])
-  spook_percent = int(options['reduce_nervous_duration_percent'])
-  return f"Modify Animal Senses ({attentive_percent}%, {alert_percent}%, {alarmed_percent}%, {defensive_percent}%, {spook_percent}%)"
+  return f"Modify Animal Senses ({attentive_percent}%, {alert_percent}%, {alarmed_percent}%, {defensive_percent}%)"
 
 def update_values_at_offset(options: dict) -> List[dict]:
   attentive_percent = 1 + options['increase_attentiveness_threshold_percent'] / 100
   alert_percent = 1 + options['increase_alert_threshold_percent'] / 100
   alarmed_percent = 1 + options['increase_alarmed_threshold_percent'] / 100
   defensive_percent = 1 + options['increase_defensive_threshold_percent'] / 100
-  spook_percent = 1 - options['reduce_nervous_duration_percent'] / 100
+  nervous_duration_percent = 1 - options['reduce_nervous_duration_percent'] / 100
+  default_defensive_duration_percent = options['reduce_defensive_duration_percent'] if "reduce_defensive_duration_percent" in options else 0
+  defensive_duration_percent = 1 - default_defensive_duration_percent / 100
   
   nervous_min = 600.0
   nervous_max = 900.0
@@ -34,12 +36,12 @@ def update_values_at_offset(options: dict) -> List[dict]:
   defensive_min = 23.0
   defensive_max_easy = 22.0
   defensive_max = 27.0
-  new_nervous_min = float(round(nervous_min * spook_percent))
-  new_nervous_max = float(round(nervous_max * spook_percent))
-  new_defensive_min_easy = float(round(defensive_min_easy * spook_percent))
-  new_defensive_min = float(round(defensive_min * spook_percent))
-  new_defensive_max_easy = float(round(defensive_max_easy * spook_percent))
-  new_defensive_max = float(round(defensive_max * spook_percent))
+  new_nervous_min = float(round(nervous_min * nervous_duration_percent))
+  new_nervous_max = float(round(nervous_max * nervous_duration_percent))
+  new_defensive_min_easy = float(round(defensive_min_easy * defensive_duration_percent))
+  new_defensive_min = float(round(defensive_min * defensive_duration_percent))
+  new_defensive_max_easy = float(round(defensive_max_easy * defensive_duration_percent))
+  new_defensive_max = float(round(defensive_max * defensive_duration_percent))
   new_defensive_min_easy_cell = mods.find_closest_lookup(new_defensive_min_easy, FILE)
   new_defensive_min_cell = mods.find_closest_lookup(new_defensive_min, FILE)
   new_defensive_max_easy_cell = mods.find_closest_lookup(new_defensive_max_easy, FILE)

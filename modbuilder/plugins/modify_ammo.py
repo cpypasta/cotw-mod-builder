@@ -88,9 +88,7 @@ def get_option_elements() -> sg.Column:
   return sg.Column(layout)
 
 def add_mod(window: sg.Window, values: dict) -> dict:
-  ammo = get_ammo()
   active_tab = window["ammo_group"].find_currently_active_tab_key().lower()  
-  
   ammo_name = values[f"{active_tab}_ammo"]
   
   if not ammo_name:
@@ -98,6 +96,7 @@ def add_mod(window: sg.Window, values: dict) -> dict:
       "invalid": "Please select an ammo first"
     }
   
+  ammo = get_ammo()
   kinetic_energy = values[f"{active_tab}_kinetic_energy"]
   penetration = values[f"{active_tab}_penetration"]
   expansion = values[f"{active_tab}_expansion"]

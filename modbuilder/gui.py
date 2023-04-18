@@ -275,6 +275,7 @@ def main() -> None:
       mods.merge_files(mod_files)
       mods.package_mod()
       selected_mods = {}
+      selected_mod_names = {}
       window["selected_mods"].update(_get_selected_mods(selected_mods))
       _enable_mod_button(window)
       window["remove_mod"].update(disabled=True)

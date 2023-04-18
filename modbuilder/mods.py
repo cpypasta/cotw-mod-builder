@@ -118,11 +118,12 @@ def update_file_at_offsets(src_filename: Path, offsets: List[int], value: any, t
         if isinstance(value, str):
           fp.write(struct.pack(f"{len(value)}s", value.encode("utf-8")))      
         elif isinstance(value, float):
+          new_value = value
           if transform == "multiply":
             existing_value = struct.unpack('f', fp.read(4))[0]
-            value = value * existing_value
+            new_value = value * existing_value
             fp.seek(offset)
-          fp.write(struct.pack("f", value))
+          fp.write(struct.pack("f", new_value))
         elif isinstance(value, int):
           fp.write(struct.pack("i", value))
       fp.flush()  
