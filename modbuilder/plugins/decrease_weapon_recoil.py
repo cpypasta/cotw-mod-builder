@@ -47,7 +47,7 @@ def build_weapon_tab(weapon_type: str, weapons: List[dict]) -> sg.Tab:
     [sg.Combo(weapon_names, p=((10,0),(20,10)), k=f"{type_key}_weapon")],
     [sg.T("Decrease Recoil Percentage:")],
     [sg.Slider((0,100), 0, 2, orientation="h", p=((50,0),(0,20)), k=f"{type_key}_recoil_percent")]
-  ])
+  ], k=f"{weapon_type}_recoil_tab")
 
 def get_option_elements() -> sg.Column:
   weapons = load_weapons()
@@ -65,6 +65,7 @@ def get_option_elements() -> sg.Column:
 
 def add_mod(window: sg.Window, values: dict) -> dict:
   active_tab = window["weapon_recoil_group"].find_currently_active_tab_key().lower() 
+  active_tab = active_tab.split("_")[0]
   weapon_name = values[f"{active_tab}_weapon"]
   if not weapon_name:
     return {

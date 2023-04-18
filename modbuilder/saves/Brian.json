@@ -46,9 +46,9 @@
   },
   "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec": {
     "name": "338 Polymer Tip",
-    "kinetic_energy": 40.0,
-    "penetration": 50.0,
-    "expansion": 30.0,
+    "kinetic_energy": 0.0,
+    "penetration": 40.0,
+    "expansion": 60.0,
     "damage": 0.0,
     "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec"
   },
@@ -62,5 +62,15 @@
   },
   "enhanced_soft_feet": {
     "soft_feet_percent": 80.0
+  },
+  "weapon_magazine_.338 Bolt Action Rifle 01 (SAKO TRG 42/TSURUGI LRR) (5)": {
+    "weapon_name": ".338 Bolt Action Rifle 01 (SAKO TRG 42/TSURUGI LRR)",
+    "weapon_mag_size": 8,
+    "weapon_mag_offset": 245998
+  },
+  "weapon_recoil_Ba Rifle 338 01": {
+    "name": "Ba Rifle 338 01",
+    "recoil_percent": 20,
+    "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_ba_rifle_338_01.wtunec"
   }
 }

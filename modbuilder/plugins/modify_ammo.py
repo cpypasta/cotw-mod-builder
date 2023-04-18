@@ -71,7 +71,7 @@ def build_tab(ammo_type: str, ammo: List[str]) -> sg.Tab:
       [sg.T("Increase Damage Percent", p=(0, 8))],
       [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,10)), k=f"{type_key}_damage")]                      
     ])]
-  ])  
+  ], k=f"{ammo_type}_ammo_tab")  
         
 def get_option_elements() -> sg.Column:
   ammo = get_ammo()
@@ -89,6 +89,7 @@ def get_option_elements() -> sg.Column:
 
 def add_mod(window: sg.Window, values: dict) -> dict:
   active_tab = window["ammo_group"].find_currently_active_tab_key().lower()  
+  active_tab = active_tab.split("_")[0]
   ammo_name = values[f"{active_tab}_ammo"]
   
   if not ammo_name:
