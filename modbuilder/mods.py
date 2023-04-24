@@ -3,7 +3,8 @@ from typing import List
 from pathlib import Path
 from deca.file import ArchiveFile
 from deca.ff_adf import Adf
-from deca.ff_sarc import FileSarc
+from deca.ff_sarc import FileSarc, EntrySarc
+from modbuilder.adf_profile import *
 
 APP_DIR_PATH = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
 LOOKUP_PATH = APP_DIR_PATH / "org/lookups"
@@ -106,8 +107,11 @@ def copy_all_files_to_mod(filenames: List[str]) -> List[str]:
     copy_file_to_mod(filename)
   return filenames
 
-def update_file_at_offsets(src_filename: Path, offsets: List[int], value: any, transform: str = None, format: str = None) -> None:
-  dest_path = APP_DIR_PATH / "mod/dropzone" / src_filename  
+def get_modded_file(src_filename: str) -> Path:
+  return APP_DIR_PATH / "mod/dropzone" / src_filename  
+
+def update_file_at_offsets(src_filename: str, offsets: List[int], value: any, transform: str = None, format: str = None) -> None:
+  dest_path = get_modded_file(src_filename) 
   with open(dest_path, "r+b") as fp:
     for offset in offsets:
       fp.seek(offset)
@@ -125,10 +129,15 @@ def update_file_at_offsets(src_filename: Path, offsets: List[int], value: any, t
             fp.seek(offset)
           fp.write(struct.pack("f", new_value))
         elif isinstance(value, int):
-          fp.write(struct.pack("i", value))
+          new_value = value
+          if transform == "add":
+            existing_value = struct.unpack("i", fp.read(4))[0]
+            new_value = value + existing_value
+            fp.seek(offset)
+          fp.write(struct.pack("i", new_value))
       fp.flush()  
 
-def update_file_at_offset(src_filename: Path, offset: int, value: any, transform: str = None, format: str = None) -> None:
+def update_file_at_offset(src_filename: str, offset: int, value: any, transform: str = None, format: str = None) -> None:
   update_file_at_offsets(src_filename, [offset], value, transform, format)
 
 def apply_mod(mod: any, options: dict) -> None:
@@ -150,14 +159,21 @@ def get_global_file_info() -> dict:
       global_files[item.v_path.decode("utf-8")] = offset
   return global_files
 
-def get_sarc_file_info(filename: Path) -> dict:
+def get_sarc_file_info(filename: Path, include_details: bool = False) -> dict:
   bundle_files = {}
   sarc = FileSarc()
   with filename.open("rb") as fp:
     sarc.header_deserialize(fp)
     for sarc_file in sarc.entries:
-      bundle_files[sarc_file.v_path.decode("utf-8")] = sarc_file.offset
+      bundle_files[sarc_file.v_path.decode("utf-8")] = sarc_file if include_details else sarc_file.offset
   return bundle_files  
+
+def get_sarc_file_info_details(bundle_file: Path, filename: str) -> EntrySarc:
+  sarc_info = get_sarc_file_info(bundle_file, True)
+  for file, info in sarc_info.items():
+    if file == filename:
+      return info
+  return None
 
 def get_player_file_info(filename: Path) -> dict:
   return get_sarc_file_info(filename)
@@ -171,7 +187,7 @@ def is_file_in_global(filename: str) -> bool:
 def is_file_in_bundle(filename: str, lookup: dict) -> bool:
   return filename in lookup.keys()
 
-def merge_into_file(filename: str, merge_path: str, merge_lookup: dict, delete_src: bool = False) -> None:
+def merge_into_archive(filename: str, merge_path: str, merge_lookup: dict, delete_src: bool = False) -> None:
   src_path = APP_DIR_PATH / "mod/dropzone" / filename
   mod_merge_path = APP_DIR_PATH / "mod/dropzone" / merge_path
   copy_files_to_mod(merge_path)
@@ -183,17 +199,49 @@ def merge_into_file(filename: str, merge_path: str, merge_lookup: dict, delete_s
   if delete_src:
     src_path.unlink()
 
+def expand_into_archive(filename: str, merge_path: str) -> None:
+  src_path = APP_DIR_PATH / "mod/dropzone" / filename
+  mod_merge_path = APP_DIR_PATH / "mod/dropzone" / merge_path  
+  copy_files_to_mod(merge_path)
+  archive_info = get_sarc_file_info(mod_merge_path, True)
+  offsets_to_update = []
+  old_file_size = None
+  new_file_size = len(src_path.read_bytes())
+  file_offset = None
+  file_length_offset = None
+  prev_offset = None
+  for file, sarc_entry in archive_info.items():
+    if file == filename:
+      file_offset = sarc_entry.offset
+      file_length_offset = sarc_entry.META_entry_size_ptr
+    if file_offset != None and prev_offset == file_offset:
+      old_file_size = sarc_entry.offset - file_offset
+    if file_offset and sarc_entry.offset > file_offset:
+      offsets_to_update.append((file, sarc_entry.META_entry_offset_ptr, sarc_entry.offset + (new_file_size - old_file_size)))
+    prev_offset = sarc_entry.offset
+    
+  merge_bytes = bytearray(mod_merge_path.read_bytes())  
+  for file_to_update in offsets_to_update:
+    merge_bytes[file_to_update[1]:file_to_update[1]+4] = create_u32(file_to_update[2])
+ 
+  filename_bytes = bytearray(src_path.read_bytes())
+  merge_bytes[file_length_offset:file_length_offset+4] = create_u32(new_file_size)
+  del merge_bytes[file_offset:file_offset+old_file_size]
+  merge_bytes[file_offset:file_offset] = filename_bytes
+  mod_merge_path.write_bytes(merge_bytes)
+  
+
 def merge_files(filenames: List[str]) -> None:
   filenames = [*set(filenames)]
   for filename in filenames:
     if is_file_in_global(filename):
-      merge_into_file(filename, GLOBAL_SRC_PATH, GLOBAL_FILES, True)
+      merge_into_archive(filename, GLOBAL_SRC_PATH, GLOBAL_FILES, True)
     if is_file_in_bundle(filename, LOCAL_PLAYER_FILES):
-      merge_into_file(filename, ELMER_MOVEMENT_LOCAL_SRC_PATH, LOCAL_PLAYER_FILES)
+      merge_into_archive(filename, ELMER_MOVEMENT_LOCAL_SRC_PATH, LOCAL_PLAYER_FILES)
     if is_file_in_bundle(filename, NETWORK_PLAYER_FILES):
-      merge_into_file(filename, ELMER_MOVEMENT_NETWORK_SRC_PATH, NETWORK_PLAYER_FILES)
+      merge_into_archive(filename, ELMER_MOVEMENT_NETWORK_SRC_PATH, NETWORK_PLAYER_FILES)
     if is_file_in_bundle(filename, GLOBAL_ANIMAL_FILES):
-      merge_into_file(filename, GLOBAL_ANIMALS_SRC_PATH, GLOBAL_ANIMAL_FILES)
+      merge_into_archive(filename, GLOBAL_ANIMALS_SRC_PATH, GLOBAL_ANIMAL_FILES)
 
 def package_mod() -> None:
   for p in list(Path(APP_DIR_PATH / "mod").glob("**/*")):
@@ -247,6 +295,29 @@ def find_closest_lookup(desired_value: float, filename: str) -> int:
         closest_delta = delta
     return closest_match
 
+def update_non_instance_offsets(data: bytearray, profile: dict, added_size: int) -> None:
+  offsets_to_update = [
+    (profile["header_instance_offset"], profile["instance_header_start"]),
+    (profile["header_typedef_offset"], profile["typedef_start"]),
+    (profile["header_stringhash_offset"], profile["stringhash_start"]),
+    (profile["header_nametable_offset"], profile["nametable_start"]),
+    (profile["header_total_size_offset"], profile["total_size"]),
+    (profile["instance_header_start"]+12, profile["details"]["instance_offsets"]["instances"][0]["size"])
+  ]
+  for offset in offsets_to_update:
+    write_value(data, create_u32(offset[1] + added_size), offset[0])
+
+def insert_array_data(file: Path, new_data: bytearray, header_offset: int, data_offset: int, array_length: int, old_data_size: int = None) -> None:
+  modded_file = get_modded_file(file)
+  profile = create_profile(modded_file)
+  data = bytearray(modded_file.read_bytes())
+  update_non_instance_offsets(data, profile, array_length-old_data_size)
+  write_value(data, create_u32(array_length), header_offset+8)
+  if old_data_size:
+    del data[data_offset:data_offset+old_data_size]
+  data[data_offset:data_offset] = new_data
+  modded_file.write_bytes(data)
+  
 # TODO: more flexible way to handle packaged files        
 GLOBAL_FILES = get_global_file_info() 
 LOCAL_PLAYER_FILES = get_player_file_info(ELMER_MOVEMENT_LOCAL_PATH)

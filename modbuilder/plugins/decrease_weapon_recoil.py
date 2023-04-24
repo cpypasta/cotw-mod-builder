@@ -125,7 +125,7 @@ def merge_files(files: List[str]) -> None:
     bundle_files = find_archive_files(archives, file)
     for bundle_file in bundle_files:
       bundle_lookup = mods.get_sarc_file_info(mods.APP_DIR_PATH / "org" / bundle_file)
-      mods.merge_into_file(file, bundle_file, bundle_lookup)
+      mods.merge_into_archive(file, bundle_file, bundle_lookup)
 
 def process(options: dict) -> None:
   recoil_multiplier = 1 - options["recoil_percent"] / 100

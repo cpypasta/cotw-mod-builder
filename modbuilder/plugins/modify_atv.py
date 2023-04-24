@@ -225,5 +225,5 @@ def merge_files(files: List[str]) -> None:
     bundle_lookup = mods.get_sarc_file_info(mods.APP_DIR_PATH / "org" / bundle_file)
     for file in files:
       if file != NOISE_PATH:
-        mods.merge_into_file(file, str(bundle_file), bundle_lookup)
+        mods.merge_into_archive(file, str(bundle_file), bundle_lookup)
   

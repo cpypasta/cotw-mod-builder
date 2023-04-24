@@ -1,11 +1,13 @@
 from typing import List
 from modbuilder import mods
+from modbuilder.adf_profile import create_u8, read_u32
 from pathlib import Path
+from deca.ff_sarc import FileSarc
 import PySimpleGUI as sg
 import re, os
 
 NAME = "Modify Ammo"
-DESCRIPTION = "Modify ammo kinetic energy, penetration, expansion, and damage. It is easy to over-adjust these settings, and then the ammo becomes unrealistic."
+DESCRIPTION = "Modify ammo attributes. It is easy to over-adjust these settings, and then the ammo becomes unrealistic."
 
 def format_name(name: str) -> str:
   return " ".join([x.capitalize() for x in name.split("_")])
@@ -59,18 +61,26 @@ def get_ammo() -> dict:
 
 def build_tab(ammo_type: str, ammo: List[str]) -> sg.Tab:
   type_key = ammo_type.lower()
-  return sg.Tab(ammo_type, [
-    [sg.Combo(ammo, p=((10,0),(10,10)), k=f"{type_key}_ammo")],
-    [sg.Column([
+  layout = [
       [sg.T("Increase Kinetic Energy Percent")],
       [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_kinetic_energy")],
       [sg.T("Increase Penetration Percent", p=(0, 8))],
-      [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_penetration")],
+      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_penetration")],
       [sg.T("Increase Expansion Percent", p=(0, 8))],
-      [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_expansion")],
+      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_expansion")],
       [sg.T("Increase Damage Percent", p=(0, 8))],
-      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,10)), k=f"{type_key}_damage")]                      
-    ])]
+      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,10)), k=f"{type_key}_damage")],
+      [sg.T("Increase Mass Percent", p=(0, 8))],
+      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,10)), k=f"{type_key}_mass")],
+      [sg.T("Increase Projecticle Number", p=(0, 8)) if type_key == "shotgun" else sg.T("", visible=False)],
+      [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,10)), k=f"{type_key}_projectiles") if type_key == "shotgun" else sg.T("", visible=False)],
+      [sg.T("Classes", p=(0, 8)), sg.T("(select one or more)", font="_ 12")],        
+      [sg.Listbox(list(range(1,10)), s=(None, 5), k=f"{type_key}_classes", select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE, p=((50,0),(0,0)))]             
+    ]
+  
+  return sg.Tab(ammo_type, [
+    [sg.Combo(ammo, p=((10,0),(10,10)), k=f"{type_key}_ammo")],
+    [sg.Column(layout)]
   ], k=f"{ammo_type}_ammo_tab")  
         
 def get_option_elements() -> sg.Column:
@@ -102,6 +112,9 @@ def add_mod(window: sg.Window, values: dict) -> dict:
   penetration = values[f"{active_tab}_penetration"]
   expansion = values[f"{active_tab}_expansion"]
   damage = values[f"{active_tab}_damage"]
+  mass = values[f"{active_tab}_mass"]
+  projectiles = values[f"{active_tab}_projectiles"] if f"{active_tab}_projectiles" in values else 0 
+  classes = values[f"{active_tab}_classes"]
   ammo_index = ammo[active_tab]["ammo"].index(ammo_name)
   file = ammo[active_tab]["files"][ammo_index]
   
@@ -114,6 +127,9 @@ def add_mod(window: sg.Window, values: dict) -> dict:
       "penetration": penetration,
       "expansion": expansion,
       "damage": damage,
+      "mass": mass,
+      "projectiles": projectiles,
+      "classes": classes,
       "file": file
     }
   }
@@ -132,11 +148,19 @@ def handle_key(mod_key: str) -> bool:
 def get_files(options: dict) -> List[str]:
   return [options["file"]]
 
+def get_bundle_file(file: str) -> Path:
+  return Path(file).parent / f"{Path(file).name.split('.')[0]}.ee"
+
 def merge_files(files: List[str]) -> None:
   for file in files:
-    bundle_file = Path(file).parent / f"{Path(file).name.split('.')[0]}.ee"
-    bundle_lookup = mods.get_sarc_file_info(mods.APP_DIR_PATH / "org" / bundle_file)
-    mods.merge_into_file(file, str(bundle_file), bundle_lookup)
+    bundle_file = get_bundle_file(file)
+    mods.expand_into_archive(file, str(bundle_file))
+
+def create_classes(classes: List[int]):
+  result = bytearray()
+  for c in classes:
+    result += create_u8(c)
+  return result
 
 def process(options: dict) -> None:
   kinetic_energy = 1 + options["kinetic_energy"] / 100
@@ -144,10 +168,22 @@ def process(options: dict) -> None:
   damage = 1 + options["damage"] / 100
   expansion_rate = 1 - options["expansion"] / 100
   max_expansion = 1 + options["expansion"] / 100
+  mass = 1 + options["mass"] / 100 if "mass" in options else 0
+  projectiles = int(options["projectiles"]) if "projectiles" in options else 0
+  classes = options["classes"] if "classes" in options else []
   file = options["file"]
   
-  mods.update_file_at_offset(Path(file), 184, kinetic_energy, "multiply")
-  mods.update_file_at_offset(Path(file), 192, penetration, "multiply")
-  mods.update_file_at_offset(Path(file), 196, damage, "multiply")
-  mods.update_file_at_offset(Path(file), 200, expansion_rate, "multiply")
-  mods.update_file_at_offset(Path(file), 208, max_expansion, "multiply")
+  mods.update_file_at_offset(file, 184, kinetic_energy, "multiply")
+  mods.update_file_at_offset(file, 188, mass, "multiply")
+  mods.update_file_at_offset(file, 192, penetration, "multiply")
+  mods.update_file_at_offset(file, 196, damage, "multiply")
+  mods.update_file_at_offset(file, 200, expansion_rate, "multiply")
+  mods.update_file_at_offset(file, 208, max_expansion, "multiply")
+  mods.update_file_at_offset(file, 212, projectiles, "add")
+  
+  if len(classes) > 0:
+    header_offset = 152
+    data_offset = 264
+    file_data = mods.get_modded_file(file).read_bytes()
+    old_data_size = read_u32(file_data[header_offset+8:header_offset+12])
+    mods.insert_array_data(file, create_classes(classes), header_offset, data_offset, array_length=len(classes), old_data_size=old_data_size)
