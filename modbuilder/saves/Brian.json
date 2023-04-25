@@ -46,5 +46,11 @@
   },
   "enhanced_soft_feet": {
     "soft_feet_percent": 80.0
+  },
+  "enhanced_fatal_attraction": {
+    "increase_caller_attraction_percent": 1000.0
+  },
+  "enhanced_haggle": {
+    "haggle_percent": 50.0
   }
 }
