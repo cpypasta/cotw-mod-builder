@@ -270,7 +270,7 @@ def main() -> None:
         mod_files += modded_files
         mods.apply_mod(mod, mod_options)
         if hasattr(mod, "merge_files"): # TODO: all these possible paths should go into mods module
-          mod.merge_files(modded_files)
+          mod.merge_files(modded_files, mod_options)
         
       mods.merge_files(mod_files)
       mods.package_mod()

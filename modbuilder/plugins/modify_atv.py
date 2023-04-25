@@ -220,7 +220,7 @@ def process(options: dict) -> None:
       for offset in one_index_offset:
         mods.update_file_at_offset(NOISE_PATH, offset, cell_index["0"])
 
-def merge_files(files: List[str]) -> None:
+def merge_files(files: List[str], options: dict) -> None:
   for bundle_file in [RED_MERGE_PATH, SILVER_MERGE_PATH, JADE_MERGE_PATH]:
     bundle_lookup = mods.get_sarc_file_info(mods.APP_DIR_PATH / "org" / bundle_file)
     for file in files:

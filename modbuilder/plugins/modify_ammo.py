@@ -7,7 +7,7 @@ import PySimpleGUI as sg
 import re, os
 
 NAME = "Modify Ammo"
-DESCRIPTION = "Modify ammo attributes. It is easy to over-adjust these settings, and then the ammo becomes unrealistic."
+DESCRIPTION = "Modify ammo attributes. It is easy to over-adjust these settings, and then the ammo becomes unrealistic. The class changes do not show in the UI, but they do change harvest integrity."
 
 def format_name(name: str) -> str:
   return " ".join([x.capitalize() for x in name.split("_")])
@@ -75,7 +75,7 @@ def build_tab(ammo_type: str, ammo: List[str]) -> sg.Tab:
       [sg.T("Increase Projecticle Number", p=(0, 8)) if type_key == "shotgun" else sg.T("", visible=False)],
       [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,10)), k=f"{type_key}_projectiles") if type_key == "shotgun" else sg.T("", visible=False)],
       [sg.T("Classes", p=(0, 8)), sg.T("(select one or more)", font="_ 12")],        
-      [sg.Listbox(list(range(1,10)), s=(None, 5), k=f"{type_key}_classes", select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE, p=((50,0),(0,0)))]             
+      [sg.Listbox(list(range(1,10)), s=(None, 5), k=f"{type_key}_classes", select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE, p=((50,0),(0,20)))]             
     ]
   
   return sg.Tab(ammo_type, [
@@ -151,7 +151,7 @@ def get_files(options: dict) -> List[str]:
 def get_bundle_file(file: str) -> Path:
   return Path(file).parent / f"{Path(file).name.split('.')[0]}.ee"
 
-def merge_files(files: List[str]) -> None:
+def merge_files(files: List[str], options: dict) -> None:
   for file in files:
     bundle_file = get_bundle_file(file)
     mods.expand_into_archive(file, str(bundle_file))

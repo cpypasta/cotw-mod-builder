@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 import re, os
 
 NAME = "Decrease Weapon Recoil"
-DESCRIPTION = "Decrease the amount of recoil for all weapons. The weapon names are what is stored in the configuration files, so sorry if they are a bit confusing."
+DESCRIPTION = "Decrease the amount of recoil for all weapons. The weapon names are stored in the configuration files, so sorry if they are a bit confusing."
 
 def format_name(name: str) -> str:
   return " ".join([x.capitalize() for x in name.split("_")])
@@ -118,7 +118,7 @@ def find_archive_files(archive_files: dict, file: str) -> str:
       found_archives.append(os.path.relpath(archive, mods.APP_DIR_PATH / "org"))
   return found_archives
 
-def merge_files(files: List[str]) -> None:
+def merge_files(files: List[str], options: dict) -> None:
   base_path = mods.APP_DIR_PATH / "org" / Path(files[0]).parent.parent
   archives = load_archive_files(base_path)
   for file in files:
