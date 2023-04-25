@@ -45,8 +45,10 @@ def load_scopes() -> List[Scope]:
   base_path = mods.APP_DIR_PATH / "org/editor/entities/hp_weapons/sights"
   for folder in os.listdir(base_path):
     if zoomable_scope.match(folder):
-      scope_file = Path("editor/entities/hp_weapons/sights") / Path(folder) / f"equipment_sight_{folder}.sighttunec"
-      bundle_file = Path("editor/entities/hp_weapons/sights") / Path(folder) / f"equipment_sight_{folder}.ee"
+      sight_file = list((base_path / folder).glob("*.sighttunec"))[0]
+      ee_file = list((base_path / folder).glob("*.ee"))[0]
+      scope_file = os.path.relpath(sight_file, mods.APP_DIR_PATH / "org")
+      bundle_file = os.path.relpath(ee_file, mods.APP_DIR_PATH / "org")
       scopes.append(Scope(scope_file, bundle_file, map_scope_name(folder)))
   return sorted(scopes, key=lambda x: x.name)
 
