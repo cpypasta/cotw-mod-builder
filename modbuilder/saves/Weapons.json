@@ -1,0 +1,137 @@
+{
+  "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_300wby_pt_01.ammotunec": {
+    "name": "300wby Polymer Tip",
+    "kinetic_energy": 0.0,
+    "penetration": 30.0,
+    "expansion": 100.0,
+    "damage": 30.0,
+    "mass": 0.0,
+    "projectiles": 0,
+    "classes": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_300wby_pt_01.ammotunec"
+  },
+  "weapon_magazine_.300 Bolt-Action Rifle wby 01 (4)": {
+    "weapon_name": ".300 Bolt-Action Rifle wby 01",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 246518
+  },
+  "weapon_magazine_.300 Bolt-Action Rifle wby 02 (4)": {
+    "weapon_name": ".300 Bolt-Action Rifle wby 02",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 230698
+  },
+  "weapon_magazine_.300 Bolt-Action Rifle wby 03 (4)": {
+    "weapon_name": ".300 Bolt-Action Rifle wby 03",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 228614
+  },
+  "weapon_magazine_.300 Bolt-Action Rifle wby 04 (4)": {
+    "weapon_name": ".300 Bolt-Action Rifle wby 04",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 244962
+  },
+  "weapon_recoil_Rifles 300 Wby": {
+    "name": "Rifles 300 Wby",
+    "recoil_percent": 60,
+    "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_rifles_300_wby.wtunec"
+  },
+  "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_308_pt_01.ammotunec": {
+    "name": "308 Polymer Tip",
+    "kinetic_energy": 0.0,
+    "penetration": 30.0,
+    "expansion": 100.0,
+    "damage": 30.0,
+    "mass": 0.0,
+    "projectiles": 0,
+    "classes": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_308_pt_01.ammotunec"
+  },
+  "weapon_recoil_Sa Rifle Ar10 308": {
+    "name": "Sa Rifle Ar10 308",
+    "recoil_percent": 60,
+    "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_sa_rifle_ar10_308.wtunec"
+  },
+  "weapon_magazine_AR10 308 20GA Skin 1 (5)": {
+    "weapon_name": "AR10 308 20GA Skin 1",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 234206
+  },
+  "weapon_magazine_AR10 308 20GA Skin 2 (5)": {
+    "weapon_name": "AR10 308 20GA Skin 2",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 247034
+  },
+  "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec": {
+    "name": "338 Polymer Tip",
+    "kinetic_energy": 0.0,
+    "penetration": 30.0,
+    "expansion": 100.0,
+    "damage": 30.0,
+    "mass": 0.0,
+    "projectiles": 0,
+    "classes": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec"
+  },
+  "weapon_magazine_.338 Bolt Action Rifle 01 (SAKO TRG 42/TSURUGI LRR) (5)": {
+    "weapon_name": ".338 Bolt Action Rifle 01 (SAKO TRG 42/TSURUGI LRR)",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 245998
+  },
+  "weapon_recoil_Ba Rifle 338 01": {
+    "name": "Ba Rifle 338 01",
+    "recoil_percent": 60,
+    "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_ba_rifle_338_01.wtunec"
+  },
+  "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_7mm_pt_01.ammotunec": {
+    "name": "7mm Polymer Tip",
+    "kinetic_energy": 0.0,
+    "penetration": 30.0,
+    "expansion": 100.0,
+    "damage": 30.0,
+    "mass": 0.0,
+    "projectiles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_7mm_pt_01.ammotunec"
+  },
+  "weapon_magazine_7mm Bolt Action Rifle 01 (700 SPS/MALMER) (3)": {
+    "weapon_name": "7mm Bolt Action Rifle 01 (700 SPS/MALMER)",
+    "weapon_mag_size": 10,
+    "weapon_mag_offset": 202446
+  },
+  "weapon_recoil_Ba Rifle 7mm 01": {
+    "name": "Ba Rifle 7mm 01",
+    "recoil_percent": 60,
+    "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_ba_rifle_7mm_01.wtunec"
+  }
+}

@@ -58,13 +58,13 @@ def get_option_elements() -> sg.Column:
     [sg.T("Level 1:")],
     [sg.Slider((1, 30), 1.0, 0.5, orientation="h", k="scope_level_1", p=((10,0),(0,10)))],    
     [sg.T("Level 2:")],
-    [sg.Slider((2, 30), 2, 0.5, orientation="h", k="scope_level_2", p=((10,0),(0,10)))],    
+    [sg.Slider((2, 30), 2.0, 0.5, orientation="h", k="scope_level_2", p=((10,0),(0,10)))],    
     [sg.T("Level 3:")],
-    [sg.Slider((2.5, 30), 2.5, 0.5, orientation="h", k="scope_level_3", p=((10,0),(0,10)))],    
+    [sg.Slider((3, 30), 3.0, 0.5, orientation="h", k="scope_level_3", p=((10,0),(0,10)))],    
     [sg.T("Level 4:")],
-    [sg.Slider((3.5, 30), 3.5, 0.5, orientation="h", k="scope_level_4", p=((10,0),(0,10)))],    
+    [sg.Slider((4, 30), 4.0, 0.5, orientation="h", k="scope_level_4", p=((10,0),(0,10)))],    
     [sg.T("Level 5:")],
-    [sg.Slider((4, 30), 4.0, 0.5, orientation="h", k="scope_level_5", p=((10,0),(0,10)))]
+    [sg.Slider((5, 30), 5.0, 0.5, orientation="h", k="scope_level_5", p=((10,0),(0,10)))]
   ])
 
 def add_mod(window: sg.Window, values: dict) -> dict:
@@ -86,9 +86,9 @@ def add_mod(window: sg.Window, values: dict) -> dict:
     "key": f"modify_scope_{scope_name}",
     "invalid": None,
     "options": {
-      "scope_name": scope_name,
-      "scope_file": str(selected_scope.file),
-      "scope_bundle_file": str(selected_scope.bundle_file),
+      "name": scope_name,
+      "file": str(selected_scope.file),
+      "bundle_file": str(selected_scope.bundle_file),
       "level_1": level_1,
       "level_2": level_2,
       "level_3": level_3,
@@ -98,17 +98,17 @@ def add_mod(window: sg.Window, values: dict) -> dict:
   }
 
 def format(options: dict) -> str:
-  return f"{options['scope_name']} ({options['level_1']},{options['level_2']},{options['level_3']},{options['level_4']},{options['level_5']})"
+  return f"{options['name']} ({options['level_1']},{options['level_2']},{options['level_3']},{options['level_4']},{options['level_5']})"
 
 def handle_key(mod_key: str) -> bool:
   return mod_key.startswith("modify_scope")
 
 def get_files(options: dict) -> List[str]:
-  return [options["scope_file"]]
+  return [options["file"]]
 
 def merge_files(files: List[str], options: dict) -> None:
-  lookup = mods.get_sarc_file_info(mods.APP_DIR_PATH / "org" / options["scope_bundle_file"])
-  mods.merge_into_archive(options["scope_file"].replace("\\", "/"), options["scope_bundle_file"], lookup)
+  lookup = mods.get_sarc_file_info(mods.APP_DIR_PATH / "org" / options["bundle_file"])
+  mods.merge_into_archive(options["file"].replace("\\", "/"), options["bundle_file"], lookup)
 
 def process(options: dict) -> None:
   level_1 = options["level_1"]
@@ -116,7 +116,7 @@ def process(options: dict) -> None:
   level_3 = options["level_3"]
   level_4 = options["level_4"]
   level_5 = options["level_5"]
-  file = options["scope_file"]
+  file = options["file"]
   
   mods.update_file_at_offset(file, 100, level_1)
   mods.update_file_at_offset(file, 104, level_2)
