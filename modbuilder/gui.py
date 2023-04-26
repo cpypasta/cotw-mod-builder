@@ -1,4 +1,4 @@
-import textwrap
+import textwrap, math
 import PySimpleGUI as sg
 from modbuilder import __version__, logo, mods, party
 from typing import List, Tuple
@@ -185,7 +185,8 @@ def main() -> None:
     [
       sg.Image(logo.value), 
       sg.Column([
-        [sg.T("Mod Builder", expand_x=True, font="_ 24")]
+        [sg.T("Mod Builder", expand_x=True, font="_ 24")],
+        [sg.T(mods.get_dropzone(), font="_ 12", k="game_path"), sg.T("(set path)", font="_ 12 underline", text_color="orange", enable_events=True, k="change_path", visible=(mods.get_dropzone() == None))],
       ]), 
       sg.Push(),
       sg.T(f"Version: {__version__}", font="_ 12", p=((0,0),(0,60)))
@@ -205,10 +206,13 @@ def main() -> None:
         ], expand_y=True, expand_x=True)],
         [sg.Button("BUILD MOD", k="build_mod", expand_x=True, disabled=True)]
       ], k="selected_col", expand_y=True, expand_x=True, p=((0,0), (10,0))),
+    ],
+    [
+      sg.ProgressBar(100, orientation="h", k="progress", expand_x=True, s=(10,20))
     ]    
   ]
 
-  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1300, 840), finalize=True)
+  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1300, 880), finalize=True)
   _repack(window)
   
   while True:
@@ -264,6 +268,8 @@ def main() -> None:
     elif event == "build_mod":
       mods.clear_mod()
       mod_files = []
+      step = 1
+      progress_step = 95 / len(selected_mods.keys())
       for selected_mod_key, mod_options in selected_mods.items():
         mod = mods.get_mod(selected_mod_key)
         if hasattr(mod, "FILE"):
@@ -274,6 +280,9 @@ def main() -> None:
         mods.apply_mod(mod, mod_options)
         if hasattr(mod, "merge_files"): # TODO: all these possible paths should go into mods module
           mod.merge_files(modded_files, mod_options)
+        step_progress = math.floor(step * progress_step)
+        window["progress"].update(step_progress)
+        step += 1
         
       mods.merge_files(mod_files)
       mods.package_mod()
@@ -282,7 +291,9 @@ def main() -> None:
       window["selected_mods"].update(_get_selected_mods(selected_mods))
       _enable_mod_button(window)
       window["remove_mod"].update(disabled=True)
+      window["progress"].update(100)
       _create_party()
+      window["progress"].update(0)
     elif event == "save":
       save_name = sg.PopupGetText("What name would you like use to save modifications?", title="Save Mods", font=DEFAULT_FONT, icon=logo.value)
       if save_name:
@@ -298,6 +309,12 @@ def main() -> None:
         window["selected_mods"].update(_get_selected_mods(selected_mods))
         _enable_mod_button(window)     
         sg.PopupQuickMessage("Modifications Loaded", font="_ 28", background_color="brown")   
+    elif event == "change_path":
+      game_path = sg.PopupGetFolder("Select the game folder (folder with file theHunterCotW_F.exe)", "Game Path", icon=logo.value, font=DEFAULT_FONT)
+      if game_path:
+        mods.write_dropzone(game_path)
+        window["game_path"].update(game_path)
+        window["change_path"].update(visible=False)
           
   window.close()
 

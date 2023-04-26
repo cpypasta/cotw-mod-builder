@@ -6,3 +6,4 @@ dist
 modbuilder.egg-info
 *.spec
 mod
+game_path.txt

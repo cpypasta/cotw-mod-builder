@@ -17,6 +17,7 @@ ELMER_MOVEMENT_LOCAL_PATH = APP_DIR_PATH / "org" / ELMER_MOVEMENT_LOCAL_SRC_PATH
 ELMER_MOVEMENT_NETWORK_PATH = APP_DIR_PATH / "org" / ELMER_MOVEMENT_NETWORK_SRC_PATH
 GLOBAL_ANIMALS_SRC_PATH = "global/global_animal_types.bl"
 GLOBAL_ANIMALS_PATH = APP_DIR_PATH / "org" / GLOBAL_ANIMALS_SRC_PATH
+GAME_PATH_FILE = APP_DIR_PATH / "game_path.txt"
 
 def _load_mod(filename: str):
   py_mod = imp.load_source(filename.split(".")[0], str(APP_DIR_PATH / PLUGINS_FOLDER / filename))
@@ -270,11 +271,25 @@ def delete_saved_mod(name: str) -> None:
 def load_saved_mod(name: str) -> None:
   return json.load(Path(APP_DIR_PATH / "saves"/ f"{name}.json").open())
 
-def load_dropzone() -> None:
+def read_dropzone() -> Path:
+  return Path(GAME_PATH_FILE.read_text())
+
+def write_dropzone(folder: str) -> None:
+  GAME_PATH_FILE.write_text(folder)
+
+def get_dropzone() -> Path:
   steam_path = Path("C:/Program Files (x86)/Steam/steamapps/common/theHunterCotW")
   if steam_path.exists():
-    steam_path = steam_path / "dropzone"
-    shutil.copytree(APP_DIR_PATH / "mod/dropzone", steam_path, dirs_exist_ok=True)
+    return steam_path
+  elif GAME_PATH_FILE.exists():
+    return read_dropzone()
+  return None
+
+def load_dropzone() -> None:
+  dropzone_path = get_dropzone()
+  if dropzone_path:
+    dropzone_path = dropzone_path / "dropzone"
+    shutil.copytree(APP_DIR_PATH / "mod/dropzone", dropzone_path, dirs_exist_ok=True)
   else:
     raise Exception("Could not find game path to save mods!")
 
