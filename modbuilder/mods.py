@@ -79,12 +79,15 @@ def clear_mod() -> None:
   if path.exists():
     shutil.rmtree(path)
 
-def copy_file_to_mod(src_filename: str) -> None:
-  dest_path = APP_DIR_PATH / "mod/dropzone" / src_filename
+def copy_file(src_path: Path, dest_path: Path) -> None:
   if not dest_path.exists():
     dest_path.parent.mkdir(parents=True, exist_ok=True)
-    src_path = APP_DIR_PATH / "org" / src_filename
-    shutil.copy(src_path, dest_path)  
+    shutil.copy(src_path, dest_path)   
+
+def copy_file_to_mod(src_filename: str) -> None:
+  dest_path = APP_DIR_PATH / "mod/dropzone" / src_filename
+  src_path = APP_DIR_PATH / "org" / src_filename
+  copy_file(src_path, dest_path)  
 
 def copy_glob_to_mod(src_filename: str) -> List[str]:
   org_basepath = APP_DIR_PATH / "org"
@@ -305,16 +308,19 @@ def update_non_instance_offsets(data: bytearray, profile: dict, added_size: int)
     (profile["instance_header_start"]+12, profile["details"]["instance_offsets"]["instances"][0]["size"])
   ]
   for offset in offsets_to_update:
-    write_value(data, create_u32(offset[1] + added_size), offset[0])
+    new_value = offset[1] + added_size
+    if (new_value < 0):
+      new_value = 0
+    write_value(data, create_u32(new_value), offset[0])
 
-def insert_array_data(file: Path, new_data: bytearray, header_offset: int, data_offset: int, array_length: int, old_data_size: int = None) -> None:
+def insert_array_data(file: Path, new_data: bytearray, header_offset: int, data_offset: int, array_length: int, old_array_length: int = None) -> None:
   modded_file = get_modded_file(file)
   profile = create_profile(modded_file)
   data = bytearray(modded_file.read_bytes())
-  update_non_instance_offsets(data, profile, array_length-old_data_size)
+  update_non_instance_offsets(data, profile, array_length-old_array_length)
   write_value(data, create_u32(array_length), header_offset+8)
-  if old_data_size:
-    del data[data_offset:data_offset+old_data_size]
+  if old_array_length:
+    del data[data_offset:data_offset+old_array_length]
   data[data_offset:data_offset] = new_data
   modded_file.write_bytes(data)
   

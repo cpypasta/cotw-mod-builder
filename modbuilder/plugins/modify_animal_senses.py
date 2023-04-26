@@ -6,10 +6,10 @@ NAME = "Modify Animal Senses"
 DESCRIPTION = "Modify how animals sense and respond to you. The thresholds determine when the animal enters and exits various behavioral states. The higher the threshold, the longer it takes to enter into that state."
 FILE = "settings/hp_settings/animal_senses.bin"
 OPTIONS = [
-  { "name": "Increase Attentiveness Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
-  { "name": "Increase Alert Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
-  { "name": "Increase Alarmed Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
-  { "name": "Increase Defensive Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 25 },
+  { "name": "Increase Attentiveness Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 10 },
+  { "name": "Increase Alert Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 10 },
+  { "name": "Increase Alarmed Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 10 },
+  { "name": "Increase Defensive Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 10 },
   { "name": "Reduce Nervous Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 },
   { "name": "Reduce Defensive Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 }
 ]

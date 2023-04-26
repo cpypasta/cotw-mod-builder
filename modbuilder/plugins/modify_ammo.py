@@ -185,5 +185,6 @@ def process(options: dict) -> None:
     header_offset = 152
     data_offset = 264
     file_data = mods.get_modded_file(file).read_bytes()
-    old_data_size = read_u32(file_data[header_offset+8:header_offset+12])
-    mods.insert_array_data(file, create_classes(classes), header_offset, data_offset, array_length=len(classes), old_data_size=old_data_size)
+    old_array_length = read_u32(file_data[header_offset+8:header_offset+12])
+    new_array_length = len(classes)
+    mods.insert_array_data(file, create_classes(classes), header_offset, data_offset, array_length=new_array_length, old_array_length=old_array_length)

@@ -49,5 +49,10 @@
   },
   "enhanced_haggle": {
     "haggle_percent": 50.0
+  },
+  "remove_intro_logos": {},
+  "modify_dog": {
+    "allow_all_traits_to_be_learned": true,
+    "dog_xp_multiplier": 5.0
   }
 }

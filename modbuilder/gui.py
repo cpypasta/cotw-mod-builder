@@ -56,6 +56,9 @@ def _get_mod_options() -> List[dict]:
               td = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=((80,10),(0,10)))
               mod_details.append([t, n])
               mod_details.append([td])
+            elif mod_option_style == "boolean":
+              td = sg.Checkbox(mod_option["name"], initial_value, k=key)
+              mod_details.append([td])
           else:          
             t = sg.T(f"{mod_option['name']}", p=(10,10))
             if "default" in mod_option:
