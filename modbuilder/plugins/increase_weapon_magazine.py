@@ -34,7 +34,7 @@ def load_weapons() -> Tuple[List[str], List[dict]]:
 def get_option_elements() -> sg.Column:
   weapon_names, _ = load_weapons()
   ct = sg.T("Select Weapon:", p=(10,10))
-  ctt = sg.T("(default magazine size showin parenthesis)", font="_ 12", p=(0,0))
+  ctt = sg.T("(default magazine size shown in parenthesis)", font="_ 12", p=(0,0))
   c = sg.Combo(weapon_names, k="weapon_mag_name", p=(10,10))
   st = sg.T("Select Magazine Size:", p=(10,10))
   s = sg.Slider((1, 99), 1, 1, orientation = "h", k="weapon_mag_size", p=(50,0))

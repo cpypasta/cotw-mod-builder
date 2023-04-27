@@ -2,7 +2,7 @@ from typing import List
 from modbuilder import mods
 
 NAME = "Modify Dog"
-DESCRIPTION = "This will allow you to unlock all the traits for your dog and/or increase the XP your dog earns. Note, the UI will show all traits as green and you can unlock any trait up to the dog's level. The trait is unlocked even if it the 'learn' button still shows. I know this experience is not ideal, but the game seems to put a hard limit of six traits. I tried to test this well, but if you encounter any issues, please let me know."
+DESCRIPTION = "This will allow you to unlock all the traits for your dog and/or increase the XP your dog earns. Note, the UI will show all traits as green and you can unlock any trait up to the dog's level. The trait is unlocked even if it the 'learn' button still shows. I know this experience is not ideal, but the game seems to have a hard limit of six traits. I tried to test this well, but if you encounter any issues, please let me know."
 DOG_FILE = "settings/hp_settings/dog_stats.bin"
 OPTIONS = [
   { "name": "Allow All Traits to be Learned", "style": "boolean", "initial": False },

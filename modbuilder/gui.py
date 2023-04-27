@@ -1,8 +1,7 @@
 import textwrap, math
 import PySimpleGUI as sg
 from modbuilder import __version__, logo, mods, party
-from typing import List, Tuple
-from pathlib import Path
+from typing import List
 
 DEFAULT_FONT = "_ 14"
 MOD_LIST = mods.list_mods()
@@ -266,6 +265,7 @@ def main() -> None:
       window["remove_mod"].update(disabled=True)
       _enable_mod_button(window)
     elif event == "build_mod":
+      window["build_mod"].update(disabled=True)
       mods.clear_mod()
       mod_files = []
       step = 1
@@ -315,6 +315,8 @@ def main() -> None:
         mods.write_dropzone(game_path)
         window["game_path"].update(game_path)
         window["change_path"].update(visible=False)
+    else:
+      mods.delegate_event(event, window, values)
           
   window.close()
 

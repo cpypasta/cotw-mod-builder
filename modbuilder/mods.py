@@ -1,4 +1,5 @@
 import os, sys, imp, struct, shutil, json
+import PySimpleGUI as sg
 from typing import List
 from pathlib import Path
 from deca.file import ArchiveFile
@@ -55,6 +56,12 @@ def get_mod(mod_key: str):
           return mod
     return None
 
+def delegate_event(event: str, window: sg.Window, values: dict):
+  mods = get_mods()
+  for mod in mods:
+    if hasattr(mod, "handle_event"):
+      mod.handle_event(event, window, values)
+        
 def get_mod_name_from_key(mod_key: str) -> str:
   return " ".join(mod_key.lower().split("_"))
 
@@ -111,8 +118,20 @@ def copy_all_files_to_mod(filenames: List[str]) -> List[str]:
     copy_file_to_mod(filename)
   return filenames
 
+def get_org_file(src_filename: str) -> Path:
+  return APP_DIR_PATH / "org" / src_filename  
+
 def get_modded_file(src_filename: str) -> Path:
   return APP_DIR_PATH / "mod/dropzone" / src_filename  
+
+def read_file_at_offset(src_filename: str, offset: int, format: str) -> any:
+  src_path = get_org_file(src_filename)
+  value_at_offset = None
+  with open(src_path, "rb") as fp:
+    fp.seek(offset)
+    if format == "f32":
+      value_at_offset = struct.unpack("f", fp.read(4))[0]
+  return value_at_offset
 
 def update_file_at_offsets(src_filename: str, offsets: List[int], value: any, transform: str = None, format: str = None) -> None:
   dest_path = get_modded_file(src_filename) 
