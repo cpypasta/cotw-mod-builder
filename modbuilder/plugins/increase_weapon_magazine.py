@@ -5,7 +5,7 @@ from deca.ff_rtpc import rtpc_from_binary, RtpcNode
 import PySimpleGUI as sg
 
 NAME = "Increase Weapon Magazine"
-DESCRIPTION = "Increase the magazine size of all weapons. The weapon names are stored in the configuration files, so sorry if they are a bit confusing."
+DESCRIPTION = "Increase the magazine size of all weapons."
 FILE = "settings/hp_settings/equipment_data.bin"
 
 def open_rtpc(filename: Path) -> RtpcNode:

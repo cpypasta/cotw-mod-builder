@@ -26,7 +26,7 @@ def load_weapon_type(root: Path, name_pattern: any) -> List[dict]:
 
 def load_weapons() -> Tuple[List[str], List[dict]]:
   base_path = mods.APP_DIR_PATH / "org/editor/entities/hp_weapons"
-  weapon_name_pattern = re.compile(r'^weapon_([\w\d]+).wtunec$')
+  weapon_name_pattern = re.compile(r'^weapon_([\w\d\-]+).wtunec$')
   
   bows = load_weapon_type(base_path / "weapon_bows_01/tuning", weapon_name_pattern)
   handguns = load_weapon_type(base_path / "weapon_handguns_01/tuning", weapon_name_pattern)

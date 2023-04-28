@@ -156,7 +156,10 @@ def update_file_at_offsets(src_filename: str, offsets: List[int], value: any, tr
           if transform == "add":
             existing_value = struct.unpack("i", fp.read(4))[0]
             new_value = value + existing_value
-            fp.seek(offset)
+          elif transform == "multiply":
+            existing_value = struct.unpack("i", fp.read(4))[0]
+            new_value = round(value * existing_value)
+          fp.seek(offset)            
           fp.write(struct.pack("i", new_value))
       fp.flush()  
 
@@ -258,7 +261,7 @@ def merge_files(filenames: List[str]) -> None:
   filenames = [*set(filenames)]
   for filename in filenames:
     if is_file_in_global(filename):
-      merge_into_archive(filename, GLOBAL_SRC_PATH, GLOBAL_FILES, True)
+      merge_into_archive(filename, GLOBAL_SRC_PATH, GLOBAL_FILES, False)
     if is_file_in_bundle(filename, LOCAL_PLAYER_FILES):
       merge_into_archive(filename, ELMER_MOVEMENT_LOCAL_SRC_PATH, LOCAL_PLAYER_FILES)
     if is_file_in_bundle(filename, NETWORK_PLAYER_FILES):
