@@ -54,5 +54,16 @@
   "modify_dog": {
     "allow_all_traits_to_be_learned": true,
     "dog_xp_multiplier": 5.0
+  },
+  "enhanced_endurance": {
+    "reduce_heart_rate_percent": 80.0
+  },
+  "modify_dog_fur": {
+    "black_and_tan_full_coat": "Wolfdog",
+    "red_liver_pigmented": "Silver Fawn",
+    "black_tan_saddle": "Charred Brindle",
+    "liver_tan_fullcoat": "Merle",
+    "liver_tan_saddle": "Brown and White",
+    "red_and_black_pigmented": "Baked Issabella"
   }
 }

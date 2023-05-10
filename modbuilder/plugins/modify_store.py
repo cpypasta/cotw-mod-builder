@@ -38,7 +38,7 @@ def load_price_node(items: List[RtpcNode], type: str, name_offset: int = 4, pric
       price_item = item.prop_table[price_offset]
       price = price_item.data
       price_offset_value = price_item.data_pos
-    prices.append(StoreItem(type, name, price, price_offset_value))
+    prices.append(StoreItem(type, f"{name} (id: {price_offset_value})", price, price_offset_value))
   return sorted(prices, key=lambda x: x.name)
 
 def handle_atv_name(item: RtpcNode) -> str:
@@ -153,8 +153,7 @@ def add_mod(window: sg.Window, values: dict) -> dict:
   
   item_key = f"{active_tab}_item_name"
   item_metadata = window[item_key].metadata
-  if not discount_or_free_price:
-    
+  if not discount_or_free_price:    
     item_name = values[item_key]
     if not item_name:
       return {
@@ -162,7 +161,6 @@ def add_mod(window: sg.Window, values: dict) -> dict:
       }
     item_index = window[item_key].Values.index(item_name)
     item = item_metadata[item_index]
-    print(item)
     item_price = values[f"{active_tab}_item_price"]
     if item_price.isdigit():
       item_price = int(item_price)

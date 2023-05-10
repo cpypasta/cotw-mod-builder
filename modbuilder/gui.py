@@ -46,7 +46,7 @@ def _get_mod_options() -> List[dict]:
                 mod_details.append([t, td])
             elif mod_option_style == "list":
               t = sg.T(f"{mod_option['name']}", p=((30,10),(10,10)))
-              td = sg.Combo(mod_option["initial"], k=key)
+              td = sg.Combo(mod_option["initial"], k=key, p=((0,20),(10,10)))
               mod_details.append([t, td])
             elif mod_option_style == "slider":
               t = sg.T(f"{mod_option['name']}", p=((30,0),(10,10)))
@@ -64,13 +64,17 @@ def _get_mod_options() -> List[dict]:
               td = sg.T(f"(default: {mod_option['default']}, min: {mod_option['min']}, max: {mod_option['max']})", font="_ 12", p=(0,0))
             else:
               td = sg.T("")
+            if "note" in mod_option:
+              tn = sg.T(f"({mod_option['note']})", font="_ 12", text_color="orange", p=((10,0),(23,0)))
+            else:
+              tn = sg.T("")
             initial_value = mod_option["initial"] if "initial" in mod_option else mod_option["min"]
             if "min" in mod_option and "max" in mod_option and "increment" in mod_option:        
-              i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=(50,0))
+              i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=((50,0),(0,0)))
             else:
-              i = sg.Input(initial_value, size=6, k = key, p=(50,10))
+              i = sg.Input(initial_value, size=6, k = key, p=((50,0),(10,10)))
             mod_details.append([t, td])
-            mod_details.append([i])
+            mod_details.append([i, tn])
     else:
       mod_details.append([mod.get_option_elements()])
     if (hasattr(mod, "OPTIONS") and len(mod.OPTIONS) > 3) or not hasattr(mod, "OPTIONS"):

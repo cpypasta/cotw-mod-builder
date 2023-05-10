@@ -133,5 +133,42 @@
     "name": "Ba Rifle 7mm 01",
     "recoil_percent": 60,
     "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_ba_rifle_7mm_01.wtunec"
+  },
+  "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_470ne_fmj_01.ammotunec": {
+    "name": "470ne Full Metal Jacket",
+    "kinetic_energy": 0.0,
+    "penetration": 0.0,
+    "expansion": 100.0,
+    "damage": 40.0,
+    "mass": 0.0,
+    "projectiles": 0,
+    "classes": [
+      7,
+      8,
+      9
+    ],
+    "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_470ne_fmj_01.ammotunec"
+  },
+  "weapon_recoil_Sxs Rifle 470ne": {
+    "name": "Sxs Rifle 470ne",
+    "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_sxs_rifle_470ne.wtunec",
+    "recoil_percent": 60,
+    "one_distance": 50.0,
+    "one_angle": 0.05999999865889549,
+    "two_distance": 100.0,
+    "two_angle": 0.09549999982118607,
+    "three_distance": 150.0,
+    "three_angle": 0.20999999344348907
+  },
+  "modify_ammo_editor/entities/hp_weapons/ammunition/shotguns/equipment_ammo_10ga_slug_01.ammotunec": {
+    "name": "10ga Slug",
+    "kinetic_energy": 0.0,
+    "penetration": 50.0,
+    "expansion": 100.0,
+    "damage": 0.0,
+    "mass": 0.0,
+    "projectiles": 0.0,
+    "classes": [],
+    "file": "editor/entities/hp_weapons/ammunition/shotguns/equipment_ammo_10ga_slug_01.ammotunec"
   }
 }

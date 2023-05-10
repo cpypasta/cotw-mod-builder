@@ -1,4 +1,4 @@
-import os, sys, imp, struct, shutil, json
+import os, sys, imp, struct, shutil, json, math
 import PySimpleGUI as sg
 from typing import List
 from pathlib import Path
@@ -225,6 +225,41 @@ def merge_into_archive(filename: str, merge_path: str, merge_lookup: dict, delet
   if delete_src:
     src_path.unlink()
 
+def recreate_archive(changed_filenames: List[str], archive_path: str) -> None:
+  org_archive_path = APP_DIR_PATH / "org" / archive_path
+  new_archive_path = APP_DIR_PATH / "mod/dropzone" / archive_path
+  
+  sarc_file = FileSarc()  
+  sarc_file.header_deserialize(org_archive_path.open("rb"))
+  
+  org_entries = {}
+  for entry in sarc_file.entries:
+    file = entry.v_path.decode("utf-8")
+    if file in changed_filenames:
+      entry.length = (APP_DIR_PATH / "mod/dropzone" / file).stat().st_size
+    else:
+      org_entries[file] = entry.offset
+    
+  new_archive_path.parent.mkdir(parents=True, exist_ok=True)
+    
+  with ArchiveFile(new_archive_path.open("wb")) as new_archive:
+    with org_archive_path.open("rb") as org_archive:
+      sarc_file.header_serialize(new_archive)
+      
+      for entry in sarc_file.entries:
+        data = None
+        file = entry.v_path.decode("utf-8")
+        if file in changed_filenames:
+          data = (APP_DIR_PATH / "mod/dropzone" / file).read_bytes()
+        elif entry.is_symlink:
+          continue
+        else:
+          org_archive.seek(org_entries[file])
+          data = org_archive.read(entry.length)
+          
+        new_archive.seek(entry.offset)
+        new_archive.write(data)
+  
 def expand_into_archive(filename: str, merge_path: str) -> None:
   src_path = APP_DIR_PATH / "mod/dropzone" / filename
   mod_merge_path = APP_DIR_PATH / "mod/dropzone" / merge_path  
@@ -255,7 +290,6 @@ def expand_into_archive(filename: str, merge_path: str) -> None:
   del merge_bytes[file_offset:file_offset+old_file_size]
   merge_bytes[file_offset:file_offset] = filename_bytes
   mod_merge_path.write_bytes(merge_bytes)
-  
 
 def merge_files(filenames: List[str]) -> None:
   filenames = [*set(filenames)]
