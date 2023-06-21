@@ -4,6 +4,7 @@ from pathlib import Path
 import PySimpleGUI as sg
 import re, os
 
+#verified
 NAME = "Modify Scope Zoom"
 DESCRIPTION = "Modify the zoom range for scopes. Every zoomable scope has five zoom levels. With this mod you get to control each level of the zoom."
 

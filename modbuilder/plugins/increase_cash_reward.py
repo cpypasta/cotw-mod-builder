@@ -1,6 +1,6 @@
 from typing import List
 
-DEBUG = False
+DEBUG = True
 NAME = "Increase Cash Reward"
 DESCRIPTION = "Increase the cash reward when harvesting kills."
 FILE = "settings/hp_settings/player_rewards.bin"

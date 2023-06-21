@@ -1,6 +1,7 @@
 from typing import List
 from modbuilder import mods
 
+#verified
 NAME = "Remove Intro Logos"
 DESCRIPTION = "No intro logos, which means the game will start quicker."
 OPTIONS = [

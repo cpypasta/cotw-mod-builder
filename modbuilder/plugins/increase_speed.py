@@ -1,5 +1,6 @@
 from typing import List
 
+# verified
 NAME = "Increase Speed"
 DESCRIPTION = "Increase the speed of the player when standing, crouching, and when prone."
 FILE = "editor/entities/hp_characters/main_characters/elmer/elmer_movement.mtunec"

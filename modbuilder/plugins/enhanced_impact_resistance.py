@@ -1,5 +1,6 @@
 from typing import List
 
+DEBUG=True
 NAME = "Enhanced Impact Resistance"
 DESCRIPTION = "Decreases damage from falling. You must have the Impact Resistance skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"

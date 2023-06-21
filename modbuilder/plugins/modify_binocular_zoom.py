@@ -4,6 +4,7 @@ from pathlib import Path
 import PySimpleGUI as sg
 import re, os
 
+#verified
 NAME = "Modify Binocular Zoom"
 DESCRIPTION = "Modify the zoom range for binoculars. Every zoomable binocular has five zoom levels. With this mod you get to control each level of the zoom."
 

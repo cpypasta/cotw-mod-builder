@@ -1,5 +1,6 @@
 from typing import List
 
+#verified
 NAME = "Enhanced Pack Mule"
 DESCRIPTION = "Increases the weight you can carry. You must have the Pack Mule skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"
@@ -13,6 +14,6 @@ def format(options: dict) -> str:
 def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = options['weight']
   return [{
-    "offset": 22104,
+    "offset": 22136,
     "value": f"set_player_carry_capacity({updated_value})"
   }]

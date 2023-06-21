@@ -1,7 +1,7 @@
 from typing import List
 from modbuilder import mods
 
-DEBUG = False
+DEBUG = True
 NAME = "Modify Animal Senses"
 DESCRIPTION = "Modify how animals sense and respond to you. The thresholds determine when the animal enters and exits various behavioral states. The higher the threshold, the longer it takes to enter into that state."
 FILE = "settings/hp_settings/animal_senses.bin"

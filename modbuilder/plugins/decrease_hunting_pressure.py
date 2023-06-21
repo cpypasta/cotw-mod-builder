@@ -1,5 +1,6 @@
 from typing import List
 
+#verified
 DEBUG = False
 NAME = "Decrease Hunting Pressure"
 DESCRIPTION = "Decreases hunting pressure that is created from killing animals."

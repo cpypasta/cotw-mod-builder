@@ -1,5 +1,6 @@
 from typing import List
 
+# verified
 NAME = "Decrease Wobble"
 DESCRIPTION = "Reduce the amount of wobble when looking through the scope."
 FILE = "editor/entities/hp_characters/main_characters/elmer/elmer_movement.mtunec"

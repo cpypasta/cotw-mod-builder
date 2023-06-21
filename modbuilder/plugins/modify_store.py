@@ -5,9 +5,11 @@ from deca.ff_rtpc import rtpc_from_binary, RtpcNode
 import PySimpleGUI as sg
 import re
 
+#verification
 NAME = "Modify Store"
 DESCRIPTION = "Modify the store prices. I would discourage you from adding individual and bulk modifications for the same category at the same time."
 EQUIPMENT_FILE = "settings/hp_settings/equipment_data.bin"
+DEBUG = False
 
 class StoreItem:
   def __init__(self, type: str, name: str, price: int, price_offset: int) -> None:
@@ -31,7 +33,10 @@ def load_price_node(items: List[RtpcNode], type: str, name_offset: int = 4, pric
     if name_handle:
       name = name_handle(item)
     else:
-      name = item.prop_table[name_offset].data.decode("utf-8")
+      try:
+        name = item.prop_table[name_offset].data.decode("utf-8")
+      except:
+        name = "unknown"
     if price_handle:
       price, price_offset_value = price_handle(item)
     else:
@@ -85,7 +90,7 @@ def load_equipement_prices() -> dict:
   return {
     "ammo": load_price_node(ammo_items, "Ammo", name_offset=1, price_offset=0),
     "misc": load_price_node(misc_items, "Misc", name_handle=handle_misc_name),
-    "sight": load_price_node(sights_items, "Sight"),
+    "sight": load_price_node(sights_items, "Sight", name_offset=1, price_offset=0),
     "optic": load_price_node(optic_items, "Optic"),
     "atv": load_price_node(atv_items, "ATV", name_handle=handle_atv_name),
     "skin": load_price_node(skin_items, "Skin", name_handle=handle_skin_name),

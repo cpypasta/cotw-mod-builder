@@ -1,69 +1,50 @@
 {
+  "remove_intro_logos": {},
   "modify_atv": {
     "top_speed": "90",
     "acceleration": "medium",
     "traction": "medium",
-    "noise_distance": 100.0,
-    "vision_distance": 50.0
-  },
-  "decrease_hunting_pressure": {
-    "decrease_pressure_radius": 128.0,
-    "decrease_pressure_amount_percent": 50.0
-  },
-  "decrease_wobble": {
-    "reduce_stand_percent": 70.0,
-    "reduce_crouch_percent": 85.0,
-    "reduce_prone_percent": 100.0
-  },
-  "enhanced_impact_resistance": {
-    "fall_damage_reduction_percent": 70.0
-  },
-  "enhanced_improvised_blind": {
-    "vegetation_camoflauge_percent": 200.0
-  },
-  "enhanced_pack_mule": {
-    "weight": "99.9"
-  },
-  "increase_cash_reward": {
-    "cash_reward_multiplier": 3.0
-  },
-  "increase_deployables": {
-    "deployable_multiplier": 20.0
+    "noise_distance": 500.0,
+    "vision_distance": 200.0
   },
   "increase_render_distance": {
     "spawn_distance": 750.0,
     "despawn_distance": 750.0,
-    "bird_spawn_distance": 750.0,
-    "bird_despawn_distance": 750.0
+    "bird_spawn_distance": 470.0,
+    "bird_despawn_distance": 500.0
+  },
+  "decrease_hunting_pressure": {
+    "decrease_pressure_radius": 90.0,
+    "decrease_pressure_amount_percent": 0.0
+  },
+  "decrease_wobble": {
+    "reduce_stand_percent": 50.0,
+    "reduce_crouch_percent": 75.0,
+    "reduce_prone_percent": 100.0
   },
   "increase_speed": {
-    "stand_speed_multiplier": 1.8,
-    "crouch_speed_multiplier": 2.6,
+    "stand_speed_multiplier": 1.5,
+    "crouch_speed_multiplier": 2.0,
     "prone_speed_multiplier": 2.0
   },
-  "increase_xp_reward": {
-    "xp_reward_multiplier": 2.0
+  "enhanced_pack_mule": {
+    "weight": "99.9"
+  },
+  "increase_deployables": {
+    "deployable_multiplier": 20.0
   },
   "enhanced_soft_feet": {
-    "soft_feet_percent": 80.0
+    "soft_feet_percent": 60.0
   },
-  "enhanced_haggle": {
-    "haggle_percent": 50.0
-  },
-  "remove_intro_logos": {},
-  "modify_dog": {
-    "allow_all_traits_to_be_learned": true,
-    "dog_xp_multiplier": 5.0
-  },
-  "enhanced_endurance": {
-    "reduce_heart_rate_percent": 80.0
-  },
-  "modify_dog_fur": {
-    "black_and_tan_full_coat": "Wolfdog",
-    "red_liver_pigmented": "Silver Fawn",
-    "black_tan_saddle": "Charred Brindle",
-    "liver_tan_fullcoat": "Merle",
-    "liver_tan_saddle": "Brown and White",
-    "red_and_black_pigmented": "Baked Issabella"
+  "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec": {
+    "name": "338 Polymer Tip",
+    "kinetic_energy": 20.0,
+    "penetration": 40.0,
+    "expansion": 50.0,
+    "damage": 0.0,
+    "mass": 0.0,
+    "projectiles": 0,
+    "classes": [],
+    "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec"
   }
 }

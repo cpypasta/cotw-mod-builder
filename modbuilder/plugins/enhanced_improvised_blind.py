@@ -1,5 +1,6 @@
 from typing import List
 
+DEBUG=True
 NAME = "Enhanced Improvised Blind"
 DESCRIPTION = "Further decreases your visibility when hiding in large bushes and shrubs. You must have the Improvised Blind skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"

@@ -1,6 +1,6 @@
 from typing import List
 
-DEBUG=False
+DEBUG=True
 NAME = "Enhanced Endurance"
 DESCRIPTION = "Reduce how fast your heart rate increases when moving and recovers when resting. At 100 percent, your heart rate does not increase. You must have the Endurance skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"

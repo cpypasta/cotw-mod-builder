@@ -4,6 +4,7 @@ from pathlib import Path
 import PySimpleGUI as sg
 import re, os
 
+#verified
 NAME = "Modify Weapon"
 DESCRIPTION = "Modify weapon recoil and zeroing settings. Be careful adjusting the zeroing settings, since it may require changing ammo kinetic energy also to work well."
 

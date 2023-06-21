@@ -3,9 +3,9 @@ from modbuilder import mods
 from pathlib import Path
 import PySimpleGUI as sg
 
-DEBUG = False
+DEBUG = True
 NAME = "Modify Dog Fur"
-DESCRIPTION = "Modify the dog furs."
+DESCRIPTION = "Modify the dog furs. With this mod you can replace the existing fur with a modded one. Credit goes to PureWinter for the modded furs."
 OPTIONS = [
   { "title": "Replace Original Dog Furs" },
   { "name": "Black and Tan Full Coat", "style": "list", "initial": ["Baked Issabella", "Brown and White", "Charred Brindle", "Merle", "Silver Fawn", "Wolfdog"] },

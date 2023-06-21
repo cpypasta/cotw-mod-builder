@@ -4,6 +4,7 @@ from pathlib import Path
 from deca.ff_rtpc import rtpc_from_binary, RtpcNode
 import PySimpleGUI as sg
 
+#verified
 NAME = "Increase Weapon Magazine"
 DESCRIPTION = "Increase the magazine size of all weapons."
 FILE = "settings/hp_settings/equipment_data.bin"

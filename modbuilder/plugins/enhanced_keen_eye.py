@@ -1,5 +1,6 @@
 from typing import List
 
+DEBUG=True
 NAME = "Enhanced Keen Eye"
 DESCRIPTION = "Enables you to spot need zones and animal groups from lookup points. You must have the Keen Eye skill unlocked for this modification to take affect. Be careful not to increase the need zones or animal groups too high, or your computer may have performance issues."
 FILE = "settings/hp_settings/player_skills.bin"

@@ -1,6 +1,6 @@
 from typing import List
 
-DEBUG = False
+DEBUG = True
 NAME = "Increase XP Reward"
 DESCRIPTION = "Increase the XP (experience) reward when harvesting kills. There are a few other rewards like finding an artifact and point-of-interest (POI) that also will be increased."
 FILE = "settings/hp_settings/player_rewards.bin"

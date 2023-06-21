@@ -295,7 +295,7 @@ def merge_files(filenames: List[str]) -> None:
   filenames = [*set(filenames)]
   for filename in filenames:
     if is_file_in_global(filename):
-      merge_into_archive(filename, GLOBAL_SRC_PATH, GLOBAL_FILES, False)
+      merge_into_archive(filename, GLOBAL_SRC_PATH, GLOBAL_FILES, True)
     if is_file_in_bundle(filename, LOCAL_PLAYER_FILES):
       merge_into_archive(filename, ELMER_MOVEMENT_LOCAL_SRC_PATH, LOCAL_PLAYER_FILES)
     if is_file_in_bundle(filename, NETWORK_PLAYER_FILES):

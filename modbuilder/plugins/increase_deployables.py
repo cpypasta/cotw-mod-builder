@@ -4,6 +4,7 @@ from pathlib import Path
 from modbuilder import mods
 from enum import Enum
 
+#verified
 NAME = "Increase Deployables"
 DESCRIPTION = "Increases the number of deployable structures you can place on all reserves."
 FILE = "settings/hp_settings/reserve_*.bin"

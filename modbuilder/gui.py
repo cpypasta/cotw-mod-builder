@@ -78,7 +78,8 @@ def _get_mod_options() -> List[dict]:
     else:
       mod_details.append([mod.get_option_elements()])
     if (hasattr(mod, "OPTIONS") and len(mod.OPTIONS) > 3) or not hasattr(mod, "OPTIONS"):
-      options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True, s=(None, 560)))])
+      options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True, s=(None, 400)))])
+      # options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True))])
     else:
       options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False))])
   return options
@@ -215,7 +216,7 @@ def main() -> None:
     ]    
   ]
 
-  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1300, 880), finalize=True)
+  window = sg.Window("COTW: Mod Builder", layout, resizable=True, font=DEFAULT_FONT, icon=logo.value, size=(1300, 700), finalize=True)
   _repack(window)
   
   while True:
