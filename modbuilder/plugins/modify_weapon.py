@@ -117,7 +117,7 @@ def handle_event(event: str, window: sg.Window, values: dict) -> None:
       zeroing_disabled(True, type_key, window)
 
 def add_mod(window: sg.Window, values: dict) -> dict:
-  active_tab = window["weapon_recoil_group"].find_currently_active_tab_key().lower() 
+  active_tab = window["weapon_recoil_group"].get().lower() 
   active_tab = active_tab.split("_")[0]
   weapon_name = values[f"{active_tab}_weapon"]
   if not weapon_name:

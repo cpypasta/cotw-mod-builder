@@ -141,7 +141,7 @@ def handle_event(event: str, window: sg.Window, values: dict) -> None:
     window[f"{type_key}_item_price"].update(item_price)
 
 def add_mod(window: sg.Window, values: dict) -> dict:
-  active_tab = window["store_group"].find_currently_active_tab_key().lower() 
+  active_tab = window["store_group"].get().lower() 
   active_tab = active_tab.split("_")[0]
   
   discount = int(values[f"{active_tab}_discount"])
