@@ -1,7 +1,7 @@
 from typing import List
 from modbuilder import mods
 
-DEBUG=True
+DEBUG=False
 NAME = "Increase Level Progression"
 DESCRIPTION = "Increases skill and perk points you gain when increasing your character's level. This mod will increase the progession such that you are able to unlock every skill and perk. This mod will not change your existing character's skill and perk points."
 FILE = "settings/hp_settings/player_rewards.bin"

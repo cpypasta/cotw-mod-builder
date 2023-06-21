@@ -1,6 +1,6 @@
 from typing import List
 
-DEBUG=True
+DEBUG=False
 NAME = "Enhanced Haggle"
 DESCRIPTION = "Reduce the cost of all items for sale in the store. The haggle percentage is the amount the prices are lowered. At 100 percent, all items in the store are free. You must have the Haggle skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"
@@ -16,7 +16,7 @@ def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = int(options['haggle_percent'])
   return [
     {
-      "offset": 21032,
+      "offset": 21064,
       "value": f"haggle({updated_value})"
     }
   ]
