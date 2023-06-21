@@ -1,6 +1,6 @@
 from typing import List
 
-DEBUG = True
+DEBUG = False
 NAME = "Increase Cash Reward"
 DESCRIPTION = "Increase the cash reward when harvesting kills."
 FILE = "settings/hp_settings/player_rewards.bin"
@@ -16,12 +16,12 @@ def update_values_at_offset(options: dict) -> List[dict]:
   cash_reward_multiplier = options['cash_reward_multiplier']
   return [
     {
-      "offset": 59604,
+      "offset": 62244,
       "transform": "multiply",
       "value": cash_reward_multiplier
     },
     {
-      "offset": 59608,
+      "offset": 62408,
       "transform": "multiply",
       "value": cash_reward_multiplier
     }

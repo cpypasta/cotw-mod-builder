@@ -1,7 +1,7 @@
 from typing import List
 from modbuilder import mods
 
-DEBUG=True
+DEBUG=False
 NAME = "Modify Dog"
 DESCRIPTION = "This will allow you to unlock all the traits for your dog and/or increase the XP your dog earns. Note, the UI will show all traits as green and you can unlock any trait up to the dog's level. Even if it is green, you still have to press 'learn' to learn the trait. Even after pressing 'learn', the trait will still show the 'learn' button after six have been learned. I know this experience is not ideal, but it is a limitation of the game."
 DOG_FILE = "settings/hp_settings/dog_stats.bin"

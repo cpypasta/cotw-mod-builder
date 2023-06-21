@@ -1,7 +1,7 @@
 from typing import List
 from modbuilder import mods
 
-DEBUG = True
+DEBUG = False
 NAME = "Modify Animal Senses"
 DESCRIPTION = "Modify how animals sense and respond to you. The thresholds determine when the animal enters and exits various behavioral states. The higher the threshold, the longer it takes to enter into that state."
 FILE = "settings/hp_settings/animal_senses.bin"
@@ -46,12 +46,12 @@ def update_values_at_offset(options: dict) -> List[dict]:
   new_defensive_min_cell = mods.find_closest_lookup(new_defensive_min, FILE)
   new_defensive_max_easy_cell = mods.find_closest_lookup(new_defensive_max_easy, FILE)
   new_defensive_max_cell = mods.find_closest_lookup(new_defensive_max, FILE)
-  new_nervous_min_offset = 140240
-  new_nervous_max_offset = 140244
-  new_defensive_min_easy_offset = 13988
-  new_defensive_min_offset = 14340
-  new_defensive_max_easy_offset = 14692
-  new_defensive_max_offset = 15044
+  new_nervous_min_offset = 148828
+  new_nervous_max_offset = 148832
+  new_defensive_min_easy_offset = 14404
+  new_defensive_min_offset = 14788
+  new_defensive_max_easy_offset = 15172
+  new_defensive_max_offset = 15556
   
   attentive_enter = 0.20000000298023224
   attentive_exit = 0.10000000149011612    
@@ -69,14 +69,14 @@ def update_values_at_offset(options: dict) -> List[dict]:
   new_alarmed_exit_cell = mods.find_closest_lookup(alarmed_exit * alarmed_percent, FILE)
   new_defensive_enter_cell = mods.find_closest_lookup(defensive_enter * defensive_percent, FILE)
   new_defensive_exit_cell = mods.find_closest_lookup(defensive_exit * defensive_percent , FILE)
-  attentive_enter_offset = 10468
-  attentive_exit_offset = 10820
-  alert_enter_offset = 11172
-  alert_exit_offset = 11524
-  alarmed_enter_offset = 11876
-  alarmed_exit_offset = 12228
-  defensive_enter_offset = 12580
-  defensive_exit_offset = 12932
+  attentive_enter_offset = 10564
+  attentive_exit_offset = 10948
+  alert_enter_offset = 11332
+  alert_exit_offset = 11716
+  alarmed_enter_offset = 12100
+  alarmed_exit_offset = 12484
+  defensive_enter_offset = 12868
+  defensive_exit_offset = 13252
   
   return [
     {

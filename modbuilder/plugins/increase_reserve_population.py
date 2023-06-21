@@ -4,7 +4,7 @@ from pathlib import Path
 from modbuilder import mods
 from functools import reduce
 
-DEBUG=True
+DEBUG=False
 NAME = "Increase Reserve Population"
 DESCRIPTION = "Increases the number of animals that get populated when loading a reserve for the first time. If you have already played a reserve, you need to delete the old pouplation file first before you will see an increase in animals."
 FILE = "settings/hp_settings/reserve_*.bin"
