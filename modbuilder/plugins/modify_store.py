@@ -12,14 +12,16 @@ EQUIPMENT_FILE = "settings/hp_settings/equipment_data.bin"
 DEBUG = False
 
 class StoreItem:
-  def __init__(self, type: str, name: str, price: int, price_offset: int) -> None:
+  def __init__(self, type: str, name: str, price: int, price_offset: int, quantity: int, quantity_offset: int) -> None:
     self.type = type
     self.name = name
     self.price = price
     self.price_offset = price_offset
+    self.quantity = quantity
+    self.quantity_offset = quantity_offset
   
   def __repr__(self) -> str:
-    return f"{self.type}, {self.name} ({self.price}, {self.price_offset})"
+    return f"{self.type}, {self.name} ({self.price}, {self.price_offset}, {self.quantity}, {self.quantity_offset})"
 
 def open_rtpc(filename: Path) -> RtpcNode:
   with filename.open("rb") as f:
@@ -27,7 +29,7 @@ def open_rtpc(filename: Path) -> RtpcNode:
   root = data.root_node
   return root
 
-def load_price_node(items: List[RtpcNode], type: str, name_offset: int = 4, price_offset: int = 7, name_handle: callable = None, price_handle: callable = None):
+def load_price_node(items: List[RtpcNode], type: str, name_offset: int = 4, price_offset: int = 7, quantity_offset = 13, name_handle: callable = None, price_handle: callable = None):
   prices = []
   for item in items:
     if name_handle:
@@ -43,7 +45,12 @@ def load_price_node(items: List[RtpcNode], type: str, name_offset: int = 4, pric
       price_item = item.prop_table[price_offset]
       price = price_item.data
       price_offset_value = price_item.data_pos
-    prices.append(StoreItem(type, f"{name} (id: {price_offset_value})", price, price_offset_value))
+      
+    quantity_item = item.prop_table[quantity_offset]
+    quantity = quantity_item.data
+    quantity_offset_value = quantity_item.data_pos
+    
+    prices.append(StoreItem(type, f"{name} (id: {price_offset_value})", price, price_offset_value, quantity, quantity_offset_value))
   return sorted(prices, key=lambda x: x.name)
 
 def handle_atv_name(item: RtpcNode) -> str:
@@ -105,6 +112,7 @@ def build_tab(type: str, items: List[StoreItem]) -> sg.Tab:
     [sg.T("Individual:", p=((10,0),(20,0)), text_color="orange")],
     [sg.T("Item", p=((30,7),(10,0))), sg.Combo([x.name for x in items], metadata=items, k=f"{type_key}_item_name", p=((10,10),(10,0)), enable_events=True)],
     [sg.T("Price", p=((30,0),(10,0))), sg.Input("", size=10, p=((10,0),(10,0)), k=f"{type_key}_item_price")],
+    [sg.T("Quantity", p=((30,0),(10,0))), sg.Input("", size=10, p=((10,0),(10,0)), k=f"{type_key}_item_quantity")],
     [sg.T("Bulk:", p=((10,0),(20,0)), text_color="orange"), sg.T("(applies to all items in this category)", font="_ 12", p=((0,0),(20,0)))],
     [sg.T("Change Free to Price", p=((30,0),(10,0)))],
     [sg.Input("", size=10, p=((60,0),(10,0)), k=f"{type_key}_free_price")], 
@@ -138,7 +146,9 @@ def handle_event(event: str, window: sg.Window, values: dict) -> None:
     item_name = values[event]
     item_index = window[event].Values.index(item_name)
     item_price = window[event].metadata[item_index].price
+    item_quantity = window[event].metadata[item_index].quantity
     window[f"{type_key}_item_price"].update(item_price)
+    window[f"{type_key}_item_quantity"].update(item_quantity)
 
 def add_mod(window: sg.Window, values: dict) -> dict:
   active_tab = window["store_group"].find_currently_active_tab_key().lower() 
@@ -167,12 +177,19 @@ def add_mod(window: sg.Window, values: dict) -> dict:
     item_index = window[item_key].Values.index(item_name)
     item = item_metadata[item_index]
     item_price = values[f"{active_tab}_item_price"]
+    item_quantity = values[f"{active_tab}_item_quantity"]
     if item_price.isdigit():
       item_price = int(item_price)
     else:
       return {
         "invalid": "Provide a valid item price"
       }
+    if item_quantity.isdigit():
+      item_quantity = int(item_quantity)
+    else:
+      return {
+        "invalid": "Provide a valid item quantity"
+      }      
     
     return {
       "key": f"modify_store_{item.name}",
@@ -183,6 +200,8 @@ def add_mod(window: sg.Window, values: dict) -> dict:
         "file": EQUIPMENT_FILE,
         "price_offset": item.price_offset,
         "price": item_price,
+        "quantity_offset": item.quantity_offset,
+        "quantity": item_quantity,
         "discount": None,
         "free_price": None
       }    
@@ -206,7 +225,7 @@ def format(options: dict) -> str:
   if options["discount"] or options["free_price"]:
     return f"Modify Store {options['type'].capitalize()} ({options['discount']}%, {options['free_price']})"
   else:
-    return f"{options['name']} ({options['price']})"
+    return f"{options['name']} ({options['price']}, {options['quantity']})"
 
 def handle_key(mod_key: str) -> bool:
   return mod_key.startswith("modify_store")
@@ -228,3 +247,4 @@ def process(options: dict) -> None:
       mods.update_file_at_offsets(file, offsets, free_price)
   else:
     mods.update_file_at_offset(file, options["price_offset"], options["price"])
+    mods.update_file_at_offset(file, options["quantity_offset"], options["quantity"])
