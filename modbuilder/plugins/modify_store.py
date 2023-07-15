@@ -117,7 +117,10 @@ def build_tab(type: str, items: List[StoreItem]) -> sg.Tab:
     [sg.T("Change Free to Price", p=((30,0),(10,0)))],
     [sg.Input("", size=10, p=((60,0),(10,0)), k=f"{type_key}_free_price")], 
     [sg.T("Discount Percent", p=((30,0),(10,0)))],
-    [sg.Slider((0,100), 0, 1, orientation="h", p=((60,0),(10,20)), k=f"{type_key}_discount")],
+    [sg.Slider((0,100), 0, 1, orientation="h", p=((60,0),(10,0)), k=f"{type_key}_discount")],
+    [sg.T("Quantity", p=((30,0),(10,0)))],
+    [sg.Input("", size=10, p=((60,0),(10,0)), k=f"{type_key}_bulk_quantity")], 
+    [sg.T("")]
   ]
   
   return sg.Tab(type, layout, k=f"{type_key}_store_tab")
@@ -156,6 +159,7 @@ def add_mod(window: sg.Window, values: dict) -> dict:
   
   discount = int(values[f"{active_tab}_discount"])
   free_price = values[f"{active_tab}_free_price"]
+  bulk_quantity = values[f"{active_tab}_bulk_quantity"]
   if free_price.isdigit():
     free_price = int(free_price)
   elif free_price != "":
@@ -164,11 +168,19 @@ def add_mod(window: sg.Window, values: dict) -> dict:
     }    
   else:
     free_price = 0
-  discount_or_free_price = discount != 0 or free_price != 0
+  if bulk_quantity.isdigit():
+    bulk_quantity = int(bulk_quantity)
+  elif bulk_quantity != "":
+    return {
+      "invalid": "Provide a valid bulk quantity"
+    }    
+  else:
+    bulk_quantity = 0    
+  bulk_provided = discount != 0 or free_price != 0 or bulk_quantity != 0
   
   item_key = f"{active_tab}_item_name"
   item_metadata = window[item_key].metadata
-  if not discount_or_free_price:    
+  if not bulk_provided:    
     item_name = values[item_key]
     if not item_name:
       return {
@@ -201,9 +213,7 @@ def add_mod(window: sg.Window, values: dict) -> dict:
         "price_offset": item.price_offset,
         "price": item_price,
         "quantity_offset": item.quantity_offset,
-        "quantity": item_quantity,
-        "discount": None,
-        "free_price": None
+        "quantity": item_quantity
       }    
     }
   else:
@@ -212,18 +222,16 @@ def add_mod(window: sg.Window, values: dict) -> dict:
       "invalid": None,
       "options": {
         "type": active_tab,
-        "name": None,
         "file": EQUIPMENT_FILE,
-        "price_offset": None,
-        "price": None,
         "discount": discount,
-        "free_price": free_price
+        "free_price": free_price,
+        "bulk_quantity": bulk_quantity
     }
   }
 
 def format(options: dict) -> str:
-  if options["discount"] or options["free_price"]:
-    return f"Modify Store {options['type'].capitalize()} ({options['discount']}%, {options['free_price']})"
+  if "free_price" in options:
+    return f"Modify Store {options['type'].capitalize()} ({options['discount']}%, {options['free_price']}, {options['bulk_quantity'] if 'bulk_quantity' in options else '0'})"
   else:
     return f"{options['name']} ({options['price']}, {options['quantity']})"
 
@@ -235,9 +243,10 @@ def get_files(options: dict) -> List[str]:
 
 def process(options: dict) -> None:
   file = options["file"]
-  if options["discount"] or options["free_price"]:
+  if "free_price" in options:
     discount = options["discount"]
     free_price = options["free_price"]
+    bulk_quantity = options["bulk_quantity"] if "bulk_quantity" in options else 0
     prices = load_equipement_prices()[options["type"]]
     if discount != 0:
       offsets = [x.price_offset for x in prices]
@@ -245,6 +254,9 @@ def process(options: dict) -> None:
     if free_price != 0:
       offsets = [x.price_offset for x in prices if x.price == 0]
       mods.update_file_at_offsets(file, offsets, free_price)
+    if bulk_quantity != 0:
+      offsets = [x.quantity_offset for x in prices]
+      mods.update_file_at_offsets(file, offsets, bulk_quantity)
   else:
     mods.update_file_at_offset(file, options["price_offset"], options["price"])
     mods.update_file_at_offset(file, options["quantity_offset"], options["quantity"])

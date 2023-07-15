@@ -46,5 +46,12 @@
     "projectiles": 0,
     "classes": [],
     "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec"
+  },
+  "modify_store_ammo": {
+    "type": "ammo",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 0,
+    "free_price": 0,
+    "bulk_quantity": 50
   }
 }

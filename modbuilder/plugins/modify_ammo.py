@@ -2,11 +2,9 @@ from typing import List
 from modbuilder import mods
 from modbuilder.adf_profile import create_u8, read_u32
 from pathlib import Path
-from deca.ff_sarc import FileSarc
 import PySimpleGUI as sg
 import re, os
 
-#verified
 NAME = "Modify Ammo"
 DESCRIPTION = "Modify ammo attributes. It is easy to over-adjust these settings, and then the ammo becomes unrealistic. The class changes do not show in the UI, but they do change harvest integrity."
 
