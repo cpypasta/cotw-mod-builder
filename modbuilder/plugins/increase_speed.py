@@ -22,32 +22,32 @@ def update_values_at_offset(options: dict) -> List[dict]:
   prone_multiplier = options['prone_speed_multiplier']
   return [
     {
-      "offset": 176,
+      "offset": 184, #176
       "transform": "multiply",
       "value": stand_multiplier
     },
     {
-      "offset": 200,
+      "offset": 208, #200
       "transform": "multiply",
       "value": stand_multiplier
     },
     {
-      "offset": 184,
+      "offset": 192, #184
       "transform": "multiply",
       "value": crouch_multiplier
     },
     {
-      "offset": 208,
+      "offset": 216, #208
       "transform": "multiply",
       "value": crouch_multiplier
     },
     {
-      "offset": 192,
+      "offset": 200, #192
       "transform": "multiply",
       "value": prone_multiplier
     },
     {
-      "offset": 216,
+      "offset": 224, #216
       "transform": "multiply",
       "value": prone_multiplier
     }
