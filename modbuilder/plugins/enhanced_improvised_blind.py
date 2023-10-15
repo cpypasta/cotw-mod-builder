@@ -15,6 +15,6 @@ def format(options: dict) -> str:
 def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = 1.0 + options['vegetation_camoflauge_percent'] / 100
   return [{
-    "offset": 18272,
+    "offset": 18208,
     "value": f"increase_vegetation_camo({updated_value})"
   }]

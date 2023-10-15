@@ -17,7 +17,7 @@ def update_values_at_offset(options: dict) -> List[dict]:
   heart_rate_recover = 1 + endurance_percent
   return [
     {
-      "offset": 18368,
+      "offset": 18304,
       "value": f"heart_rate_movement_increase_multiplier({endurance_percent:0<4.2f}), heart_rate_recovery_multiplier({heart_rate_recover:0<4.2f})"
     }
   ]

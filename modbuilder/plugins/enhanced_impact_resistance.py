@@ -16,7 +16,7 @@ def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = round(1.0 - options['fall_damage_reduction_percent'] / 100, 1)
   return [
     {
-      "offset": 19904,
+      "offset": 19840,
       "value": f"reduce_player_fall_damage({updated_value})"
     }
   ]

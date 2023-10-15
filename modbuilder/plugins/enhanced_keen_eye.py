@@ -27,18 +27,18 @@ def update_values_at_offset(options: dict) -> List[dict]:
   animal_distance = int(options["animal_distance"])
   min_animals = int(options["min_number_of_animals"])
   max_animals = int(options["max_number_of_animals"])
-  
+
   return [
     {
-      "offset": 21872,
-      "value": f"show_need_zone_in_range_on_map({zone_distance},{min_zones},{max_zones})"
+      "offset": 21808,
+      "value": f"show_need_zone_in_range_on_map({zone_distance:>3},{min_zones:>2},{max_zones:>2})"
     },
     {
-      "offset": 21920,
-      "value": f"show_need_zone_in_range_on_map({zone_distance},{min_zones},{max_zones}), show_animal_group_in_range_on_map({animal_distance},{min_animals},{max_animals})"
+      "offset": 21856,
+      "value": f"show_need_zone_in_range_on_map({zone_distance:>3},{min_zones:>2},{max_zones:>2}), show_animal_group_in_range_on_map({animal_distance:>3},{min_animals:>2},{max_animals:>2})"
     },
     {
-      "offset": 32368,
+      "offset": 31440,
       "value": cool
     }
   ]

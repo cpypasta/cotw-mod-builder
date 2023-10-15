@@ -1,0 +1,134 @@
+{
+  "modify_atv": {
+    "top_speed": "90",
+    "acceleration": "medium",
+    "traction": "medium",
+    "noise_distance": 500.0,
+    "vision_distance": 200.0
+  },
+  "remove_intro_logos": {},
+  "increase_speed": {
+    "stand_speed_multiplier": 1.5,
+    "crouch_speed_multiplier": 2.0,
+    "prone_speed_multiplier": 2.0
+  },
+  "modify_scope_Hyperion 4-8x42 Rifle": {
+    "name": "Hyperion 4-8x42 Rifle",
+    "file": "editor\\entities\\hp_weapons\\sights\\rifle_scope_4-8x_42mm_01\\equipment_sight_rifle_scope_4-8x_42mm_01.sighttunec",
+    "bundle_file": "editor\\entities\\hp_weapons\\sights\\rifle_scope_4-8x_42mm_01\\equipment_sight_rifle_scope_4-8x_42mm_01.ee",
+    "level_1": 1.0,
+    "level_2": 10.0,
+    "level_3": 13.5,
+    "level_4": 17.5,
+    "level_5": 24.0
+  },
+  "modify_optics_Apexview 7x42 Rangefinder Binoculars": {
+    "name": "Apexview 7x42 Rangefinder Binoculars",
+    "file": "editor\\entities\\hp_equipment\\optics\\tuning\\equipment_optics_rangefinder_binoculars_01.sighttunec",
+    "bundle_file": "editor\\entities\\hp_equipment\\optics\\equipment_optics_rangefinder_binoculars_01.ee",
+    "level_1": 1.0,
+    "level_2": 2.0,
+    "level_3": 3.0,
+    "level_4": 4.0,
+    "level_5": 19.0
+  },
+  "decrease_wobble": {
+    "reduce_stand_percent": 50.0,
+    "reduce_crouch_percent": 75.0,
+    "reduce_prone_percent": 100.0
+  },
+  "enhanced_pack_mule": {
+    "weight": "99.9"
+  },
+  "enhanced_endurance": {
+    "reduce_heart_rate_percent": 96.0
+  },
+  "enhanced_impact_resistance": {
+    "fall_damage_reduction_percent": 100.0
+  },
+  "enhanced_improvised_blind": {
+    "vegetation_camoflauge_percent": 580.0
+  },
+  "enhanced_soft_feet": {
+    "soft_feet_percent": 80.0
+  },
+  "enhanced_keen_eye": {
+    "cooldown_seconds": 10.0,
+    "zone_distance": 500.0,
+    "min_number_of_zones": 2.0,
+    "max_number_of_zones": 2.0,
+    "animal_distance": 500.0,
+    "min_number_of_animals": 1.0,
+    "max_number_of_animals": 3.0
+  },
+  "increase_cash_reward": {
+    "cash_reward_multiplier": 20.0
+  },
+  "decrease_hunting_pressure": {
+    "decrease_pressure_radius": 60.0,
+    "decrease_pressure_amount_percent": 10.0
+  },
+  "increase_deployables": {
+    "deployable_multiplier": 20.0
+  },
+  "increase_render_distance": {
+    "spawn_distance": 750.0,
+    "despawn_distance": 750.0,
+    "bird_spawn_distance": 750.0,
+    "bird_despawn_distance": 750.0
+  },
+  "weapon_magazine_.338 Bolt Action Rifle 01 (SAKO TRG 42/TSURUGI LRR) (5)": {
+    "weapon_name": ".338 Bolt Action Rifle 01 (SAKO TRG 42/TSURUGI LRR)",
+    "weapon_mag_size": 99,
+    "weapon_mag_offset": 270754
+  },
+  "modify_ammo_editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec": {
+    "name": "338 Polymer Tip",
+    "kinetic_energy": 0.0,
+    "penetration": 166.0,
+    "expansion": 0.0,
+    "damage": 0.0,
+    "mass": 0.0,
+    "projectiles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "file": "editor/entities/hp_weapons/ammunition/rifles/equipment_ammo_338_pt_01.ammotunec"
+  },
+  "modify_dog_fur": {
+    "black_and_tan_full_coat": "Merle",
+    "red_liver_pigmented": "Merle",
+    "black_tan_saddle": "Merle",
+    "liver_tan_fullcoat": "Merle",
+    "liver_tan_saddle": "Merle",
+    "red_and_black_pigmented": "Merle"
+  },
+  "modify_store_.338 Mag. Polymer-Tip Bullet Bullet (id: 10060)": {
+    "type": "ammo",
+    "name": ".338 Mag. Polymer-Tip Bullet Bullet (id: 10060)",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "price_offset": 10060,
+    "price": 99,
+    "quantity_offset": 10177,
+    "quantity": 100
+  },
+  "weapon_recoil_Ba Rifle 338 01": {
+    "name": "Ba Rifle 338 01",
+    "file": "editor/entities/hp_weapons/weapon_rifles_01/tuning/weapon_ba_rifle_338_01.wtunec",
+    "recoil_percent": 100,
+    "one_distance": 75.0,
+    "one_angle": 0.0559,
+    "two_distance": 150.0,
+    "two_angle": 0.0955,
+    "three_distance": 300.0,
+    "three_angle": 0.183
+  }
+}

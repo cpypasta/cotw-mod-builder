@@ -16,7 +16,7 @@ def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = int(options['haggle_percent'])
   return [
     {
-      "offset": 21064,
+      "offset": 21000,
       "value": f"haggle({updated_value})"
     }
   ]

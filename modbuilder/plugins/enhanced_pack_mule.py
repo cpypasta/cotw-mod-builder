@@ -14,6 +14,6 @@ def format(options: dict) -> str:
 def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = options['weight']
   return [{
-    "offset": 22136,
+    "offset": 22072,
     "value": f"set_player_carry_capacity({updated_value})"
   }]
