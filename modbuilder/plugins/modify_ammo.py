@@ -5,6 +5,7 @@ from pathlib import Path
 import PySimpleGUI as sg
 import re, os
 
+DEBUG = False
 NAME = "Modify Ammo"
 DESCRIPTION = "Modify ammo attributes. It is easy to over-adjust these settings, and then the ammo becomes unrealistic. The class changes do not show in the UI, but they do change harvest integrity."
 
@@ -97,6 +98,7 @@ def get_option_elements() -> sg.Column:
   return sg.Column(layout)
 
 def add_mod(window: sg.Window, values: dict) -> dict:
+  window["ammo_group"]
   active_tab = window["ammo_group"].find_currently_active_tab_key().lower()  
   active_tab = active_tab.split("_")[0]
   ammo_name = values[f"{active_tab}_ammo"]
@@ -182,7 +184,7 @@ def process(options: dict) -> None:
   
   if len(classes) > 0:
     header_offset = 152
-    data_offset = 264
+    data_offset = 272
     file_data = mods.get_modded_file(file).read_bytes()
     old_array_length = read_u32(file_data[header_offset+8:header_offset+12])
     new_array_length = len(classes)

@@ -40,7 +40,7 @@ def process(options: dict) -> None:
         table_index = i
         break
       else:
-        i = i + 1        
+        i = i + 1    
     
     if table_index == None:
       continue        
@@ -55,4 +55,3 @@ def process(options: dict) -> None:
           score_weight_bias_pos = score_node.prop_table[-2].data_pos
           weight_bias = round(score_max_weight * respawn_level, 2)
           mods.update_file_at_offset(Path(FILE), score_weight_bias_pos, weight_bias)
-  

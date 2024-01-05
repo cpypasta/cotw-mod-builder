@@ -4,7 +4,7 @@ from pathlib import Path
 from deca.ff_rtpc import rtpc_from_binary, RtpcNode
 import PySimpleGUI as sg
 
-#verified
+DEBUG = False
 NAME = "Increase Weapon Magazine"
 DESCRIPTION = "Increase the magazine size of all weapons."
 FILE = "settings/hp_settings/equipment_data.bin"
@@ -20,7 +20,11 @@ def load_weapons() -> Tuple[List[str], List[dict]]:
   weapons = equipment.child_table[6].child_table
   weapon_details = []
   for weapon in weapons:
-    weapon_name = weapon.prop_table[4].data.decode("utf-8")
+    weapon_name = weapon.prop_table[4].data
+    if type(weapon_name) is bytes:
+      weapon_name = weapon_name.decode("utf-8")
+    else:
+      weapon_name = weapon.prop_table[5].data.decode("utf-8")
     magazine = weapon.child_table[1].prop_table[2]
     weapon_current_mag = magazine.data
     weapon_current_mag_offset = magazine.data_pos

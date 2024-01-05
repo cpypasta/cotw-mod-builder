@@ -163,6 +163,14 @@ def update_file_at_offsets(src_filename: str, offsets: List[int], value: any, tr
           fp.write(struct.pack("i", new_value))
       fp.flush()  
 
+def update_file_at_offsets_with_values(src_filename: str, values: list[(int, int)]) -> None:
+  dest_path = get_modded_file(src_filename) 
+  with open(dest_path, "r+b") as fp:
+    for offset, value in values:
+      fp.seek(offset)
+      fp.write(struct.pack("i", value))
+    fp.flush()  
+
 def update_file_at_offset(src_filename: str, offset: int, value: any, transform: str = None, format: str = None) -> None:
   update_file_at_offsets(src_filename, [offset], value, transform, format)
 
@@ -176,13 +184,6 @@ def apply_mod(mod: any, options: dict) -> None:
 
 def get_global_file_info() -> dict:
   global_files = {}
-  adf = Adf()
-  with ArchiveFile(open(GLOBAL_PATH, 'rb')) as f:
-    adf.deserialize(f)
-  for i, instance in enumerate(adf.table_instance_values):
-    for item in instance:
-      offset = item.offset + adf.table_instance[i].offset
-      global_files[item.v_path.decode("utf-8")] = offset
   return global_files
 
 def get_sarc_file_info(filename: Path, include_details: bool = False) -> dict:
@@ -350,7 +351,7 @@ def load_dropzone() -> None:
     raise Exception("Could not find game path to save mods!")
 
 def find_closest_lookup(desired_value: float, filename: str) -> int:
-  root, _ext = os.path.splitext(filename)
+  root, _ = os.path.splitext(filename)
   numbers = json.load((LOOKUP_PATH / f"{root}.json").open())["numbers"]
   exact_match = None
   for number, cell_index in numbers.items():
@@ -368,6 +369,48 @@ def find_closest_lookup(desired_value: float, filename: str) -> int:
         closest_match = int(cell_index)
         closest_delta = delta
     return closest_match
+
+def find_closest_lookup2(desired_value: float, numbers: dict) -> int:
+  exact_match = None
+  for number, cell_index in numbers.items():
+    if float(number) == desired_value:
+      exact_match = int(cell_index)
+      break
+  if exact_match:
+    return exact_match
+  else:
+    closest_delta = 9999999
+    closest_match = None
+    for number, cell_index in numbers.items():
+      delta = abs(float(number) - desired_value)
+      if delta < closest_delta:
+        closest_match = int(cell_index)
+        closest_delta = delta
+    return closest_match
+
+def lookup_column(
+  filename: str, 
+  sheet: str, 
+  col_label: str, 
+  start_row: int, 
+  end_row: int,
+  multiplier: float
+) -> (list[int], list[int]):
+  root, _ = os.path.splitext(filename)
+  data = json.load((LOOKUP_PATH / f"{root}.json").open())
+  cells = data["sheets"][sheet]
+  cell_indices = []
+  for row in range(start_row, end_row + 1):
+    cell_indices.append(f"{col_label}{row}")
+  # print("Cells", cell_indices)
+  target_cells = list(filter(lambda x: x["cell"] in cell_indices, cells))
+  target_cells = sorted(target_cells, key=lambda x: x["cell"])
+  # print("Target", [c["value"] for c in target_cells])
+  result = []
+  for c in target_cells:
+    cell_index = find_closest_lookup2(c["value"] * multiplier, data["numbers"])
+    result.append((c["cell_index_offset"], cell_index))
+  return result
 
 def update_non_instance_offsets(data: bytearray, profile: dict, added_size: int) -> None:
   offsets_to_update = [

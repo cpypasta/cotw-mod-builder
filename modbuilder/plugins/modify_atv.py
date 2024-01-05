@@ -202,23 +202,21 @@ def process(options: dict) -> None:
   }
   
   if noise != 500.0:
-    index_offset = [80804, 80808]
-    one_index_offset = [80780, 80784]
+    index_offset = [87180, 87184]
+    one_index_offset = [87156, 87160]
     value_cell_index = cell_index[str(int(noise))]
     for offset in index_offset:
       mods.update_file_at_offset(NOISE_PATH, offset, value_cell_index)
-    if noise <= 200.0:
-      for offset in one_index_offset:
-        mods.update_file_at_offset(NOISE_PATH, offset, cell_index["0"])
+    for offset in one_index_offset:
+      mods.update_file_at_offset(NOISE_PATH, offset, value_cell_index)
   if vision != 200.0:
-    index_offset = [80924, 80928]
-    one_index_offset = [80900, 80904]
+    index_offset = [87300, 87304]
+    one_index_offset = [87276, 87280]
     value_cell_index = cell_index[str(int(vision))]
     for offset in index_offset:
       mods.update_file_at_offset(NOISE_PATH, offset, value_cell_index)
-    if noise <= 150.0:
-      for offset in one_index_offset:
-        mods.update_file_at_offset(NOISE_PATH, offset, cell_index["0"])
+    for offset in one_index_offset:
+      mods.update_file_at_offset(NOISE_PATH, offset, value_cell_index)
 
 def merge_files(files: List[str], options: dict) -> None:
   for bundle_file in [RED_MERGE_PATH, SILVER_MERGE_PATH, JADE_MERGE_PATH]:

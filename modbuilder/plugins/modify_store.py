@@ -5,11 +5,10 @@ from deca.ff_rtpc import rtpc_from_binary, RtpcNode
 import PySimpleGUI as sg
 import re
 
-#verification
+DEBUG = False
 NAME = "Modify Store"
 DESCRIPTION = "Modify the store prices. I would discourage you from adding individual and bulk modifications for the same category at the same time."
 EQUIPMENT_FILE = "settings/hp_settings/equipment_data.bin"
-DEBUG = False
 
 class StoreItem:
   def __init__(self, type: str, name: str, price: int, price_offset: int, quantity: int, quantity_offset: int) -> None:
@@ -80,7 +79,16 @@ def handle_skin_name(item: RtpcNode) -> str:
   return "Unknown Skin"
 
 def handle_misc_name(item: RtpcNode) -> str:
-  return re.sub(r'\([\w\s\-\'\./]+\)$', "", item.prop_table[4].data.decode("utf-8"))
+  name = item.prop_table[4].data
+  if type(name) is bytes:
+    name = name.decode("utf-8")
+  else:
+    name = item.prop_table[5].data
+    if type(name) is bytes:
+      name = name.decode("utf-8")
+    else:
+      name = "unknown"
+  return re.sub(r'\([\w\s\-\'\./]+\)$', "", name)
 
 def load_equipement_prices() -> dict:
   equipment = open_rtpc(mods.APP_DIR_PATH / "org" / EQUIPMENT_FILE)

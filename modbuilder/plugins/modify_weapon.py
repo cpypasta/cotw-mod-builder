@@ -6,7 +6,7 @@ from deca.ff_adf import Adf
 import PySimpleGUI as sg
 import re, os
 
-#verified
+DEBUG = False
 NAME = "Modify Weapon"
 DESCRIPTION = "Modify weapon recoil, zeroing settings, and scope settings. Be careful adjusting the zeroing settings, since it may require changing ammo kinetic energy also to work well."
 

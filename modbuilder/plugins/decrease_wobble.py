@@ -1,6 +1,6 @@
 from typing import List
 
-# verified
+DEBUG = False
 NAME = "Decrease Wobble"
 DESCRIPTION = "Reduce the amount of wobble when looking through the scope."
 FILE = "editor/entities/hp_characters/main_characters/elmer/elmer_movement.mtunec"
@@ -25,15 +25,15 @@ def update_values_at_offset(options: dict) -> List[dict]:
   prone_value = round(1.0 - prone_percent / 100, 1)
   return [
     {
-      "offset": 452, #444
+      "offset": 444,
       "value": stand_value
     },
     {
-      "offset": 456, #448
+      "offset": 448,
       "value": crouch_value
     },
     {
-      "offset": 460, #452
+      "offset": 452,
       "value": prone_value
     }
   ]

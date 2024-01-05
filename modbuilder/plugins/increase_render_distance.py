@@ -3,7 +3,7 @@ from modbuilder import mods
 from deca.ff_rtpc import rtpc_from_binary, RtpcNode, RtpcProperty
 from pathlib import Path
 
-#verified
+DEBUG = False
 NAME = "Increase Render Distance"
 DESCRIPTION = "Increase the render distance of animals. There are two settings: when the animals spawn (get closer) or desapwn (moving away)."
 FILE = "global/global_animal_types.blo"

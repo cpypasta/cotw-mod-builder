@@ -1,6 +1,6 @@
 from typing import List
 
-DEBUG=False
+DEBUG = False
 NAME = "Enhanced Impact Resistance"
 DESCRIPTION = "Decreases damage from falling. You must have the Impact Resistance skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"
@@ -16,7 +16,7 @@ def update_values_at_offset(options: dict) -> List[dict]:
   updated_value = round(1.0 - options['fall_damage_reduction_percent'] / 100, 1)
   return [
     {
-      "offset": 19840,
+      "offset": 19904,
       "value": f"reduce_player_fall_damage({updated_value})"
     }
   ]

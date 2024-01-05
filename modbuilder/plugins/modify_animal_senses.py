@@ -11,7 +11,10 @@ OPTIONS = [
   { "name": "Increase Alarmed Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 10 },
   { "name": "Increase Defensive Threshold Percent", "min": 0, "max": 300, "default": 0, "increment": 10 },
   { "name": "Reduce Nervous Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 },
-  { "name": "Reduce Defensive Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 }
+  { "name": "Reduce Defensive Duration Percent", "min": 0, "max": 100, "default": 0, "increment": 1 },
+  { "name": "Reduce Scent Detection Percent", "min": 0, "max": 100, "default": 0, "increment": 1 },
+  { "name": "Reduce Vision Detection Percent", "min": 0, "max": 100, "default": 0, "increment": 1 },
+  { "name": "Reduce Sound Detection Percent", "min": 0, "max": 100, "default": 0, "increment": 1 }
 ]
 
 def format(options: dict) -> str:
@@ -26,9 +29,13 @@ def update_values_at_offset(options: dict) -> List[dict]:
   alert_percent = 1 + options['increase_alert_threshold_percent'] / 100
   alarmed_percent = 1 + options['increase_alarmed_threshold_percent'] / 100
   defensive_percent = 1 + options['increase_defensive_threshold_percent'] / 100
+
   nervous_duration_percent = 1 - options['reduce_nervous_duration_percent'] / 100
   default_defensive_duration_percent = options['reduce_defensive_duration_percent'] if "reduce_defensive_duration_percent" in options else 0
   defensive_duration_percent = 1 - default_defensive_duration_percent / 100
+  scent_multiplier = 1 - options['reduce_scent_detection_percent'] / 100
+  vision_multiplier = 1 - options['reduce_vision_detection_percent'] / 100
+  sound_multiplier = 1 - options['reduce_sound_detection_percent'] / 100
   
   nervous_min = 600.0
   nervous_max = 900.0
@@ -46,12 +53,32 @@ def update_values_at_offset(options: dict) -> List[dict]:
   new_defensive_min_cell = mods.find_closest_lookup(new_defensive_min, FILE)
   new_defensive_max_easy_cell = mods.find_closest_lookup(new_defensive_max_easy, FILE)
   new_defensive_max_cell = mods.find_closest_lookup(new_defensive_max, FILE)
-  new_nervous_min_offset = 148828
-  new_nervous_max_offset = 148832
+  new_nervous_min_offset = 147064
+  new_nervous_max_offset = 147068
   new_defensive_min_easy_offset = 14404
   new_defensive_min_offset = 14788
   new_defensive_max_easy_offset = 15172
   new_defensive_max_offset = 15556
+  new_aggressive_easy_offset = 17476
+  new_aggressive_difficult_offset = 17860
+  new_aggressive_decay_offset = 18244
+  
+
+  scent_prone_updates = mods.lookup_column(FILE, "species_data", "B", 119, 126, scent_multiplier)
+  scent_crouch_updates = mods.lookup_column(FILE, "species_data", "B", 130, 137, scent_multiplier)
+  scent_stand_updates = mods.lookup_column(FILE, "species_data", "B", 141, 148, scent_multiplier)
+  scent_updates = scent_prone_updates + scent_crouch_updates + scent_stand_updates
+  
+  vision_shadow_updates = mods.lookup_column(FILE, "species_data", "B", 39, 43, vision_multiplier)
+  vision_prone_updates = mods.lookup_column(FILE, "species_data", "B", 45, 50, vision_multiplier)
+  vision_crouch_updates = mods.lookup_column(FILE, "species_data", "B", 54, 59, vision_multiplier)
+  vision_stand_updates = mods.lookup_column(FILE, "species_data", "B", 63, 68, vision_multiplier)
+  vision_updates = vision_shadow_updates + vision_prone_updates + vision_crouch_updates + vision_stand_updates
+  
+  sound_prone_updates = mods.lookup_column(FILE, "species_data", "B", 93, 95, sound_multiplier)
+  sound_crouch_updates = mods.lookup_column(FILE, "species_data", "B", 98, 100, sound_multiplier)
+  sound_stand_updates = mods.lookup_column(FILE, "species_data", "B", 103, 105, sound_multiplier)
+  sound_updates = sound_prone_updates + sound_crouch_updates + sound_stand_updates
   
   attentive_enter = 0.20000000298023224
   attentive_exit = 0.10000000149011612    
@@ -77,6 +104,10 @@ def update_values_at_offset(options: dict) -> List[dict]:
   alarmed_exit_offset = 12484
   defensive_enter_offset = 12868
   defensive_exit_offset = 13252
+  
+  mods.update_file_at_offsets_with_values(FILE, scent_updates)
+  mods.update_file_at_offsets_with_values(FILE, vision_updates)
+  mods.update_file_at_offsets_with_values(FILE, sound_updates)
   
   return [
     {
@@ -134,5 +165,5 @@ def update_values_at_offset(options: dict) -> List[dict]:
     {
       "offset": defensive_exit_offset,
       "value": new_defensive_exit_cell
-    }
+    }   
   ]

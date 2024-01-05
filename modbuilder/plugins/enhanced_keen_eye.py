@@ -1,6 +1,6 @@
 from typing import List
 
-DEBUG=False
+DEBUG = False
 NAME = "Enhanced Keen Eye"
 DESCRIPTION = "Enables you to spot need zones and animal groups from lookup points. You must have the Keen Eye skill unlocked for this modification to take affect. Be careful not to increase the need zones or animal groups too high, or your computer may have performance issues."
 FILE = "settings/hp_settings/player_skills.bin"
@@ -30,15 +30,15 @@ def update_values_at_offset(options: dict) -> List[dict]:
 
   return [
     {
-      "offset": 21808,
+      "offset": 21912,
       "value": f"show_need_zone_in_range_on_map({zone_distance:>3},{min_zones:>2},{max_zones:>2})"
     },
     {
-      "offset": 21856,
+      "offset": 21960,
       "value": f"show_need_zone_in_range_on_map({zone_distance:>3},{min_zones:>2},{max_zones:>2}), show_animal_group_in_range_on_map({animal_distance:>3},{min_animals:>2},{max_animals:>2})"
     },
     {
-      "offset": 31440,
+      "offset": 34472,
       "value": cool
     }
   ]
