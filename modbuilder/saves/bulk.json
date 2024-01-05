@@ -1,0 +1,58 @@
+{
+  "modify_store_ammo": {
+    "type": "ammo",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 100
+  },
+  "modify_store_misc": {
+    "type": "misc",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 100
+  },
+  "modify_store_sight": {
+    "type": "sight",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_optic": {
+    "type": "optic",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_skin": {
+    "type": "skin",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_weapon": {
+    "type": "weapon",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_structure": {
+    "type": "structure",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_lure": {
+    "type": "lure",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 100
+  }
+}

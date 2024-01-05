@@ -65,7 +65,7 @@ def build_tab(ammo_type: str, ammo: List[str]) -> sg.Tab:
       [sg.T("Increase Kinetic Energy Percent")],
       [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_kinetic_energy")],
       [sg.T("Increase Penetration Percent", p=(0, 8))],
-      [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_penetration")],
+      [sg.Slider((0, 100), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_penetration")],
       [sg.T("Increase Expansion Percent", p=(0, 8))],
       [sg.Slider((0, 200), 0, 2, orientation = "h", p=((50,0),(0,0)), k=f"{type_key}_expansion")],
       [sg.T("Increase Damage Percent", p=(0, 8))],
@@ -166,8 +166,10 @@ def create_classes(classes: List[int]):
 def process(options: dict) -> None:
   kinetic_energy = 1 + options["kinetic_energy"] / 100
   penetration = 1 - options["penetration"] / 100
+  if penetration == 0:
+    penetration = 0.0000001
   damage = 1 + options["damage"] / 100
-  expansion_rate = 1 - options["expansion"] / 100
+  expansion_rate = 1 + options["expansion"] / 100
   max_expansion = 1 + options["expansion"] / 100
   mass = 1 + options["mass"] / 100 if "mass" in options else 0
   projectiles = int(options["projectiles"]) if "projectiles" in options else 0
@@ -179,6 +181,7 @@ def process(options: dict) -> None:
   mods.update_file_at_offset(file, 192, penetration, "multiply")
   mods.update_file_at_offset(file, 196, damage, "multiply")
   mods.update_file_at_offset(file, 200, expansion_rate, "multiply")
+  mods.update_file_at_offset(file, 204, expansion_rate, "multiply")
   mods.update_file_at_offset(file, 208, max_expansion, "multiply")
   mods.update_file_at_offset(file, 212, projectiles, "add")
   

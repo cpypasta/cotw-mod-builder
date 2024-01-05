@@ -112,7 +112,7 @@ def format(options: dict) -> str:
   acceleration = options["acceleration"]
   traction = options["traction"]
   noise = options["noise_distance"]
-  return f"Modify ATV ({top_speed}km/h, {acceleration}, {traction}, {int(noise)}km)"
+  return f"Modify ATV ({top_speed}km/h, {acceleration}, {traction}, {int(noise)}m)"
 
 def get_files(options: dict) -> List[str]:
   noise = options["noise_distance"]

@@ -11,7 +11,7 @@ OPTIONS = [
   { "name": "Crouch Sprint Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 },
   { "name": "Prone Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.1 },
   { "name": "Prone Sprint Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 },
-  { "name": "Jump Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.1 }
+  { "name": "Jump Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.1, "note": "use impact resistance to stay alive" }
 ]
 
 def format(options: dict) -> str:

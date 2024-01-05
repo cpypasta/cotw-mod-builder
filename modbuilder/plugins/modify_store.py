@@ -44,18 +44,21 @@ def load_price_node(items: List[RtpcNode], type: str, name_offset: int = 4, pric
       price_item = item.prop_table[price_offset]
       price = price_item.data
       price_offset_value = price_item.data_pos
-      
-    quantity_item = item.prop_table[quantity_offset]
-    quantity = quantity_item.data
-    quantity_offset_value = quantity_item.data_pos
+    
+    if quantity_offset is None:
+      quantity = 0
+      quantity_offset_value = -1
+    else:
+      quantity_item = item.prop_table[quantity_offset]
+      quantity = quantity_item.data
+      if (isinstance(quantity, int) and quantity > 100) or not isinstance(quantity, int):
+        quantity = 0
+        quantity_offset_value = -1
+      else:
+        quantity_offset_value = quantity_item.data_pos
     
     prices.append(StoreItem(type, f"{name} (id: {price_offset_value})", price, price_offset_value, quantity, quantity_offset_value))
   return sorted(prices, key=lambda x: x.name)
-
-def handle_atv_name(item: RtpcNode) -> str:
-  name = item.prop_table[9].data.decode("utf-8")
-  parts = name.split("\\")[-1].replace("vehicle_atv_", "").replace(".ddsc", "").split("_")
-  return " ".join([x.capitalize() for x in parts])
 
 def handle_lure_name(item: RtpcNode) -> str:
   if isinstance(item.prop_table[1].data, bytes):
@@ -65,8 +68,10 @@ def handle_lure_name(item: RtpcNode) -> str:
   return "Unknown Lure"
 
 def  handle_lure_price(item: RtpcNode) -> Tuple[int,int]:
-  if isinstance(item.prop_table[1].data, bytes) and "caller" in item.prop_table[1].data.decode("Utf-8").lower():
-    return (item.prop_table[0].data, item.prop_table[0].data_pos)
+  if isinstance(item.prop_table[1].data, bytes):
+    second_prop = item.prop_table[1].data.decode("Utf-8").lower()
+    if "caller" in second_prop or "call" in second_prop or "rattler" in second_prop:
+      return (item.prop_table[0].data, item.prop_table[0].data_pos)
   else:
     return (item.prop_table[7].data, item.prop_table[7].data_pos)
 
@@ -75,7 +80,8 @@ def handle_skin_name(item: RtpcNode) -> str:
     parts = item.prop_table[9].data.decode("utf-8").split("\\")
     map = " ".join([x.capitalize() for x in parts[-2].split("_")])
     name = parts[-1].replace(".ddsc", "").replace("_dif", "")
-    return f"{map} {name}"
+    name = f"{map} {name}"
+    return re.sub(r'_(\w+)$', '', name)
   return "Unknown Skin"
 
 def handle_misc_name(item: RtpcNode) -> str:
@@ -88,7 +94,10 @@ def handle_misc_name(item: RtpcNode) -> str:
       name = name.decode("utf-8")
     else:
       name = "unknown"
-  return re.sub(r'\([\w\s\-\'\./]+\)$', "", name)
+  if len(name) > 40:
+    return re.sub(r'\([\w\s\-\'\./]+\)$', "", name)
+  else:
+    return name
 
 def load_equipement_prices() -> dict:
   equipment = open_rtpc(mods.APP_DIR_PATH / "org" / EQUIPMENT_FILE)
@@ -96,7 +105,6 @@ def load_equipement_prices() -> dict:
   misc_items = equipment.child_table[1].child_table
   sights_items = equipment.child_table[2].child_table
   optic_items = equipment.child_table[3].child_table
-  atv_items = equipment.child_table[4].child_table
   skin_items = equipment.child_table[5].child_table
   weapon_items = equipment.child_table[6].child_table
   portable_items = equipment.child_table[7].child_table
@@ -104,32 +112,41 @@ def load_equipement_prices() -> dict:
   
   return {
     "ammo": load_price_node(ammo_items, "Ammo", name_offset=1, price_offset=0),
-    "misc": load_price_node(misc_items, "Misc", name_handle=handle_misc_name),
-    "sight": load_price_node(sights_items, "Sight", name_offset=1, price_offset=0),
-    "optic": load_price_node(optic_items, "Optic"),
-    "atv": load_price_node(atv_items, "ATV", name_handle=handle_atv_name),
-    "skin": load_price_node(skin_items, "Skin", name_handle=handle_skin_name),
-    "weapon": load_price_node(weapon_items, "Weapon", price_offset=8, name_handle=handle_misc_name),
-    "structure": load_price_node(portable_items, "Structure"),
-    "lure": load_price_node(lures_items, "Lure", name_handle=handle_lure_name, price_handle=handle_lure_price)
+    "misc": load_price_node(misc_items, "Misc", name_handle=handle_misc_name, quantity_offset=15),
+    "sight": load_price_node(sights_items, "Sight", name_offset=1, price_offset=0, quantity_offset=None),
+    "optic": load_price_node(optic_items, "Optic", quantity_offset=None),
+    "skin": load_price_node(skin_items, "Skin", name_handle=handle_skin_name, quantity_offset=None),
+    "weapon": load_price_node(weapon_items, "Weapon", price_offset=8, name_handle=handle_misc_name, quantity_offset=None),
+    "structure": load_price_node(portable_items, "Structure", quantity_offset=None),
+    "lure": load_price_node(lures_items, "Lure", name_handle=handle_lure_name, price_handle=handle_lure_price, quantity_offset=15)
   }
 
-def build_tab(type: str, items: List[StoreItem]) -> sg.Tab:
+def build_tab(type: str, items: List[StoreItem], include_quantity: bool = True) -> sg.Tab:
   type_key = type.lower()
   layout = [
     [sg.T("Individual:", p=((10,0),(20,0)), text_color="orange")],
     [sg.T("Item", p=((30,7),(10,0))), sg.Combo([x.name for x in items], metadata=items, k=f"{type_key}_item_name", p=((10,10),(10,0)), enable_events=True)],
-    [sg.T("Price", p=((30,0),(10,0))), sg.Input("", size=10, p=((10,0),(10,0)), k=f"{type_key}_item_price")],
-    [sg.T("Quantity", p=((30,0),(10,0))), sg.Input("", size=10, p=((10,0),(10,0)), k=f"{type_key}_item_quantity")],
-    [sg.T("Bulk:", p=((10,0),(20,0)), text_color="orange"), sg.T("(applies to all items in this category)", font="_ 12", p=((0,0),(20,0)))],
-    [sg.T("Change Free to Price", p=((30,0),(10,0)))],
-    [sg.Input("", size=10, p=((60,0),(10,0)), k=f"{type_key}_free_price")], 
-    [sg.T("Discount Percent", p=((30,0),(10,0)))],
-    [sg.Slider((0,100), 0, 1, orientation="h", p=((60,0),(10,0)), k=f"{type_key}_discount")],
-    [sg.T("Quantity", p=((30,0),(10,0)))],
-    [sg.Input("", size=10, p=((60,0),(10,0)), k=f"{type_key}_bulk_quantity")], 
-    [sg.T("")]
+    [sg.T("Price", p=((30,0),(10,0))), sg.Input("", size=10, p=((10,0),(10,0)), k=f"{type_key}_item_price")]
   ]
+  if include_quantity:
+    layout.append(
+      [sg.T("Quantity", p=((30,0),(10,0))), sg.Input("", size=10, p=((10,0),(10,0)), k=f"{type_key}_item_quantity")],  
+    )
+  layout.extend([
+      [sg.T("Bulk:", p=((10,0),(20,0)), text_color="orange"), sg.T("(applies to all items in this category)", font="_ 12", p=((0,0),(20,0)))],
+      [sg.T("Change Free to Price", p=((30,0),(10,0)))],
+      [sg.Input("", size=10, p=((60,0),(10,0)), k=f"{type_key}_free_price")], 
+      [sg.T("Discount Percent", p=((30,0),(10,0)))],
+      [sg.Slider((0,100), 0, 1, orientation="h", p=((60,0),(10,0)), k=f"{type_key}_discount")],             
+  ])
+  if include_quantity:
+    layout.extend([
+      [sg.T("Quantity", p=((30,0),(10,0)))],
+      [sg.Input("", size=10, p=((60,0),(10,0)), k=f"{type_key}_bulk_quantity")],       
+      [sg.T("")] 
+    ])
+  else:
+    layout.append([sg.T("")])
   
   return sg.Tab(type, layout, k=f"{type_key}_store_tab")
 
@@ -140,12 +157,11 @@ def get_option_elements() -> sg.Column:
     sg.TabGroup([[
       build_tab("Ammo", equipment_prices["ammo"]),
       build_tab("Misc", equipment_prices["misc"]),
-      build_tab("Sight", equipment_prices["sight"]),
-      build_tab("Optic", equipment_prices["optic"]),
-      build_tab("ATV", equipment_prices["atv"]),
-      build_tab("Skin", equipment_prices["skin"]),
-      build_tab("Weapon", equipment_prices["weapon"]),
-      build_tab("Structure", equipment_prices["structure"]),
+      build_tab("Sight", equipment_prices["sight"], include_quantity=False),
+      build_tab("Optic", equipment_prices["optic"], include_quantity=False),
+      build_tab("Skin", equipment_prices["skin"], include_quantity=False),
+      build_tab("Weapon", equipment_prices["weapon"], include_quantity=False),
+      build_tab("Structure", equipment_prices["structure"], include_quantity=False),
       build_tab("Lure", equipment_prices["lure"]),
     ]], k="store_group")
   ]]
@@ -157,9 +173,14 @@ def handle_event(event: str, window: sg.Window, values: dict) -> None:
     item_name = values[event]
     item_index = window[event].Values.index(item_name)
     item_price = window[event].metadata[item_index].price
-    item_quantity = window[event].metadata[item_index].quantity
     window[f"{type_key}_item_price"].update(item_price)
-    window[f"{type_key}_item_quantity"].update(item_quantity)
+    
+    item_quantity = window[event].metadata[item_index].quantity
+    quantity_key = f"{type_key}_item_quantity"    
+    if item_quantity > 0:
+      window[quantity_key].update(item_quantity, disabled=False)      
+    elif quantity_key in window.key_dict:
+      window[quantity_key].update(item_quantity, disabled=True)
 
 def add_mod(window: sg.Window, values: dict) -> dict:
   active_tab = window["store_group"].find_currently_active_tab_key().lower() 
@@ -167,7 +188,11 @@ def add_mod(window: sg.Window, values: dict) -> dict:
   
   discount = int(values[f"{active_tab}_discount"])
   free_price = values[f"{active_tab}_free_price"]
-  bulk_quantity = values[f"{active_tab}_bulk_quantity"]
+  if f"{active_tab}_bulk_quantity" in values:
+    bulk_quantity = values[f"{active_tab}_bulk_quantity"]
+  else:
+    bulk_quantity = "0"
+    
   if free_price.isdigit():
     free_price = int(free_price)
   elif free_price != "":
@@ -178,12 +203,13 @@ def add_mod(window: sg.Window, values: dict) -> dict:
     free_price = 0
   if bulk_quantity.isdigit():
     bulk_quantity = int(bulk_quantity)
-  elif bulk_quantity != "":
-    return {
-      "invalid": "Provide a valid bulk quantity"
-    }    
+  elif bulk_quantity == "":
+    bulk_quantity = 0
   else:
-    bulk_quantity = 0    
+    return {
+      "invalid": f"Provide a valid bulk quantity ({bulk_quantity})"
+    }    
+
   bulk_provided = discount != 0 or free_price != 0 or bulk_quantity != 0
   
   item_key = f"{active_tab}_item_name"
@@ -197,7 +223,11 @@ def add_mod(window: sg.Window, values: dict) -> dict:
     item_index = window[item_key].Values.index(item_name)
     item = item_metadata[item_index]
     item_price = values[f"{active_tab}_item_price"]
-    item_quantity = values[f"{active_tab}_item_quantity"]
+    if f"{active_tab}_item_quantity" in values:
+      item_quantity = values[f"{active_tab}_item_quantity"]
+    else:
+      item_quantity = "0"
+      
     if item_price.isdigit():
       item_price = int(item_price)
     else:
@@ -264,7 +294,9 @@ def process(options: dict) -> None:
       mods.update_file_at_offsets(file, offsets, free_price)
     if bulk_quantity != 0:
       offsets = [x.quantity_offset for x in prices]
+      offsets = list(filter(lambda x: x != -1, offsets))
       mods.update_file_at_offsets(file, offsets, bulk_quantity)
   else:
     mods.update_file_at_offset(file, options["price_offset"], options["price"])
-    mods.update_file_at_offset(file, options["quantity_offset"], options["quantity"])
+    if options["quantity"] > 0:
+      mods.update_file_at_offset(file, options["quantity_offset"], options["quantity"])

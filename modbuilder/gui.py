@@ -1,4 +1,4 @@
-import textwrap, math
+import textwrap, math, inspect
 import PySimpleGUI as sg
 from modbuilder import __version__, logo, mods, party
 from typing import List
@@ -283,8 +283,14 @@ def main() -> None:
           modded_files = mods.copy_all_files_to_mod(mod.get_files(mod_options))
         mod_files += modded_files
         mods.apply_mod(mod, mod_options)
-        if hasattr(mod, "merge_files"): # TODO: all these possible paths should go into mods module
-          mod.merge_files(modded_files, mod_options)
+        
+        if hasattr(mod, "merge_files"):
+          merge_params = inspect.signature(mod.merge_files).parameters
+          if len(merge_params) == 2:
+            print("merge files with options")
+            mod.merge_files(modded_files, mod_options)
+          else:
+            mod.merge_files(modded_files)
         step_progress = math.floor(step * progress_step)
         window["progress"].update(step_progress)
         step += 1
