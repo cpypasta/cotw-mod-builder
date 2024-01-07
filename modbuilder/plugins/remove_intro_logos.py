@@ -19,6 +19,7 @@ def merge_files(files: List[str], options: dict) -> None:
   to_base = mods.APP_DIR_PATH / "mod/dropzone/ui"
   mods.copy_file(from_base / "intro.gfx", to_base / "intro.gfx")
   mods.copy_file(from_base / "title.gfx", to_base / "title.gfx")
+  mods.copy_file(from_base / "title_id.ddsc", to_base / "title_id.ddsc")
 
 def update_values_at_offset(options: dict) -> List[dict]:
   return []
