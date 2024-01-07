@@ -4,37 +4,22 @@ A tool that makes it easy to customize and create mods for theHunter: Call of th
 
 ![Recording](https://user-images.githubusercontent.com/2107385/230709601-c0ab9cc6-da52-4692-a82d-547b5df65cbc.gif)
 
-Game Version: 2649775
+Testing with game version: 2649775
 
-Plugins:
+## How to Build
+> Note: This was built and tested with Python 3.9.6
 
-- [x] intro logos
-- [x] speed
-- [x] impact resistance
-- [x] endurance
-- [x] haggle
-- [x] improvised blind
-- [x] keen eye
-- [x] pack mule
-- [x] soft feet
-- [x] wobble
-- [x] hunting pressure
-- [x] cash reward
-- [x] xp reward
-- [x] scope zoom
-- [x] binocular zoom
-- [x] weapon magazine
-- [x] store
-- [x] weapon
-- [x] diamond spawn
-- [x] ammo
-- [x] deployables
-- [x] render distance
-- [x] reserve population
-- [x] animal senses
-- [x] atv
-- [x] level progression
-
-- [ ] resting cost
-- [ ] dog
-- [ ] dog fur
+1. Setup virtual environment _(optional; on Windows)_
+```
+python -m venv venv
+venv\Scripts\activate
+```
+2. Install dependencies:
+```shell
+pip install -r requirements.txt
+python -m PySimpleGUI.PySimpleGUI upgrade
+```
+3. To run the application:
+```shell
+python -m modbuilder
+```
