@@ -26,6 +26,14 @@ def _get_mod_options() -> List[dict]:
     mod_key = _mod_name_to_key(mod.NAME)
     mod_details.append([sg.T("Description:", p=(10, 10), font="_ 14 underline", text_color="orange")])
     mod_details.append([sg.T(textwrap.fill(mod.DESCRIPTION, 80), p=(10,0))])
+
+    if hasattr(mod, "PRESETS"):
+      mod_details.append([sg.T("Presets:", font="_ 14 underline", text_color="orange", p=(10, 10))])
+      presets = []
+      for preset in mod.PRESETS:
+        presets.append(preset["name"])
+      mod_details.append([sg.Combo(presets, k=f"preset__{mod_key}", enable_events=True, p=(30,10))])
+    
     mod_details.append([sg.T("Options:", font="_ 14 underline", text_color="orange", p=(10, 10))])
     if hasattr(mod, "OPTIONS"): # TODO: this logic is quite nested and complicated
       for mod_option in mod.OPTIONS:
@@ -50,14 +58,33 @@ def _get_mod_options() -> List[dict]:
               mod_details.append([t, td])
             elif mod_option_style == "slider":
               t = sg.T(f"{mod_option['name']}", p=((30,0),(10,10)))
-              note = f" ({mod_option['note']})" if "note" in mod_option else ""
-              n = sg.T(note, font="_ 12", p=(0,0))
-              td = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=((80,10),(0,10)))
-              mod_details.append([t, n])
+              td = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=((80,80),(0,10)), expand_x=True)
+              if "recommend" in mod_option:
+                recommend = sg.T(f"(recommend: {mod_option['recommend']})", font="_ 12", text_color="orange", p=((10,0),(10,10)))
+                mod_details.append([t, recommend])
+              else:
+                mod_details.append([t])
+              if "note" in mod_option:
+                note = f"({mod_option['note']})"
+                n = sg.T(note, font="_ 12", text_color="orange", p=((30,0),(0,10)))              
+                mod_details.append([n])
               mod_details.append([td])
             elif mod_option_style == "boolean":
               td = sg.Checkbox(mod_option["name"], initial_value, k=key)
               mod_details.append([td])
+            elif mod_option_style == "listbox":
+              option_name = sg.T(f"{mod_option['name']}", p=((30,0),(10,10)))
+              listbox_values = mod_option["values"]
+              listbox = sg.Listbox(
+                listbox_values, 
+                listbox_values, 
+                k=key, 
+                s=(None, mod_option["size"]), 
+                select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
+                p=((30,30),(10,10))
+              )
+              mod_details.append([option_name])
+              mod_details.append([listbox])
           else:          
             t = sg.T(f"{mod_option['name']}", p=(10,10))
             if "default" in mod_option:
@@ -77,11 +104,8 @@ def _get_mod_options() -> List[dict]:
             mod_details.append([i, tn])
     else:
       mod_details.append([mod.get_option_elements()])
-    if (hasattr(mod, "OPTIONS") and len(mod.OPTIONS) > 3) or not hasattr(mod, "OPTIONS"):
-      options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True, s=(None, 400)))])
-      # options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True))])
-    else:
-      options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False))])
+      
+    options.append([sg.pin(sg.Column(mod_details, k=mod_key, visible=False, vertical_scroll_only=True, scrollable=True, expand_y=True, s=(None, 400)))])
   return options
 
 def _show_mod_options(mod_name: str, window: sg.Window) -> None:
@@ -221,7 +245,7 @@ def main() -> None:
   
   while True:
     event, values = window.read()    
-    # print(event, values)
+    # print(event)
     if event == sg.WIN_CLOSED:
       break
     if event == "modification":
@@ -325,6 +349,16 @@ def main() -> None:
         mods.write_dropzone(game_path)
         window["game_path"].update(game_path)
         window["change_path"].update(visible=False)
+    elif event.startswith("preset__"):
+      presets = mod.PRESETS
+      preset_mod_key = _mod_name_to_key(mod.NAME)
+      preset_name = values[f"preset__{preset_mod_key}"]
+      preset = next((preset for preset in presets if preset["name"] == preset_name), None)
+      for option in preset["options"]:
+        if "value" in option:
+          window[f"{preset_mod_key}__{option['name']}"].update(option["value"])  
+        else:
+          window[f"{preset_mod_key}__{option['name']}"].update(set_to_index = option["values"])      
     else:
       mods.delegate_event(event, window, values)
           

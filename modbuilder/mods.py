@@ -27,7 +27,7 @@ def _load_mod(filename: str):
 def _get_mod_filenames() -> List[str]:
   mod_filenames = []
   for mod_filename in os.listdir(APP_DIR_PATH / PLUGINS_FOLDER):
-    _mod_name, file_ext = os.path.splitext(os.path.split(mod_filename)[-1])
+    _, file_ext = os.path.splitext(os.path.split(mod_filename)[-1])
     if file_ext.lower() == '.py':
       mod_filenames.append(mod_filename)
   return mod_filenames  
@@ -168,7 +168,10 @@ def update_file_at_offsets_with_values(src_filename: str, values: list[(int, int
   with open(dest_path, "r+b") as fp:
     for offset, value in values:
       fp.seek(offset)
-      fp.write(struct.pack("i", value))
+      if isinstance(value, int):
+        fp.write(struct.pack("i", value))
+      elif isinstance(value, str):
+        fp.write(struct.pack(f"{len(value)}s", value.encode("utf-8")))
     fp.flush()  
 
 def update_file_at_offset(src_filename: str, offset: int, value: any, transform: str = None, format: str = None) -> None:
