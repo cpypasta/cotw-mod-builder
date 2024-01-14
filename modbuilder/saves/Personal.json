@@ -1,0 +1,96 @@
+{
+  "remove_intro_logos": {},
+  "enhanced_pack_mule": {
+    "weight": "99.9"
+  },
+  "modify_binocular_overlay": {
+    "binoculars_overlay": "pill"
+  },
+  "modify_store_ammo": {
+    "type": "ammo",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 50
+  },
+  "modify_store_weapon": {
+    "type": "weapon",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_optic": {
+    "type": "optic",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_sight": {
+    "type": "sight",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_misc": {
+    "type": "misc",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 100
+  },
+  "modify_store_skin": {
+    "type": "skin",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_structure": {
+    "type": "structure",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 80,
+    "free_price": 0,
+    "bulk_quantity": 0
+  },
+  "modify_store_lure": {
+    "type": "lure",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 50
+  },
+  "decrease_wobble": {
+    "reduce_stand_percent": 30.0,
+    "reduce_crouch_percent": 70.0,
+    "reduce_prone_percent": 100.0
+  },
+  "increase_cash_reward": {
+    "cash_reward_multiplier": 4.0
+  },
+  "increase_xp_reward": {
+    "xp_reward_multiplier": 4.0
+  },
+  "increase_level_progression": {},
+  "increase_deployables": {
+    "deployable_multiplier": 20.0
+  },
+  "increase_diamond_spawns": {
+    "diamond_chances": "high"
+  },
+  "increase_render_distance": {
+    "spawn_distance": 750.0,
+    "despawn_distance": 750.0,
+    "bird_spawn_distance": 750.0,
+    "bird_despawn_distance": 750.0
+  },
+  "modify_atv": {
+    "top_speed": "90",
+    "acceleration": "medium",
+    "traction": "medium",
+    "noise_distance": 100.0,
+    "vision_distance": 100.0
+  }
+}

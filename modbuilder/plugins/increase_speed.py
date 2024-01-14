@@ -2,23 +2,26 @@ from typing import List
 
 DEBUG = False
 NAME = "Increase Speed"
-DESCRIPTION = "Increase the speed of the player when standing, crouching, and when prone."
+DESCRIPTION = "Increase the speed of the player when standing, crouching, and when prone. The sprint multiplier is a multiplier of a multiplier, so only small adjustments are needed."
 FILE = "editor/entities/hp_characters/main_characters/elmer/elmer_movement.mtunec"
 OPTIONS = [
-  { "name": "Stand Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.1 },
-  { "name": "Stand Sprint Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 },
-  { "name": "Crouch Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.1 },
-  { "name": "Crouch Sprint Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 },
-  { "name": "Prone Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.1 },
-  { "name": "Prone Sprint Speed Multiplier", "min": 1.0, "max": 10.0, "default": 1, "increment": 0.1 },
+  { "name": "Stand Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.5 },
+  { "name": "Stand Sprint Speed Multiplier", "min": 1.0, "max": 3.0, "default": 1, "increment": 0.1 },
+  { "name": "Crouch Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.5 },
+  { "name": "Crouch Sprint Speed Multiplier", "min": 1.0, "max": 3.0, "default": 1, "increment": 0.1 },
+  { "name": "Prone Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.5 },
+  { "name": "Prone Sprint Speed Multiplier", "min": 1.0, "max": 3.0, "default": 1, "increment": 0.1 },
   { "name": "Jump Speed Multiplier", "min": 1.0, "max": 20.0, "default": 1, "increment": 0.1, "note": "use impact resistance to stay alive" }
 ]
 
 def format(options: dict) -> str:
   stand_multiplier = options['stand_speed_multiplier']
+  stand_sprint_multiplier = options['stand_sprint_speed_multiplier']
   crouch_multiplier = options['crouch_speed_multiplier']
+  crouch_sprint_multiplier = options['crouch_sprint_speed_multiplier']
   prone_multiplier = options['prone_speed_multiplier']
-  return f"Increase Speed ({round(stand_multiplier, 1)}x, {round(crouch_multiplier, 1)}x, {round(prone_multiplier, 1)}x)"
+  prone_sprint_multiplier = options['prone_sprint_speed_multiplier']
+  return f"Increase Speed ({round(stand_multiplier, 1)}/{round(stand_sprint_multiplier, 1)}x, {round(crouch_multiplier, 1)}/{round(crouch_sprint_multiplier, 1)}x, {round(prone_multiplier, 1)}/{round(prone_sprint_multiplier, 1)}x)"
 
 def update_values_at_offset(options: dict) -> List[dict]:
   stand_multiplier = options['stand_speed_multiplier']

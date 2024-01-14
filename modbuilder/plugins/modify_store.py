@@ -42,6 +42,8 @@ def load_price_node(items: List[RtpcNode], type: str, name_offset: int = 4, pric
       price, price_offset_value = price_handle(item)
     else:
       price_item = item.prop_table[price_offset]
+      if isinstance(price_item.data, bytes):
+        price_item = item.prop_table[price_offset + 1]
       price = price_item.data
       price_offset_value = price_item.data_pos
     

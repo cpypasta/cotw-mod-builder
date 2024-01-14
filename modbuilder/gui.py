@@ -287,7 +287,6 @@ def main() -> None:
         if hasattr(mod, "merge_files"):
           merge_params = inspect.signature(mod.merge_files).parameters
           if len(merge_params) == 2:
-            print("merge files with options")
             mod.merge_files(modded_files, mod_options)
           else:
             mod.merge_files(modded_files)

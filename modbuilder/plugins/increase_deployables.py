@@ -48,8 +48,10 @@ def update_uint(data: bytearray, offset: int, new_value: int) -> None:
     for i in range(0, len(value_bytes)):
         data[offset + i] = value_bytes[i]
 
-def update_reserve_deployables(root: RtpcNode, f_bytes: bytearray, multiply: int, debug: bool = False) -> None:
+def update_reserve_deployables(root: RtpcNode, f_bytes: bytearray, multiply: int) -> None:
   deployables = root.child_table[6].child_table
+  if len(deployables) == 0:    
+    deployables = root.child_table[5].child_table
   deployable_values = []
   for deployable in deployables:
     if is_deployable(deployable.prop_table):
