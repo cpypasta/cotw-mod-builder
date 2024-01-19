@@ -8,12 +8,13 @@ DEBUG = False
 NAME = "Increase Reserve Population"
 DESCRIPTION = "Increases the number of animals that get populated when loading a reserve for the first time. If you have already played a reserve, you need to delete the old pouplation file first before you will see an increase in animals."
 FILE = "settings/hp_settings/reserve_*.bin"
+WARNING = "Increasing the population too much can cause the game to crash or behave strangely. I personally do not go beyond a 3.0 multiplier."
 OPTIONS = [
-  { "name": "Population Multiplier", "min": 2, "max": 8, "default": 1, "increment": 1 }
+  { "name": "Population Multiplier", "min": 1.1, "max": 8, "default": 1, "increment": 0.1 }
 ]
   
 def format(options: dict) -> str:
-  multiply = int(options["population_multiplier"])
+  multiply = options["population_multiplier"]
   return f"Increase Reserve Population ({multiply}x)"
 
 class ReserveValue:
@@ -51,9 +52,8 @@ def _update_uint(data: bytearray, offset: int, new_value: int) -> None:
     for i in range(0, len(value_bytes)):
         data[offset + i] = value_bytes[i]
 
-def update_reserve_population(root: RtpcNode, f_bytes: bytearray, multiply: int, debug: bool = False) -> None:
+def update_reserve_population(root: RtpcNode, f_bytes: bytearray, multiply: float, debug: bool = False) -> None:
   config_children = root.child_table[0].child_table
-
   offsets_to_change = []
   for child in config_children:
     first_child = child.child_table[0]
@@ -75,15 +75,16 @@ def update_reserve_population(root: RtpcNode, f_bytes: bytearray, multiply: int,
         result = _all_non_zero_props(first_child.prop_table)
         offsets_to_change.append(result)
     elif pattern_two:
-        first_child_children = first_child.child_table
-        for child in first_child_children:
-          result = _big_props(child.prop_table)          
-          offsets_to_change.append(_big_props(child.prop_table))
+      first_child_children = first_child.child_table
+      for child in first_child_children:
+        result = _big_props(child.prop_table)          
+        offsets_to_change.append(_big_props(child.prop_table))
        
   reserve_values = reduce(lambda a, b: a + b, offsets_to_change)
   try:
     for reserve_value in reserve_values:
-      _update_uint(f_bytes, reserve_value.offset, reserve_value.value * multiply)
+      new_value = round(reserve_value.value * multiply)
+      _update_uint(f_bytes, reserve_value.offset, new_value)
   except Exception as ex:
      print(f"received error: {ex}")       
 
@@ -93,12 +94,12 @@ def _open_reserve(filename: Path) -> Tuple[RtpcNode, bytearray]:
   f_bytes = bytearray(filename.read_bytes())
   return (data.root_node, f_bytes)
 
-def update_all_populations(source: Path, multiply: int) -> None:
+def update_all_populations(source: Path, multiply: float) -> None:
   for file in list(source.glob("reserve_*.bin")):
     root, data = _open_reserve(file)
     update_reserve_population(root, data, multiply)
     _save_file(file, data)
 
 def process(options: dict) -> None:
-  multiply = int(options["population_multiplier"])
+  multiply = options["population_multiplier"]
   update_all_populations(mods.APP_DIR_PATH / "mod/dropzone/settings/hp_settings", multiply)

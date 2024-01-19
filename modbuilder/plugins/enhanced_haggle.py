@@ -1,11 +1,11 @@
 from typing import List
 
-DEBUG = False
+DEBUG = True
 NAME = "Enhanced Haggle"
 DESCRIPTION = "Reduce the cost of all items for sale in the store. The haggle percentage is the amount the prices are lowered. At 100 percent, all items in the store are free. You must have the Haggle skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"
 OPTIONS = [
-  { "name": "Haggle Percent", "min": 5, "max": 100, "default": 5, "increment": 5 }  
+  { "name": "Haggle Percent", "min": 5, "max": 100, "default": 5, "initial": 100, "increment": 1 }  
 ]
 
 def format(options: dict) -> str:

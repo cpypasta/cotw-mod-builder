@@ -5,14 +5,30 @@ from deca.ff_rtpc import rtpc_from_binary, RtpcNode, RtpcProperty
 
 DEBUG = False
 NAME = "Increase Diamond Spawns"
-DESCRIPTION = "This will increase the chances of having a killed animal respawn as a diamond. I would recommend you start with a fresh population (delete old population file)."
+DESCRIPTION = "This will increase the chances of having a killed animal respawn as a diamond due to the increased weight of the animal. I would recommend you start with a fresh population (delete old population file)."
 FILE = "global/global_animal_types.blo"
 OPTIONS = [
-  { "name": "Diamond Chances", "style": "list", "default": "medium", "initial": ["low", "medium", "high"] }
+  { 
+   "name": "Weight Bias", 
+   "min": 0.0, 
+   "max": 0.5, 
+   "default": 0.0, 
+   "initial": 0.0, 
+   "increment": 0.01, 
+   "note": "respawned animals will be biased towards higher end of their weight range"
+  }
+]
+PRESETS = [
+  { "name": "Game Defaults", "options": [ {"name": "weight_bias", "value": 0.0} ] },
+  { "name": "Low", "options": [ {"name": "weight_bias", "value": 0.02} ] },
+  { "name": "Medium", "options": [ {"name": "weight_bias", "value": 0.05} ] },
+  { "name": "High", "options": [ {"name": "weight_bias", "value": 0.1} ] },
+  { "name": "Very High", "options": [ {"name": "weight_bias", "value": 0.2} ] },
+  { "name": "Extreme", "options": [ {"name": "weight_bias", "value": 0.5} ] }
 ]
 
 def format(options: dict) -> str:
-  return f"Increase Diamond Spawns ({options['diamond_chances']})"
+  return f"Increase Diamond Spawns ({options['weight_bias']} weight bias)"
 
 def open_rtpc(filename: Path) -> RtpcNode:
   with filename.open("rb") as f:
@@ -21,13 +37,7 @@ def open_rtpc(filename: Path) -> RtpcNode:
   return root.child_table[0].child_table
 
 def process(options: dict) -> None:
-  respawn_level = options['diamond_chances']
-  if respawn_level == 'low':
-    respawn_level = 0.02
-  elif respawn_level == "medium":
-    respawn_level = 0.05
-  else:
-    respawn_level = 0.1
+  weight_bias = options['weight_bias']
     
   animals = open_rtpc(mods.APP_DIR_PATH / "mod/dropzone" / FILE)
   for animal in animals:
@@ -53,5 +63,5 @@ def process(options: dict) -> None:
         if score_high > 0:
           score_max_weight = score_node.prop_table[2].data
           score_weight_bias_pos = score_node.prop_table[-2].data_pos
-          weight_bias = round(score_max_weight * respawn_level, 2)
+          weight_bias = round(score_max_weight * weight_bias, 2)
           mods.update_file_at_offset(Path(FILE), score_weight_bias_pos, weight_bias)

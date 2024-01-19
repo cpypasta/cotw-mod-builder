@@ -55,9 +55,11 @@ def build_weapon_tab(weapon_type: str, weapons: List[dict]) -> sg.Tab:
     [sg.T("Level 2: ", p=((20,0),(10,10))), sg.Input("", size=4, p=((10,0),(0,0)), k=f"{type_key}_level_2_distance"), sg.Input("", p=((10,10),(0,0)), k=f"{type_key}_level_2_angle")],
     [sg.T("Level 3: ", p=((20,0),(10,10))), sg.Input("", size=4, p=((10,0),(0,0)), k=f"{type_key}_level_3_distance"), sg.Input("", p=((10,10),(0,0)), k=f"{type_key}_level_3_angle")],
     [sg.T("Scope Settings:", p=((10, 0), (15, 0)))],
-    [sg.T("Scope: ", p=((20,0),(10,10))), sg.Combo([], k=f"{type_key}_weapon_scopes", p=((10,10),(0,0)), enable_events=True, expand_x=True)],
-    [sg.T("Horizontal Offset: ", p=((20,0),(10,10))), sg.Input("", k=f"{type_key}_weapon_scope_horizontal_offset", p=((10,10),(0,0)), expand_x=True)],
-    [sg.T("Vertical Offset: ", p=((20,0),(10,10))), sg.Input("", k=f"{type_key}_weapon_scope_vertical_offset", p=((10,10),(0,0)), expand_x=True)],
+    [sg.Column([
+      [sg.T("Scope: ", p=((0,0),(0,10))), sg.Combo([], k=f"{type_key}_weapon_scopes", p=((10,0),(0,0)), enable_events=True, expand_x=True)],
+      [sg.T("Horizontal Offset: ", p=((0,0),(10,10))), sg.Input("", k=f"{type_key}_weapon_scope_horizontal_offset", p=((10,0),(0,0)), expand_x=True)],
+      [sg.T("Vertical Offset: ", p=((0,0),(10,0))), sg.Input("", k=f"{type_key}_weapon_scope_vertical_offset", p=((10,0),(0,0)), expand_x=True)],      
+    ], p=((20,10),(10,0)))],
     [sg.T("")]
   ], k=f"{weapon_type}_recoil_tab")
 

@@ -1,11 +1,11 @@
 from typing import List
 
-DEBUG = False
+DEBUG = True
 NAME = "Enhanced Improvised Blind"
 DESCRIPTION = "Further decreases your visibility when hiding in large bushes and shrubs. You must have the Improvised Blind skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"
 OPTIONS = [
-  { "name": "Vegetation Camoflauge Percent", "max": 890, "min": 60, "default": 50, "increment": 10 }
+  { "name": "Vegetation Camoflauge Percent", "max": 890, "min": 50, "default": 50, "initial": 890, "increment": 1 }
 ]
   
 def format(options: dict) -> str:

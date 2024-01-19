@@ -7,11 +7,32 @@ DEBUG = False
 NAME = "Increase Render Distance"
 DESCRIPTION = "Increase the render distance of animals. There are two settings: when the animals spawn (get closer) or desapwn (moving away)."
 FILE = "global/global_animal_types.blo"
+WARNING = "Increasing the render distance too much can cause the game to crash or behave strangely. I personally do not go beyond 750m."
 OPTIONS = [
-  { "name": "Spawn Distance", "min": 385, "max": 1000, "default": 384, "increment": 5, "initial": 750 },
-  { "name": "Despawn Distance", "min": 420, "max": 1000, "default": 416, "increment": 5, "initial": 750 },
-  { "name": "Bird Spawn Distance", "min": 470, "max": 1000, "default": 470, "increment": 5, "initial": 750 },
-  { "name": "Bird Despawn Distance", "min": 500, "max": 1000, "default": 500, "increment": 5, "initial": 750 }
+  { "name": "Spawn Distance", "min": 385, "max": 1000, "default": 384, "increment": 5, "initial": 384 },
+  { "name": "Despawn Distance", "min": 420, "max": 1000, "default": 416, "increment": 5, "initial": 416 },
+  { "name": "Bird Spawn Distance", "min": 470, "max": 1000, "default": 470, "increment": 5, "initial": 470 },
+  { "name": "Bird Despawn Distance", "min": 500, "max": 1000, "default": 500, "increment": 5, "initial": 500 }
+]
+PRESETS = [
+  {
+    "name": "Game Defaults",
+    "options": [
+      {"name": "spawn_distance", "value": 384},
+      {"name": "despawn_distance", "value": 416},
+      {"name": "bird_spawn_distance", "value": 470},
+      {"name": "bird_despawn_distance", "value": 500}
+    ]
+  },
+  {
+    "name": "Recommended",
+    "options": [
+      {"name": "spawn_distance", "value": 750},
+      {"name": "despawn_distance", "value": 750},
+      {"name": "bird_spawn_distance", "value": 750},
+      {"name": "bird_despawn_distance", "value": 750}
+    ]
+  }
 ]
 
 def format(options: dict) -> str:

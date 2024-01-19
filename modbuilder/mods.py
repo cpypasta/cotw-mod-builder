@@ -8,6 +8,7 @@ from deca.ff_sarc import FileSarc, EntrySarc
 from modbuilder.adf_profile import *
 
 APP_DIR_PATH = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
+MOD_PATH = APP_DIR_PATH / "mod" / "dropzone"
 LOOKUP_PATH = APP_DIR_PATH / "org/lookups"
 PLUGINS_FOLDER = "plugins"
 GLOBAL_SRC_PATH = "gdc/global.gdcc"
@@ -172,6 +173,8 @@ def update_file_at_offsets_with_values(src_filename: str, values: list[(int, int
         fp.write(struct.pack("i", value))
       elif isinstance(value, str):
         fp.write(struct.pack(f"{len(value)}s", value.encode("utf-8")))
+      elif isinstance(value, float):
+        fp.write(struct.pack("f", value))
     fp.flush()  
 
 def update_file_at_offset(src_filename: str, offset: int, value: any, transform: str = None, format: str = None) -> None:
@@ -349,6 +352,15 @@ def load_dropzone() -> None:
   dropzone_path = get_dropzone()
   if dropzone_path:
     dropzone_path = dropzone_path / "dropzone"
+    shutil.copytree(APP_DIR_PATH / "mod/dropzone", dropzone_path, dirs_exist_ok=True)
+  else:
+    raise Exception("Could not find game path to save mods!")
+
+def load_replace_dropzone() -> None:
+  dropzone_path = get_dropzone()
+  if dropzone_path:
+    dropzone_path = dropzone_path / "dropzone"
+    shutil.rmtree(dropzone_path)
     shutil.copytree(APP_DIR_PATH / "mod/dropzone", dropzone_path, dirs_exist_ok=True)
   else:
     raise Exception("Could not find game path to save mods!")

@@ -5,13 +5,13 @@ from deca.ff_rtpc import rtpc_from_binary
 DEBUG=False
 NAME = "Modify Weather"
 DESCRIPTION = "This mod allows you to control the weather. Select the weather conditions you want to keep."
-FILE = "environment/environment_presets_config.bin"
+PRESETS_FILE = "environment/environment_presets_config.bin"
 
 ALL_OPTIONS = []
 
 def set_weather_conditions() -> None:
     global ALL_OPTIONS
-    with(open(f"{mods.APP_DIR_PATH}/org/{FILE}", "rb") as f):
+    with(open(f"{mods.APP_DIR_PATH}/org/{PRESETS_FILE}", "rb") as f):
         data = rtpc_from_binary(f) 
         condition_nodes = data.root_node.child_table[0].child_table
         conditions = []
@@ -49,8 +49,11 @@ PRESETS = [
 def format(options: dict) -> str:
   return f"Modify Weather ({len(options['allowed_weather_conditions'])} conditions)"
 
+def get_files(options: dict) -> list[str]:
+  return [PRESETS_FILE]
+
 def process(options: dict) -> None:
-    with(open(f"{mods.APP_DIR_PATH}/org/{FILE}", "rb") as f):
+    with(open(f"{mods.APP_DIR_PATH}/org/{PRESETS_FILE}", "rb") as f):
         data = rtpc_from_binary(f) 
     condition_nodes = data.root_node.child_table[0].child_table    
     allowed_weather_conditions = options['allowed_weather_conditions']
@@ -63,4 +66,5 @@ def process(options: dict) -> None:
         if condition not in allowed_weather_conditions:
             not_allowed_weather_conditions.append((prop.data_pos, "xxx"))
         
-    mods.update_file_at_offsets_with_values(FILE, not_allowed_weather_conditions)
+    if len(not_allowed_weather_conditions) > 0:
+      mods.update_file_at_offsets_with_values(PRESETS_FILE, not_allowed_weather_conditions)

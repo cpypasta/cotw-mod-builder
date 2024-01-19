@@ -1,11 +1,11 @@
 from typing import List
 
-DEBUG = False
+DEBUG = True
 NAME = "Enhanced Keen Eye"
 DESCRIPTION = "Enables you to spot need zones and animal groups from lookup points. You must have the Keen Eye skill unlocked for this modification to take affect. Be careful not to increase the need zones or animal groups too high, or your computer may have performance issues."
 FILE = "settings/hp_settings/player_skills.bin"
 OPTIONS = [
-  { "name": "Cooldown Seconds", "min": 1, "max": 60, "default": 1800, "initial": 10, "increment": 1 },
+  { "name": "Cooldown Seconds", "min": 1, "max": 1800, "default": 1800, "initial": 10, "increment": 1 },
   { "name": "Zone Distance", "min": 500, "max": 990, "default": 500, "increment": 10 },
   { "name": "Min Number of Zones", "min": 2, "max": 99, "default": 2, "increment": 1 },
   { "name": "Max Number of Zones", "min": 2, "max": 99, "default": 2, "increment": 1 },

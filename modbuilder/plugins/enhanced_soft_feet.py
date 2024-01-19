@@ -1,11 +1,11 @@
 from typing import List
 
-DEBUG = False
+DEBUG = True
 NAME = "Enhanced Soft Feet"
 DESCRIPTION = "Decreases the noise you generate when moving through foiliage (grass and leaves) and vegetation (bushes and shrubs). You must have the Soft Feet skill unlocked for this modification to take affect."
 FILE = "settings/hp_settings/player_skills.bin"
 OPTIONS = [
-  { "name": "Soft Feet Percent", "min": 30, "max": 100, "default": 20, "increment": 10 }
+  { "name": "Soft Feet Percent", "min": 20, "max": 100, "default": 20, "initial": 100, "increment": 1 }
 ]
 
 def format(options: dict) -> str:

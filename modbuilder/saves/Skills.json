@@ -1,0 +1,110 @@
+{
+  "modify_skills_endurance": {
+    "reduce_heart_rate_percent": 100.0,
+    "name": "Endurance",
+    "key": "endurance"
+  },
+  "modify_skills_hardened": {
+    "health": 9999.0,
+    "name": "Hardened",
+    "key": "hardened"
+  },
+  "modify_skills_im_only_happy_when_it_rains": {
+    "visibility": 1.0,
+    "hearing": 1.0,
+    "scent": 1.0,
+    "name": "Im Only Happy When It Rains",
+    "key": "im_only_happy_when_it_rains"
+  },
+  "modify_skills_improvised_blind": {
+    "vegetation_camoflauge_percent": 890.0,
+    "name": "Improvised Blind",
+    "key": "improvised_blind"
+  },
+  "modify_skills_innate_triangulation": {
+    "indicator_accuracy": 99.0,
+    "name": "Innate Triangulation",
+    "key": "innate_triangulation"
+  },
+  "modify_skills_locate_tracks": {
+    "angle": 0.0,
+    "spawn_distance": 99.9,
+    "despawn_distance": 99.9,
+    "name": "Locate Tracks",
+    "key": "locate_tracks"
+  },
+  "modify_skills_soft_feet": {
+    "soft_feet_percent": 100.0,
+    "name": "Soft Feet",
+    "key": "soft_feet"
+  },
+  "modify_skills_track_knowledge": {
+    "health": 0.01,
+    "weight": 0.0,
+    "name": "Track Knowledge",
+    "key": "track_knowledge"
+  },
+  "modify_skills_haggle": {
+    "haggle_percent": 100.0,
+    "name": "Haggle",
+    "key": "haggle"
+  },
+  "modify_skills_hill_caller": {
+    "attraction_range": 999.0,
+    "name": "Hill Caller",
+    "key": "hill_caller"
+  },
+  "modify_skills_impact_resistance": {
+    "fall_damage_reduction_percent": 100.0,
+    "name": "Impact Resistance",
+    "key": "impact_resistance"
+  },
+  "modify_skills_keen_eye": {
+    "cooldown_seconds": 10.0,
+    "zone_distance": 500.0,
+    "min_number_of_zones": 2.0,
+    "max_number_of_zones": 2.0,
+    "animal_distance": 500.0,
+    "min_number_of_animals": 1.0,
+    "max_number_of_animals": 3.0,
+    "name": "Keen Eye",
+    "key": "keen_eye"
+  },
+  "modify_skills_pack_mule": {
+    "weight": 99.9,
+    "name": "Pack Mule",
+    "key": "pack_mule"
+  },
+  "modify_skills_scent_tinkerer": {
+    "uses": 99.0,
+    "duration": 999.0,
+    "range": 99.0,
+    "attraction": 99.0,
+    "name": "Scent Tinkerer",
+    "key": "scent_tinkerer"
+  },
+  "modify_skills_spotting_knowledge": {
+    "health": 0.0,
+    "score": 0.0,
+    "weight": 0.0,
+    "name": "Spotting Knowledge",
+    "key": "spotting_knowledge"
+  },
+  "modify_skills_tag": {
+    "duration": 999.0,
+    "spottable": 99.0,
+    "name": "Tag",
+    "key": "tag"
+  },
+  "modify_skills_the_more_the_merrier": {
+    "reward_multiplier": 99.0,
+    "name": "The More The Merrier",
+    "key": "the_more_the_merrier"
+  },
+  "modify_skills_whos_deer": {
+    "attraction_probability": 9.9,
+    "response_probability": 2.0,
+    "name": "Whos Deer",
+    "key": "whos_deer"
+  }
+}

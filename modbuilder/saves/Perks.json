@@ -1,0 +1,98 @@
+{
+  "modify_skills_breath_control": {
+    "heart_rate_multiplier": 0.0,
+    "hold_breath_multiplier": 0.0,
+    "wobble_multiplier": 0.0,
+    "name": "Breath Control",
+    "key": "breath_control"
+  },
+  "modify_skills_focused_shot": {
+    "ease_in": 9.9,
+    "ease_out": 9.9,
+    "fov_multiplier": 0.7,
+    "name": "Focused Shot",
+    "key": "focused_shot"
+  },
+  "modify_skills_steady_hands": {
+    "wobble_multiplier": 0.0,
+    "name": "Steady Hands",
+    "key": "steady_hands"
+  },
+  "modify_skills_survival_instinct": {
+    "duration": 99.0,
+    "damage_reduction": 0.0,
+    "name": "Survival Instinct",
+    "key": "survival_instinct"
+  },
+  "modify_skills_quick_draw": {
+    "speed_multiplier": 99.0,
+    "accuracy_multiplier": 0.0,
+    "name": "Quick Draw",
+    "key": "quick_draw"
+  },
+  "modify_skills_quick_feet": {
+    "steady": 9.9,
+    "name": "Quick Feet",
+    "key": "quick_feet"
+  },
+  "modify_skills_ranger": {
+    "accuracy": 0.0,
+    "name": "Ranger",
+    "key": "ranger"
+  },
+  "modify_skills_body_control": {
+    "speed_multiplier": 9.9,
+    "name": "Body Control",
+    "key": "body_control"
+  },
+  "modify_skills_both_eyes_open": {
+    "blur_start": 9.9,
+    "blur_amount": 0.0,
+    "name": "Both Eyes Open",
+    "key": "both_eyes_open"
+  },
+  "modify_skills_fast_shouldering": {
+    "speed_multiplier": 10.0,
+    "name": "Fast Shouldering",
+    "key": "fast_shouldering"
+  },
+  "modify_skills_recoil_management": {
+    "recoil": 0.0,
+    "speed": 9.9,
+    "name": "Recoil Management",
+    "key": "recoil_management"
+  },
+  "modify_skills_tracershot": {
+    "tracer_duration": 9.9,
+    "skill_time": 9.9,
+    "name": "Tracershot",
+    "key": "tracershot"
+  },
+  "modify_skills_increased_confidence": {
+    "accuracy": 0.0,
+    "name": "Increased Confidence",
+    "key": "increased_confidence"
+  },
+  "modify_skills_full_draw": {
+    "wobble_start": 99.0,
+    "wobble_multiplier": 0.0,
+    "hold_duration": 999.0,
+    "name": "Full Draw",
+    "key": "full_draw"
+  },
+  "modify_skills_move_n_shoot": {
+    "steady_multiplier": 9.0,
+    "name": "Move N Shoot",
+    "key": "move_n_shoot"
+  },
+  "modify_skills_pumping_iron": {
+    "draw_length": 9.9,
+    "name": "Pumping Iron",
+    "key": "pumping_iron"
+  },
+  "modify_skills_recycle": {
+    "break_chance": 0.0,
+    "name": "Recycle",
+    "key": "recycle"
+  }
+}
