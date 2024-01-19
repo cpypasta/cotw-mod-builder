@@ -1,12 +1,5 @@
 import PySimpleGUI as sg
 import textwrap
-import modbuilder.plugins.enhanced_soft_feet as enhanced_soft_feet
-import modbuilder.plugins.enhanced_pack_mule as enhanced_pack_mule
-import modbuilder.plugins.enhanced_impact_resistance as enhanced_impact_resistance
-import modbuilder.plugins.enhanced_haggle as enhanced_haggle
-import modbuilder.plugins.enhanced_keen_eye as enhanced_keen_eye
-import modbuilder.plugins.enhanced_endurance as enhanced_endurance
-import modbuilder.plugins.enhanced_improvised_blind as enhanced_improvised_blind
 from modbuilder.widgets import create_option, valid_option_value
 from modbuilder.mods import update_file_at_offset
 from pathlib import Path
@@ -18,7 +11,6 @@ DESCRIPTION="Modify all skills and perks that have changable values."
 FILE = "settings/hp_settings/player_skills.bin"
 KEY_PREFIX = "modify_skills"
 TABGROUP_PADDING = ((0,0),(10,0))
-
 
 def name_to_key(skill: str) -> str:
     return "_".join(skill.lower().split(" "))
@@ -69,53 +61,137 @@ def get_skill_option_keys(skill: str) -> list[str]:
 
 
 def render_pack_mule() -> list[dict]:
-    return enhanced_pack_mule.OPTIONS
+    return [
+        { "name": "Weight", "min": 24.0, "max": 99.9, "default": 23.0, "initial": 99.9, "increment": 0.1 }
+    ]
 def format_pack_mule(options: dict) -> str:
-    return enhanced_pack_mule.format(options)
+    return f"Enhanced Pack Mule ({options['weight']}kg)"
 def process_pack_mule(options: dict) -> list[dict]:
-    return enhanced_pack_mule.update_values_at_offset(options)   
+    updated_value = options['weight']
+    return [{
+        "offset": 22176,
+        "value": f"set_player_carry_capacity({updated_value})"
+    }] 
 
 def render_soft_feet() -> list[dict]:
-    return enhanced_soft_feet.OPTIONS
+    return [
+        { "name": "Soft Feet Percent", "min": 20, "max": 100, "default": 20, "initial": 100, "increment": 1 }
+    ]
 def format_soft_feet(options: dict) -> str:
-    return enhanced_soft_feet.format(options)
+    sound = options['soft_feet_percent']
+    return f"Enhanced Soft Feet ({int(sound)}%)"
 def process_soft_feet(options: dict) -> list[dict]:
-    return enhanced_soft_feet.update_values_at_offset(options)
+    updated_value = round(1.0 - options['soft_feet_percent'] / 100,1)
+    return [
+        {
+            "offset": 17864,
+            "value": f"set_material_noise_multiplier({updated_value})"
+        },
+        {
+            "offset": 17904,
+            "value": f"set_material_noise_multiplier({updated_value}), set_vegetation_noise_multiplier({updated_value})"
+        }
+    ]
 
 def render_impact_resistance() -> list[dict]:
-    return enhanced_impact_resistance.OPTIONS
+    return [
+        { "name": "Fall Damage Reduction Percent", "min": 20, "max": 100, "default": 20, "initial": 100, "increment": 1 }
+    ]
 def format_impact_resistance(options: dict) -> str:
-    return enhanced_impact_resistance.format(options)
+    damage_reduce = options['fall_damage_reduction_percent']
+    return f"Enhanced Impact Resistance ({int(damage_reduce)}%)"
 def process_impact_resistance(options: dict) -> list[dict]:
-    return enhanced_impact_resistance.update_values_at_offset(options)
+    updated_value = round(1.0 - options['fall_damage_reduction_percent'] / 100, 1)
+    return [
+        {
+            "offset": 19904,
+            "value": f"reduce_player_fall_damage({updated_value})"
+        }
+    ]
 
 def render_haggle() -> list[dict]:
-    return enhanced_haggle.OPTIONS
+    return [
+        { "name": "Haggle Percent", "min": 5, "max": 100, "default": 5, "initial": 100, "increment": 1 }  
+    ]
 def format_haggle(options: dict) -> str:
-    return enhanced_haggle.format(options)
+    haggle = options["haggle_percent"]
+    return f"Enhanced Haggle ({int(haggle)}%)"
 def process_haggle(options: dict) -> list[dict]:
-    return enhanced_haggle.update_values_at_offset(options)
+    updated_value = int(options['haggle_percent'])
+    return [
+        {
+            "offset": 21104,
+            "value": f"haggle({updated_value})"
+        }
+    ]
 
 def render_keen_eye() -> list[dict]:
-    return enhanced_keen_eye.OPTIONS
+    return [
+        { "name": "Cooldown Seconds", "min": 1, "max": 1800, "default": 1800, "initial": 10, "increment": 1 },
+        { "name": "Zone Distance", "min": 500, "max": 990, "default": 500, "increment": 10 },
+        { "name": "Min Number of Zones", "min": 2, "max": 99, "default": 2, "increment": 1 },
+        { "name": "Max Number of Zones", "min": 2, "max": 99, "default": 2, "increment": 1 },
+        { "name": "Animal Distance", "min": 500, "max": 990, "default": 500, "increment": 10 },
+        { "name": "Min Number of Animals", "min": 1, "max": 99, "default": 1, "increment": 1 },
+        { "name": "Max Number of Animals", "min": 3, "max": 99, "default": 3, "increment": 1 }  
+    ]
 def format_keen_eye(options: dict) -> str:
-    return enhanced_keen_eye.format(options)
+    cool = options["cooldown_seconds"]
+    max_zones = options["max_number_of_zones"]
+    return f"Enhanced Keen Eye ({int(cool)}s, {int(max_zones)} zones)"
 def process_keen_eye(options: dict) -> list[dict]:
-    return enhanced_keen_eye.update_values_at_offset(options)
+    cool = float(options["cooldown_seconds"])
+    zone_distance = int(options["zone_distance"])
+    min_zones = int(options["min_number_of_zones"])
+    max_zones = int(options["max_number_of_zones"])
+    animal_distance = int(options["animal_distance"])
+    min_animals = int(options["min_number_of_animals"])
+    max_animals = int(options["max_number_of_animals"])
+    return [
+        {
+            "offset": 21912,
+            "value": f"show_need_zone_in_range_on_map({zone_distance:>3},{min_zones:>2},{max_zones:>2})"
+        },
+        {
+            "offset": 21960,
+            "value": f"show_need_zone_in_range_on_map({zone_distance:>3},{min_zones:>2},{max_zones:>2}), show_animal_group_in_range_on_map({animal_distance:>3},{min_animals:>2},{max_animals:>2})"
+        },
+        {
+            "offset": 34472,
+            "value": cool
+        }
+    ]
 
 def render_endurance() -> list[dict]:
-    return enhanced_endurance.OPTIONS
+    return [
+        { "name": "Reduce Heart Rate Percent", "min": 66, "max": 100, "default": 66, "initial": 100, "increment": 1 }  
+    ]
 def format_endurance(options: dict) -> str:
-    return enhanced_endurance.format(options)
+    endurance = options["reduce_heart_rate_percent"]
+    return f"Enhanced Endurance ({int(endurance)}%)"
 def process_endurance(options: dict) -> list[dict]:
-    return enhanced_endurance.update_values_at_offset(options)
+    endurance_percent = round(options["reduce_heart_rate_percent"] / 100, 2)
+    heart_rate_recover = 1 + endurance_percent
+    return [
+        {
+            "offset": 18368,
+            "value": f"heart_rate_movement_increase_multiplier({endurance_percent:0<4.2f}), heart_rate_recovery_multiplier({heart_rate_recover:0<4.2f})"
+        }
+    ]
 
 def render_improvised_blind() -> list[dict]:
-    return enhanced_improvised_blind.OPTIONS
+    return [
+        { "name": "Vegetation Camoflauge Percent", "max": 890, "min": 50, "default": 50, "initial": 890, "increment": 1 }
+    ]
 def format_improvised_blind(options: dict) -> str:
-    return enhanced_improvised_blind.format(options)
+    camo = options["vegetation_camoflauge_percent"]
+    return f"Enhanced Improvised Blind ({int(camo)}%)"
 def process_improvised_blind(options: dict) -> list[dict]:
-    return enhanced_improvised_blind.update_values_at_offset(options)
+    updated_value = 1.0 + options['vegetation_camoflauge_percent'] / 100
+    return [{
+        "offset": 18272,
+        "value": f"increase_vegetation_camo({updated_value})"
+    }]
 
 def render_spotting_knowledge() -> list[dict]:
     return [
