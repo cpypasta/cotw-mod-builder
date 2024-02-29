@@ -218,8 +218,8 @@ def handle_event(event: str, window: sg.Window, values: dict) -> None:
     else:
       scope_index = 0
     scope_settings = weapon_scopes[scope_index]
-    window[f"{type_key}_weapon_scope_horizontal_offset"].update(scope_settings.horizontal_offset)
-    window[f"{type_key}_weapon_scope_vertical_offset"].update(scope_settings.vertical_offset)
+    window[f"{type_key}_weapon_scope_horizontal_offset"].update(f"{scope_settings.horizontal_offset:.6f}")
+    window[f"{type_key}_weapon_scope_vertical_offset"].update(f"{scope_settings.vertical_offset:.6f}")
 
 def add_mod(window: sg.Window, values: dict) -> dict:
   active_tab = window["weapon_recoil_group"].find_currently_active_tab_key().lower() 

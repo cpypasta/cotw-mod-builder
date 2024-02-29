@@ -1,10 +1,18 @@
 {
-  "remove_intro_logos": {},
-  "enhanced_pack_mule": {
-    "weight": "99.9"
+  "increase_speed": {
+    "stand_speed_multiplier": 2.5,
+    "stand_sprint_speed_multiplier": 1.0,
+    "crouch_speed_multiplier": 4.0,
+    "crouch_sprint_speed_multiplier": 1.0,
+    "prone_speed_multiplier": 5.5,
+    "prone_sprint_speed_multiplier": 1.0,
+    "jump_speed_multiplier": 1.0
   },
-  "modify_binocular_overlay": {
-    "binoculars_overlay": "pill"
+  "decrease_wobble": {
+    "decrease_wobble": "Recommended",
+    "reduce_stand_percent": 25.0,
+    "reduce_crouch_percent": 70.0,
+    "reduce_prone_percent": 100.0
   },
   "modify_store_ammo": {
     "type": "ammo",
@@ -13,8 +21,15 @@
     "free_price": 0,
     "bulk_quantity": 50
   },
-  "modify_store_weapon": {
-    "type": "weapon",
+  "modify_store_misc": {
+    "type": "misc",
+    "file": "settings/hp_settings/equipment_data.bin",
+    "discount": 50,
+    "free_price": 0,
+    "bulk_quantity": 50
+  },
+  "modify_store_sight": {
+    "type": "sight",
     "file": "settings/hp_settings/equipment_data.bin",
     "discount": 50,
     "free_price": 0,
@@ -27,24 +42,17 @@
     "free_price": 0,
     "bulk_quantity": 0
   },
-  "modify_store_sight": {
-    "type": "sight",
+  "modify_store_skin": {
+    "type": "skin",
     "file": "settings/hp_settings/equipment_data.bin",
     "discount": 50,
     "free_price": 0,
     "bulk_quantity": 0
   },
-  "modify_store_misc": {
-    "type": "misc",
+  "modify_store_weapon": {
+    "type": "weapon",
     "file": "settings/hp_settings/equipment_data.bin",
-    "discount": 50,
-    "free_price": 0,
-    "bulk_quantity": 100
-  },
-  "modify_store_skin": {
-    "type": "skin",
-    "file": "settings/hp_settings/equipment_data.bin",
-    "discount": 50,
+    "discount": 80,
     "free_price": 0,
     "bulk_quantity": 0
   },
@@ -62,25 +70,11 @@
     "free_price": 0,
     "bulk_quantity": 50
   },
-  "decrease_wobble": {
-    "reduce_stand_percent": 30.0,
-    "reduce_crouch_percent": 70.0,
-    "reduce_prone_percent": 100.0
-  },
-  "increase_cash_reward": {
-    "cash_reward_multiplier": 4.0
-  },
-  "increase_xp_reward": {
-    "xp_reward_multiplier": 4.0
-  },
-  "increase_level_progression": {},
   "increase_deployables": {
     "deployable_multiplier": 20.0
   },
-  "increase_diamond_spawns": {
-    "diamond_chances": "high"
-  },
   "increase_render_distance": {
+    "increase_render_distance": "Recommended",
     "spawn_distance": 750.0,
     "despawn_distance": 750.0,
     "bird_spawn_distance": 750.0,
@@ -92,5 +86,16 @@
     "traction": "medium",
     "noise_distance": 100.0,
     "vision_distance": 100.0
-  }
+  },
+  "modify_binocular_overlay": {
+    "binoculars_overlay": "pill"
+  },
+  "modify_resting_cost": {
+    "modify_resting_cost": "Cheap",
+    "cost": 1.0,
+    "increase_and_decrease_multiplier": 1.0,
+    "max_increase_multiplier": 1.0,
+    "cooldown": 1.0
+  },
+  "remove_intro_logos": {}
 }

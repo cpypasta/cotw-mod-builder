@@ -3,9 +3,9 @@ from modbuilder import mods
 
 DEBUG=False
 NAME = "Modify Binocular Overlay"
-DESCRIPTION = "Modify the binocular overlay. The assets were created by the modder \"CharmicsMods\"."
+DESCRIPTION = "Modify the binocular overlay."
 OPTIONS = [
-  { "name": "Binoculars Overlay", "style": "list", "initial": ["pill", "pinhole", "oval", "circle", "wide"] }
+  { "name": "Binoculars Overlay", "style": "list", "initial": ["pill", "wide"] }
 ]
 
 def format(options: dict) -> str:
@@ -18,7 +18,11 @@ def merge_files(files: List[str], options: dict) -> None:
   from_base = mods.APP_DIR_PATH / "org/modded/binocular_overlay"
   to_base = mods.APP_DIR_PATH / "mod/dropzone/ui"
   overlay = options['binoculars_overlay']
-  mods.copy_file(from_base / f"{overlay}.ddsc", to_base / "hud_i459.ddsc")
+  try:
+    mods.copy_file(from_base / f"{overlay}.ddsc", to_base / "hud_i459.ddsc")
+  except:
+    print(f"Error: Could not copy {overlay}.ddsc")
+    pass
 
 def update_values_at_offset(options: dict) -> List[dict]:
   return []

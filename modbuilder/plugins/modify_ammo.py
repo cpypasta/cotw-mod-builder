@@ -141,7 +141,7 @@ def format(options: dict) -> str:
   penetration = int(options["penetration"])
   expansion = int(options["expansion"])
   damage = int(options["damage"])
-  return f"{ammo_name} ({kinetic_energy}%k, {penetration}%p, {expansion}%e, {damage}%d)"
+  return f"{ammo_name} ({kinetic_energy}% energy, {penetration}% penetrate, {expansion}% expand, {damage}% damage)"
 
 def handle_key(mod_key: str) -> bool:
   return mod_key.startswith("modify_ammo")

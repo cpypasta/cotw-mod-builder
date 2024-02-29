@@ -24,16 +24,13 @@ def create_option(mod_option: dict, key: str) -> list[list]:
         elif mod_option_style == "slider":
             t = sg.T(f"{mod_option['name']}", p=((30,0),(10,10)))
             td = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=((80,80),(0,10)), expand_x=True)
-            if "recommend" in mod_option:
-                recommend = sg.T(f"(recommend: {mod_option['recommend']})", font="_ 12", text_color="orange", p=((10,0),(10,10)))
-                mod_details.append([t, recommend])
-            else:
-                mod_details.append([t])
             if "note" in mod_option:
                 note = f"({mod_option['note']})"
-                n = sg.T(note, font="_ 12", text_color="orange", p=((30,0),(0,10)))              
-                mod_details.append([n])
-                mod_details.append([td])
+                n = sg.T(note, font="_ 12", text_color="orange", p=((10,10),(10,10)))              
+                mod_details.append([t, n])
+            else:
+                mod_details.append([t])
+            mod_details.append([td])
         elif mod_option_style == "boolean":
             td = sg.Checkbox(mod_option["name"], initial_value, k=key)
             mod_details.append([td])
@@ -62,10 +59,11 @@ def create_option(mod_option: dict, key: str) -> list[list]:
             i = sg.Slider((mod_option["min"], mod_option["max"]), initial_value, mod_option["increment"], orientation = "h", k = key, p=((50,50),(0,0)), expand_x=True)
         else:
             i = sg.Input(initial_value, size=6, k = key, p=((50,0),(10,10)))
-        mod_details.append([t, td])
         if "note" in mod_option:
-            tn = sg.T(f"({mod_option['note']})", font="_ 12", text_color="orange", p=((10,0),(0,10)))
-            mod_details.append([tn])
+            tn = sg.T(f"({mod_option['note']})", font="_ 12", text_color="orange", p=((10,10),(10,10)))
+            mod_details.append([t, td, tn])
+        else:
+            mod_details.append([t, td])
         mod_details.append([i])   
     
     return mod_details     
