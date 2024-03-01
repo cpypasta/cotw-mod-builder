@@ -1,6 +1,6 @@
 # cotw-mod-builder
 
-A tool that makes it easy to customize and create mods for theHunter: Call of the Wild (COTW). You can download and discuss the tool on [NexusMods](https://www.nexusmods.com/thehuntercallofthewild/mods/247).
+A tool that makes it easy to customize and create mods for theHunter: Call of the Wild (COTW).
 
 ![Recording](https://github-production-user-asset-6210df.s3.amazonaws.com/2107385/297992314-5f7d6c72-8754-42d0-9d4a-4b7a06912b3a.png)
 
