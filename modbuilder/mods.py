@@ -1,9 +1,8 @@
-import os, sys, imp, struct, shutil, json, math
+import os, sys, imp, struct, shutil, json 
 import PySimpleGUI as sg
 from typing import List
 from pathlib import Path
 from deca.file import ArchiveFile
-from deca.ff_adf import Adf
 from deca.ff_sarc import FileSarc, EntrySarc
 from modbuilder.adf_profile import *
 
@@ -138,6 +137,7 @@ def update_file_at_offsets(src_filename: str, offsets: List[int], value: any, tr
   dest_path = get_modded_file(src_filename) 
   with open(dest_path, "r+b") as fp:
     for offset in offsets:
+      # print("updating", value, "at offset", offset)
       fp.seek(offset)
       if format:
         if format == "sint08":
@@ -410,7 +410,7 @@ def lookup_column(
   start_row: int, 
   end_row: int,
   multiplier: float
-) -> (list[int], list[int]):
+) -> tuple[list[int], list[int]]:
   root, _ = os.path.splitext(filename)
   data = json.load((LOOKUP_PATH / f"{root}.json").open())
   cells = data["sheets"][sheet]

@@ -1,8 +1,7 @@
-from typing import List, Tuple
+from typing import List 
 from modbuilder import mods
 from pathlib import Path
 import PySimpleGUI as sg
-import re, os
 
 DEBUG = False
 NAME = "Modify Binocular Zoom"

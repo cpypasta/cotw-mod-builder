@@ -1,10 +1,10 @@
-from typing import List, Tuple
+from typing import List 
 from modbuilder import mods
 from pathlib import Path
 import PySimpleGUI as sg
 import re, os
 
-DEBUG = False
+DEBUG = True
 NAME = "Modify Scope Zoom"
 DESCRIPTION = "Modify the zoom range for scopes. Every zoomable scope has five zoom levels. With this mod you get to control each level of the zoom."
 
@@ -114,6 +114,8 @@ def merge_files(files: List[str], options: dict) -> None:
   mods.merge_into_archive(options["file"].replace("\\", "/"), options["bundle_file"], lookup)
 
 def process(options: dict) -> None:
+  return
+
   level_1 = options["level_1"]
   level_2 = options["level_2"]
   level_3 = options["level_3"]

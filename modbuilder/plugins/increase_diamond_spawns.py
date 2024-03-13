@@ -14,12 +14,13 @@ OPTIONS = [
    "max": 0.5, 
    "default": 0.0, 
    "initial": 0.0, 
-   "increment": 0.01, 
+   "increment": 0.0001, 
    "note": "respawned animals will be biased towards higher end of their weight range"
   }
 ]
 PRESETS = [
   { "name": "Game Defaults", "options": [ {"name": "weight_bias", "value": 0.0} ] },
+  { "name": "Very Low", "options": [ {"name": "weight_bias", "value": 0.001} ]},
   { "name": "Low", "options": [ {"name": "weight_bias", "value": 0.02} ] },
   { "name": "Medium", "options": [ {"name": "weight_bias", "value": 0.05} ] },
   { "name": "High", "options": [ {"name": "weight_bias", "value": 0.1} ] },

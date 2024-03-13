@@ -18,15 +18,15 @@ def update_values_at_offset(options: dict) -> List[dict]:
   
   reward_lookup_1 = mods.find_closest_lookup(10 * xp_reward_multiplier, FILE)
   reward_lookup_2 = mods.find_closest_lookup(40 * xp_reward_multiplier, FILE)
-  
+
   return [
     {
-      "offset": 62224,
+      "offset": 62072,
       "transform": "multiply",
       "value": xp_reward_multiplier
     },
     {
-      "offset": 62400,
+      "offset": 62248,
       "transform": "multiply",
       "value": xp_reward_multiplier
     },

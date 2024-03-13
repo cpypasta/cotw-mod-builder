@@ -16,12 +16,12 @@ def update_values_at_offset(options: dict) -> List[dict]:
   cash_reward_multiplier = options['cash_reward_multiplier']
   return [
     {
-      "offset": 62244,
+      "offset": 62092,
       "transform": "multiply",
       "value": cash_reward_multiplier
     },
     {
-      "offset": 62408,
+      "offset": 62256,
       "transform": "multiply",
       "value": cash_reward_multiplier
     }
