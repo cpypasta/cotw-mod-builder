@@ -1,2 +1,2 @@
 __app_name__ = "modbuilder"
-__version__ = "2.0.2"
+__version__ = "2.0.3"

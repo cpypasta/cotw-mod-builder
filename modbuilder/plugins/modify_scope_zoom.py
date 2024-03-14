@@ -4,7 +4,7 @@ from pathlib import Path
 import PySimpleGUI as sg
 import re, os
 
-DEBUG = True
+DEBUG = False
 NAME = "Modify Scope Zoom"
 DESCRIPTION = "Modify the zoom range for scopes. Every zoomable scope has five zoom levels. With this mod you get to control each level of the zoom."
 
@@ -107,15 +107,16 @@ def handle_key(mod_key: str) -> bool:
   return mod_key.startswith("modify_scope")
 
 def get_files(options: dict) -> List[str]:
-  return [options["file"]]
+  return []
+  # return [options["file"]]
 
 def merge_files(files: List[str], options: dict) -> None:
+  return
   lookup = mods.get_sarc_file_info(mods.APP_DIR_PATH / "org" / options["bundle_file"])
   mods.merge_into_archive(options["file"].replace("\\", "/"), options["bundle_file"], lookup)
 
 def process(options: dict) -> None:
   return
-
   level_1 = options["level_1"]
   level_2 = options["level_2"]
   level_3 = options["level_3"]
