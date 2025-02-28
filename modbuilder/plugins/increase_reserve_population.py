@@ -80,7 +80,10 @@ def update_reserve_population(root: RtpcNode, f_bytes: bytearray, multiply: floa
         result = _big_props(child.prop_table)          
         offsets_to_change.append(_big_props(child.prop_table))
        
-  reserve_values = reduce(lambda a, b: a + b, offsets_to_change)
+  reserve_values = []
+  if len(offsets_to_change) > 0:
+    reserve_values = reduce(lambda a, b: a + b, offsets_to_change)
+    
   try:
     for reserve_value in reserve_values:
       new_value = round(reserve_value.value * multiply)
